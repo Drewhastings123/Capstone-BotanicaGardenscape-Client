@@ -17,9 +17,11 @@ export default function Garden() {
                 aria-valuemin="0"
                 aria-valuemax="100"
               ></div>
+              
             </div>
           </div>
         </div>
+        
       </div>
     </>
   );

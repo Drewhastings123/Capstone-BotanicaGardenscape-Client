@@ -6,9 +6,13 @@ export default function Nav_Bar() {
   function RenderLogo() {
     if (active == "home") {
       return (
+        <>
+        
         <Link to="/" className=" navbar-brand bg-success">
-          Botanica Gardenscape
+          Botanica
+          Gardenscape  
         </Link>
+        </>
       );
     } else {
       return (
@@ -111,6 +115,7 @@ export default function Nav_Bar() {
     <>
       {" "}
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+      <span className="material-symbols-outlined">yard</span>
         <RenderLogo />
 
         <div className="collapse navbar-collapse">
