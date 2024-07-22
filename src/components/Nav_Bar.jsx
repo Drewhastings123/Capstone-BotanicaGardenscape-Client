@@ -31,12 +31,19 @@ export default function Nav_Bar() {
   }
 
   function RenderMenu() {
+    const email = window.sessionStorage.getItem("email");
     if (token && active == "home") {
       return (
         <ul className="navbar-nav mr-auto ">
           <li className="nav-item">
             <Link to="/garden" className="nav-link ">
               My Garden{" "}
+            </Link>
+          </li>
+
+          <li className="nav-item">
+            <Link to="/user" className="nav-link ">
+              {email}
             </Link>
           </li>
 
@@ -61,7 +68,37 @@ export default function Nav_Bar() {
               My Garden{" "}
             </Link>
           </li>
+          <li className="nav-item">
+            <Link to="/user" className="nav-link ">
+              {email}
+            </Link>
+          </li>
+          <li className="nav-item">
+            <button
+              type="button"
+              className="btn btn-link text-white-50"
+              onClick={() => Logout()}
+            >
+              Logout
+            </button>
+          </li>
+        </ul>
+      );
+    }
 
+    if (token && active == "user") {
+      return (
+        <ul className="navbar-nav mr-auto ">
+          <li className="nav-item ">
+            <Link to="/garden" className="nav-link ">
+              My Garden{" "}
+            </Link>
+          </li>
+          <li className="nav-item active bg-success">
+            <Link to="/user" className="nav-link ">
+              {email}
+            </Link>
+          </li>
           <li className="nav-item">
             <button
               type="button"

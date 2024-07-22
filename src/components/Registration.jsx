@@ -8,7 +8,7 @@ export default function Registration() {
   const [form, setForm] = useState({});
   window.sessionStorage.setItem("error_message", "Error Message");
   // window.sessionStorage.setItem("error_message", "");
- const error_message = window.sessionStorage.getItem("error_message");
+  const error_message = window.sessionStorage.getItem("error_message");
 
   const submit = async (e) => {
     e.preventDefault();
@@ -16,6 +16,9 @@ export default function Registration() {
     try {
       window.sessionStorage.setItem("token", "1234567");
       window.sessionStorage.setItem("error_message", "");
+      window.sessionStorage.setItem("email", form.email_input);
+      window.sessionStorage.setItem("firstName", form.firstName_input);
+      window.sessionStorage.setItem("lastName", form.lastName_input);
       console.log(form);
       navigate("/garden");
     } catch (err) {
@@ -38,7 +41,7 @@ export default function Registration() {
       <Nav_Bar />
 
       <div className="container">
-        <div className="row">
+        <div className="row w100">
           <div className="col"></div>
 
           <div className="col-8">
@@ -57,68 +60,66 @@ export default function Registration() {
                 </div>
 
                 <div className="card-text ">
-                  <form onSubmit={submit} name="formRegister" >
+                  <form onSubmit={submit} name="formRegister">
                     <div className="row">
                       <div className="col-12">
-                              <div className="row">
-                                   <div className="col-6">
-                                            <input
-                                          type="email"
-                                          className="form-control"
-                                          name="email_input"
-                                          aria-describedby="emailHelp"
-                                          placeholder="Email"
-                                          onChange={updateForm}
-                                          required
-                                            />
+                        <div className="row">
+                          <div className="col-6">
+                            <input
+                              type="email"
+                              className="form-control"
+                              name="email_input"
+                              aria-describedby="emailHelp"
+                              placeholder="Email"
+                              onChange={updateForm}
+                              required
+                            />
 
-                                            <input
-                                        type="password"
-                                        className="form-control"
-                                        name="password_input"
-                                        placeholder="Password"
-                                        onChange={updateForm}
-                                          required
-                                            />
-                       
-                                 </div>
+                            <input
+                              type="password"
+                              className="form-control"
+                              name="password_input"
+                              placeholder="Password"
+                              onChange={updateForm}
+                              required
+                            />
+                          </div>
 
-                              <div className="col-6">
-                                        <input
-                                          type="text"
-                                          className="form-control"
-                                          name="firstName_input"
-                                          placeholder="First Name"
-                                          onChange={updateForm}
-                                          required
-                                        />
-                                        <input
-                                          type="text"
-                                          className="form-control"
-                                          name="lastName_input"
-                                          placeholder="Last Name"
-                                          onChange={updateForm}
-                                          required
-                                        />
-                             </div>{/*  //close col-6 */}
-                      </div>  {/*  //close row */}
-
-                      </div> {/*  //close col-12 */}
-                      </div> {/*  //close row */}
-
-                      <div className="row">
-                        <div className="col-12">
-                          <button
-                            type="submit"
-                            className="btn btn-success form-control"
-                          >
-                            Submit
-                          </button>
-                        </div>
+                          <div className="col-6">
+                            <input
+                              type="text"
+                              className="form-control"
+                              name="firstName_input"
+                              placeholder="First Name"
+                              onChange={updateForm}
+                              required
+                            />
+                            <input
+                              type="text"
+                              className="form-control"
+                              name="lastName_input"
+                              placeholder="Last Name"
+                              onChange={updateForm}
+                              required
+                            />
+                          </div>
+                          {/*  //close col-6 */}
+                        </div>{" "}
+                        {/*  //close row */}
+                      </div>{" "}
+                      {/*  //close col-12 */}
+                    </div>{" "}
+                    {/*  //close row */}
+                    <div className="row">
+                      <div className="col-12">
+                        <button
+                          type="submit"
+                          className="btn btn-success form-control"
+                        >
+                          Submit
+                        </button>
                       </div>
-                   
-                   
-                   
+                    </div>
                   </form>
                 </div>
 

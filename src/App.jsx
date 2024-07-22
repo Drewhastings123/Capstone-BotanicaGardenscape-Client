@@ -1,11 +1,11 @@
 import { Routes, Route, Link } from "react-router-dom";
 import store from "./app/store.js";
 import { Provider } from "react-redux";
-import Home from "./components/Home.jsx";
-import Login from "./components/Login.jsx";
+import Home from "./components/Home";
+import Login from "./components/Login";
 import Registration from "./components/Registration";
 import Garden from "./components/Garden";
-import Protected from "./components/Protected.jsx";
+import User from "./components/User";
 
 // uncomment home page
 function App() {
@@ -15,13 +15,8 @@ function App() {
     <Provider store={store}>
       <div>
         <Routes>
-          {/* <Route
-            path="/garden"
-            element={<Protected />}
-           > */}
+          <Route path="/user" element={<User />}></Route>
           <Route path="/garden" element={<Garden />}></Route>
-
-          {/* </Route> */}
           <Route path="/" element={<Home />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/registration" element={<Registration />}></Route>

@@ -5,9 +5,9 @@ export default function Garden() {
   return (
     <>
       <Nav_Bar />
-      <div className="container">
-        <div className="row">
-          <div className="col">
+      <div className="container ">
+        <div className="row w100">
+          <div className="col-12 ">
             {" "}
             Loading ...
             <div className="progress">
@@ -18,11 +18,9 @@ export default function Garden() {
                 aria-valuemin="0"
                 aria-valuemax="100"
               ></div>
-              
             </div>
           </div>
         </div>
-        
       </div>
     </>
   );

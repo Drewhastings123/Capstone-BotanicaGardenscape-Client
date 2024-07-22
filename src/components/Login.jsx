@@ -15,7 +15,11 @@ export default function Login() {
     try {
       window.sessionStorage.setItem("token", "1234567");
       window.sessionStorage.setItem("error_message", "");
+      window.sessionStorage.setItem("email", form.email_input);
+      window.sessionStorage.setItem("firstName", "");
+      window.sessionStorage.setItem("lastName", "");
       console.log(form);
+
       navigate("/garden");
     } catch (err) {
       window.sessionStorage.setItem(
@@ -37,7 +41,7 @@ export default function Login() {
       <Nav_Bar />
 
       <div className="container">
-        <div className="row">
+        <div className="row w100">
           <div className="col"></div>
 
           <div className="col-6">
@@ -68,12 +72,8 @@ export default function Login() {
                           onChange={updateForm}
                           required
                         />
-
-                     
                       </div>{" "}
                       <div className="col-12">
-                     
-
                         <input
                           type="password"
                           className="form-control form-control-login"
