@@ -2,30 +2,60 @@
   background-color: #62c462 !important;
 }
 
-.white {
-  color: whitesmoke !important;
-}
-
 .container {
-  margin-top: 6em;
+  margin-top: 5em;
 }
 
 .progress-bar-animated {
   width: 75%;
 }
 
-.form-group {
-  padding: 0.7em 0.2em !important;
-}
-
 .card-header {
-  padding-left: 1.2em !important;
+  display: flex;
+  justify-content: center;
+  padding: 0.7em 0em !important;
 }
 
 .material-symbols-outlined {
   font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
   color: #62c462;
   font-size: 1.8em;
-  padding-left:2em;
-  text-align:right;
+  padding-left: 2em;
+  padding-right: 0.4em;
+}
+
+.nav-link {
+  padding: 1em 1.3em !important;
+}
+.btn-link {
+  text-decoration: none !important;
+  padding-top: 1em !important;
+}
+
+.form-control {
+  margin: 1.2em 0em !important;
+}
+
+.card-body .row .col-12 {
+  display: flex;
+  justify-content: center !important;
+}
+
+.card-text-login .row .col-12 input {
+  width: 88%;
+}
+
+.card-text .row .col-12 .row {
+  width: 90%;
+}
+
+.card-text, .card-text-login {
+  padding: 1.2em !important;
+}
+
+.btn-success {
+  width: 88% !important;
+}
+small {
+  padding-top: 1em;
 }

@@ -1,4 +1,5 @@
 import Nav_Bar from "./Nav_Bar";
+
 export default function Garden() {
   window.sessionStorage.setItem("active_item", "garden");
   return (

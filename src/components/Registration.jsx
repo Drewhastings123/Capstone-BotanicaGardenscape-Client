@@ -1,7 +1,38 @@
 import Nav_Bar from "./Nav_Bar";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Registration() {
   window.sessionStorage.setItem("active_item", "register");
+  const navigate = useNavigate();
+  const [form, setForm] = useState({});
+  window.sessionStorage.setItem("error_message", "Error Message");
+  // window.sessionStorage.setItem("error_message", "");
+ const error_message = window.sessionStorage.getItem("error_message");
+
+  const submit = async (e) => {
+    e.preventDefault();
+
+    try {
+      window.sessionStorage.setItem("token", "1234567");
+      window.sessionStorage.setItem("error_message", "");
+      console.log(form);
+      navigate("/garden");
+    } catch (err) {
+      window.sessionStorage.setItem(
+        "error_message",
+        "Your credentials don't work, please try again."
+      );
+    }
+  };
+
+  const updateForm = (e) => {
+    setForm((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
   return (
     <>
       <Nav_Bar />
@@ -10,14 +41,100 @@ export default function Registration() {
         <div className="row">
           <div className="col"></div>
 
-          <div className="col-6">
-            <div className="card border-success mb-3">
-              <div className="card-header ">Registration Form</div>
+          <div className="col-8">
+            <div className="card border-success ">
+              <div className="card-header ">
+                <h4 className="card-title">Registration</h4>
+              </div>
+
+              <div className="card-body">
+                <div className="row">
+                  <div className="col-12">
+                    <small id="emailHelp" className="form-text text-muted">
+                      We'll never share your email with anyone else.
+                    </small>
+                  </div>
+                </div>
+
+                <div className="card-text ">
+                  <form onSubmit={submit} name="formRegister" >
+                    <div className="row">
+                      <div className="col-12">
+                              <div className="row">
+                                   <div className="col-6">
+                                            <input
+                                          type="email"
+                                          className="form-control"
+                                          name="email_input"
+                                          aria-describedby="emailHelp"
+                                          placeholder="Email"
+                                          onChange={updateForm}
+                                          required
+                                            />
+
+                                            <input
+                                        type="password"
+                                        className="form-control"
+                                        name="password_input"
+                                        placeholder="Password"
+                                        onChange={updateForm}
+                                          required
+                                            />
+                       
+                                 </div>
+
+                              <div className="col-6">
+                                        <input
+                                          type="text"
+                                          className="form-control"
+                                          name="firstName_input"
+                                          placeholder="First Name"
+                                          onChange={updateForm}
+                                          required
+                                        />
+                                        <input
+                                          type="text"
+                                          className="form-control"
+                                          name="lastName_input"
+                                          placeholder="Last Name"
+                                          onChange={updateForm}
+                                          required
+                                        />
+                             </div>{/*  //close col-6 */}
+                      </div>  {/*  //close row */}
+
+                      </div> {/*  //close col-12 */}
+                      </div> {/*  //close row */}
+
+                      <div className="row">
+                        <div className="col-12">
+                          <button
+                            type="submit"
+                            className="btn btn-success form-control"
+                          >
+                            Submit
+                          </button>
+                        </div>
+                      </div>
+                   
+                   
+                   
+                  </form>
+                </div>
+
+                {error_message && (
+                  <div className="row">
+                    <div className="col-12">
+                      <p className="text-warning">{error_message}</p>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 
           <div className="col"></div>
-        </div>
+        </div>{" "}
       </div>
     </>
   );
