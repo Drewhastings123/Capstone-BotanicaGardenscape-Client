@@ -61,7 +61,7 @@ export default function Login() {
                       <div className="col-12">
                         <input
                           type="email"
-                          className="form-control"
+                          className="form-control form-control-login"
                           name="email_input"
                           aria-describedby="emailHelp"
                           placeholder="Email"
@@ -76,7 +76,7 @@ export default function Login() {
 
                         <input
                           type="password"
-                          className="form-control"
+                          className="form-control form-control-login"
                           name="password_input"
                           placeholder="Password"
                           onChange={updateForm}

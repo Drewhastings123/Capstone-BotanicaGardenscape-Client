@@ -33,7 +33,11 @@
 }
 
 .form-control {
-  margin: 1.2em 0em !important;
+  margin: 1.3em 0em !important;
+}
+
+.form-control-login {
+  margin: 0.8em 0em !important;
 }
 
 .card-body .row .col-12 {
@@ -49,7 +53,8 @@
   width: 90%;
 }
 
-.card-text, .card-text-login {
+.card-text,
+.card-text-login {
   padding: 1.2em !important;
 }
 
