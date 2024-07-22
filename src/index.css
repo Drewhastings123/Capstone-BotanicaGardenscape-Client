@@ -1,0 +1,19 @@
+.nav-link:hover {
+  background-color: #62c462 !important;
+}
+
+.white {
+  color: whitesmoke !important;
+}
+
+.container {
+  margin-top: 6em;
+}
+
+.progress-bar-animated {
+  width: 75%;
+}
+
+.form-group {padding: 0.7em 0.2em !important;}
+
+.card-header {padding-left: 1.2em !important;}
