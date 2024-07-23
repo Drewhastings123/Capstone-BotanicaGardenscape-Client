@@ -37,7 +37,7 @@ export default function Plants() {
       pic: "pic2",
     },
     {
-      id: 5,
+      id: 15,
       name: "Silverberry",
       zone: "2",
       water: "dry",
@@ -109,21 +109,34 @@ export default function Plants() {
           console.log(pic);
 
           return (
-            <section key={plant.id} className="plants  ">
-              <div className="center ">
-                <Link
-                  to="/garden"
-                  className="list-group-item list-group-item-action active"
-                >
-                  {plant.name}
-                </Link>{" "}
-              </div>
+            <div key={plant.id}>
+              <Link
+                to="/garden"
+                className="list-group-item list-group-item-action active p-0 "
+              >
+                <div className="space-around p-1 ">
+                  {" "}
+                  <p className="text-muted">{plant.name}</p>
+                  <img src={pic} />
+                </div>
+              </Link>
+            </div>
 
-              <div className="center bg-light">
-                {" "}
-                <img src={pic} />{" "}
-              </div>
-            </section>
+            // <section key={plant.id} className="plants  ">
+            //   <div className="center list-group">
+            //     <Link
+            //       to="/garden"
+            //       className="list-group-item list-group-item-action active"
+            //     >
+            //       {plant.name}
+            //     </Link>{" "}
+            //   </div>
+
+            //   <div className="center bg-light">
+            //     {" "}
+            //     <img src={pic} />{" "}
+            //   </div>
+            // </section>
           );
         })}
       </div>

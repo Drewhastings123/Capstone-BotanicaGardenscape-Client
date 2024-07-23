@@ -129,7 +129,7 @@ export default function Garden({ shape, setShape }) {
         {/* < Loading_Bar /> */}
 
         <div className="row w100 top2">
-          <div className="col container ">
+          <div className="col-3 container ">
             <div className="garden-card">
               <GardenCard />
             </div>
@@ -142,7 +142,7 @@ export default function Garden({ shape, setShape }) {
               <Garden_Canvas />
             </div>
           </div>
-          <div className="col   ">
+          <div className="col-2   ">
             <Plants />
           </div>
         </div>

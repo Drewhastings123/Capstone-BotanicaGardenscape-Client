@@ -160,6 +160,16 @@ small {
 }
 
 img {
-  width: 30% !important;
-  height: 30% !important;
+  width: 20% !important;
+  height: 20% !important;
+}
+
+.space-around {
+  display: flex;
+  justify-content: space-around;
+  align-items: center !important;
+}
+
+.space-around > * {
+  padding: 0.4em 0em;
 }
