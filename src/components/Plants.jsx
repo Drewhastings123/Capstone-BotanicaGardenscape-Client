@@ -104,18 +104,26 @@ export default function Plants() {
         </div>
 
         {plantsArray.map((plant) => {
-          const pic = "./Nav_Bar/" + plant.pic + ".png" ;
+          const pic = "../src/pictures/" + plant.pic + ".png";
+
+          console.log(pic);
+
           return (
-            <>
-              <Link
-                to="/garden"
-                className=" list-group-item list-group-item-action active "
-              >
-                {plant.name} {plant.pic}
-              </Link>
-              ./Nav_Bar
-              <img src={pic}  />
-            </>
+            <section key={plant.id} className="plants  ">
+              <div className="center ">
+                <Link
+                  to="/garden"
+                  className="list-group-item list-group-item-action active"
+                >
+                  {plant.name}
+                </Link>{" "}
+              </div>
+
+              <div className="center bg-light">
+                {" "}
+                <img src={pic} />{" "}
+              </div>
+            </section>
           );
         })}
       </div>
