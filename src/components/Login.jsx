@@ -16,8 +16,8 @@ export default function Login() {
       window.sessionStorage.setItem("token", "1234567");
       window.sessionStorage.setItem("error_message", "");
       window.sessionStorage.setItem("email", form.email_input);
-      window.sessionStorage.setItem("firstName", "");
-      window.sessionStorage.setItem("lastName", "");
+      window.sessionStorage.setItem("firstName", "Drew");
+      window.sessionStorage.setItem("lastName", "Hastings");
       console.log(form);
 
       navigate("/garden");
@@ -40,17 +40,17 @@ export default function Login() {
     <>
       <Nav_Bar />
 
-      <div className="container">
-        <div className="row w100">
+      <div className="container top5">
+        <div className="row w100 ">
           <div className="col"></div>
 
-          <div className="col-6">
-            <div className="card border-success ">
+          <div className="col-6 ">
+            <div className="card border-success  ">
               <div className="card-header ">
                 <h4 className="card-title">Login</h4>
               </div>
 
-              <div className="card-body">
+              <div className="card-body ">
                 <div className="row">
                   <div className="col-12">
                     <small id="emailHelp" className="form-text text-muted">

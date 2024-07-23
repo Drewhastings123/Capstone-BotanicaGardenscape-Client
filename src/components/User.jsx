@@ -6,13 +6,13 @@ export default function Home() {
   return (
     <>
       <Nav_Bar />
-      <div className="container">
+      <div className="container top5">
         <div className="row ">
           <div className="col-3"></div>
           <div className="col-12">
             <h1>{window.sessionStorage.getItem("email")}</h1>
             <div className="row space-top  ">
-              <p className="col-2 text-info">
+              <p className="col-2 text-danger">
                 {" "}
                 {window.sessionStorage.getItem("firstName")}{" "}
               </p>

@@ -40,7 +40,7 @@ export default function Registration() {
     <>
       <Nav_Bar />
 
-      <div className="container">
+      <div className="container top5">
         <div className="row w100">
           <div className="col"></div>
 

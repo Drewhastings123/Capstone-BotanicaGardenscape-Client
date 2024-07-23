@@ -3,17 +3,20 @@
 }
 
 .w100 {
-  width: 100%;
+  width: 100% !important;
 }
 
-.space-top {
+.w85 {
+  width: 85% !important;
+}
+.top3 {
+  padding-top: 3em;
+}
+.top2 {
   padding-top: 2em;
 }
-
-.container {
-  margin-top: 5em;
-  display: flex;
-  justify-content: center;
+.top5 {
+  padding-top: 5em;
 }
 
 .progress-bar-animated {
@@ -42,6 +45,9 @@
   padding-top: 1em !important;
 }
 
+.del_garden_button .btn-link {
+  padding-top: 0.5em !important;
+}
 .form-control {
   margin: 1.3em 0em !important;
 }
@@ -73,4 +79,76 @@
 }
 small {
   padding-top: 1em;
+}
+
+.pink {
+  background-color: pink;
+}
+.blue {
+  background-color: lightblue;
+}
+.yellow {
+  background-color: lightgoldenrodyellow;
+}
+
+.garden-card,
+.user_card,
+.garden,
+.plants {
+  margin: 1em 0em 1.5em 0em;
+}
+
+.border-garden {
+  border: 0.13em rgba(0, 0, 0, 0.4) solid !important;
+  border-radius: 0.25em;
+}
+
+.custom-select {
+  margin-left: 1.5em;
+  padding: 0.2em;
+  border-radius: 0.25em;
+}
+
+.garden-buttons button,
+.full-name span {
+  margin: 0em 0.7em;
+}
+
+.btn-link:hover {
+  color: orange !important;
+}
+
+.del_garden_button,
+.center {
+  display: flex;
+  justify-content: center;
+}
+.pt1 {
+  padding-top: 1em !important;
+}
+
+.mt2h {
+  margin-top: 2.5em !important;
+}
+
+.garden > div {
+  /* background-color: #420a09 !important; */
+  /* background-image: url("https://www.transparenttextures.com/patterns/pool-table.png"); */
+  background-color: #50372c !important;
+  background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+}
+.square {
+  width: 90%;
+  height: 65vh;
+}
+
+.rectangle {
+  width: 90%;
+  height: 50vh;
+}
+
+.circle {
+  width: 85%;
+  height: 70vh;
+  border-radius: 50%;
 }
