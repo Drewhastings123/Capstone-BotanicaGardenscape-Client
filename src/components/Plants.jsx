@@ -96,11 +96,46 @@ export default function Plants() {
 
   return (
     <>
-      <div className="list-group border border-info">
-        <div className="card-header plants-header">
-          <div>Zone</div>
-          <div>Water</div>
-          <div>Sun</div>
+      <div className="list-group border border-info w100">
+        <div className="card-header vertical space-around">
+          <div className="row ">
+            <div className="col-sm-5">
+              <select className="list-select m-1  form-control input-sm">
+                <option selected>Zone</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>{" "}
+            </div>
+
+            <div className="col-sm-5">
+              <select className="list-select m-1">
+                <option selected>Water</option>
+                <option value="1">Dry</option>
+                <option value="2">Wet</option>
+                <option value="3">Humid</option>
+              </select>
+            </div>
+          </div>{" "}
+          <div className="row ">
+            <div className="col-sm-5">
+              <select className="list-select m-1">
+                <option selected>Sun</option>
+                <option value="1">Full</option>
+                <option value="2">Half</option>
+              </select>{" "}
+            </div>
+
+            <div className="col-sm-5">
+              <select className="list-select m-1">
+                <option selected>Soil</option>
+                <option value="1">Hard</option>
+                <option value="2">Soft</option>
+              </select>
+            </div>
+          </div>
         </div>
 
         {plantsArray.map((plant) => {

@@ -103,10 +103,14 @@ small {
   border-radius: 0.25em;
 }
 
-.custom-select {
-  margin-left: 1.5em;
+.custom-select,
+.list-select {
   padding: 0.2em;
   border-radius: 0.25em;
+}
+
+.custom-select {
+  margin-left: 1.5em;
 }
 
 .garden-buttons button,
@@ -156,7 +160,7 @@ small {
 
 .plants-header {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 img {
@@ -171,5 +175,10 @@ img {
 }
 
 .space-around > * {
-  padding: 0.4em 0em;
+  padding: 0.1em 0em;
 }
+
+.vertical {
+  flex-direction: column !important;
+}
+
