@@ -1,31 +1,37 @@
 import Nav_Bar from "./Nav_Bar";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useRegistrationMutation } from "../components_db/registrationSlice";
 
 export default function Registration() {
-  window.sessionStorage.setItem("active_item", "register");
   const navigate = useNavigate();
   const [form, setForm] = useState({});
-  window.sessionStorage.setItem("error_message", "Error Message");
-  // window.sessionStorage.setItem("error_message", "");
-  const error_message = window.sessionStorage.getItem("error_message");
+  const [errM, setErrM] = useState(null);
+
+  const [registerUser] = useRegistrationMutation();
 
   const submit = async (e) => {
     e.preventDefault();
 
     try {
-      window.sessionStorage.setItem("token", "1234567");
-      window.sessionStorage.setItem("error_message", "");
-      window.sessionStorage.setItem("email", form.email_input);
-      window.sessionStorage.setItem("firstName", form.firstName_input);
-      window.sessionStorage.setItem("lastName", form.lastName_input);
-      console.log(form);
-      navigate("/garden");
+      let success = false;
+
+      // TO DO - correctly handle user_role_id and zone_id
+      form.user_role_id = "504278d5-662a-424c-8dd2-f0a92d7e1b2a";
+      form.zone_id = "68db08f6-774a-4470-b85c-cb8044f29beb";
+      console.log("form", form);
+      success = await registerUser(form).unwrap();
+
+      console.log("sux es" + success);
+
+      if (success?.token) {
+        window.sessionStorage.setItem("Token", success.token);
+        navigate("/garden");
+      } else {
+        setErrM("There is a problem with your registration, please try again.");
+      }
     } catch (err) {
-      window.sessionStorage.setItem(
-        "error_message",
-        "Your credentials don't work, please try again."
-      );
+      setErrM(err?.data?.message);
     }
   };
 
@@ -51,14 +57,6 @@ export default function Registration() {
               </div>
 
               <div className="card-body">
-                <div className="row">
-                  <div className="col-12">
-                    <small id="emailHelp" className="form-text text-muted">
-                      We'll never share your email with anyone else.
-                    </small>
-                  </div>
-                </div>
-
                 <div className="card-text ">
                   <form onSubmit={submit} name="formRegister">
                     <div className="row">
@@ -68,13 +66,32 @@ export default function Registration() {
                             <input
                               type="email"
                               className="form-control"
-                              name="email_input"
+                              name="email"
                               aria-describedby="emailHelp"
                               placeholder="Email"
                               onChange={updateForm}
                               required
                             />
+                            <input
+                              type="text"
+                              className="form-control"
+                              name="firstname"
+                              placeholder="First Name"
+                              onChange={updateForm}
+                              required
+                            />
 
+                            <input
+                              type="phone"
+                              className="form-control"
+                              name="phone_number"
+                              placeholder="(XXX) 867-5209"
+                              onChange={updateForm}
+                              required
+                            />
+                          </div>
+
+                          <div className="col-6">
                             <input
                               type="password"
                               className="form-control"
@@ -83,22 +100,21 @@ export default function Registration() {
                               onChange={updateForm}
                               required
                             />
-                          </div>
 
-                          <div className="col-6">
                             <input
                               type="text"
                               className="form-control"
-                              name="firstName_input"
-                              placeholder="First Name"
+                              name="lastname"
+                              placeholder="Last Name"
                               onChange={updateForm}
                               required
                             />
+
                             <input
                               type="text"
                               className="form-control"
-                              name="lastName_input"
-                              placeholder="Last Name"
+                              name="zone_id"
+                              placeholder="Zone 3"
                               onChange={updateForm}
                               required
                             />
@@ -119,17 +135,16 @@ export default function Registration() {
                           Submit
                         </button>
                       </div>
+                      {errM && (
+                        <div className="row">
+                          <div className="col-12">
+                            <p className="text-warning">{errM}</p>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </form>
                 </div>
-
-                {error_message && (
-                  <div className="row">
-                    <div className="col-12">
-                      <p className="text-warning">{error_message}</p>
-                    </div>
-                  </div>
-                )}
               </div>
             </div>
           </div>

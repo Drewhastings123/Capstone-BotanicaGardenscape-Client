@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import registrationReducer from "../components_db/registerationSlice";
+import registrationReducer from "../components_db/registrationSlice";
 import userReducer from "../components_db/userSlice";
 import { api } from "./api";
 
