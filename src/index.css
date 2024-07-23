@@ -132,8 +132,8 @@ small {
 }
 
 .garden > div {
-  /* background-color: #420a09 !important; */
-  /* background-image: url("https://www.transparenttextures.com/patterns/pool-table.png"); */
+  /* background-color: #420a09 !important; 
+   background-image: url("https://www.transparenttextures.com/patterns/pool-table.png");  */
   background-color: #50372c !important;
   background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
 }
@@ -151,4 +151,11 @@ small {
   width: 85%;
   height: 70vh;
   border-radius: 50%;
+}
+
+
+
+.plants-header {
+  display: flex;
+  justify-content: space-around;
 }
