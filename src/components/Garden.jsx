@@ -1,9 +1,30 @@
 // import Garden_Canvas from "./Garden_Canvas";
 import Nav_Bar from "./Nav_Bar";
+import Plants from "./Plants";
 import { useState } from "react";
 
 export default function Garden({ shape, setShape }) {
   window.sessionStorage.setItem("active_item", "garden");
+
+  function Loading_Bar() {
+    return (
+      <div className="row w100 top2">
+        <div className="col-12 ">
+          {" "}
+          Loading ...
+          <div className="progress bg-primary">
+            <div
+              className="progress-bar progress-bar-striped progress-bar-animated bg-success "
+              role="progressbar"
+              aria-valuenow="75"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   function Garden_Canvas() {
     switch (shape) {
@@ -20,6 +41,15 @@ export default function Garden({ shape, setShape }) {
       case "cir":
         return (
           <div className="  border-garden p-2 text-dark  circle ">{shape}</div>
+        );
+
+      case "dia":
+        return (
+          <div className="  border-garden p-2 text-dark  diamond ">{shape}</div>
+        );
+      case "pie":
+        return (
+          <div className="  border-garden p-2 text-dark  pie ">{shape}</div>
         );
       default:
         return (
@@ -96,21 +126,7 @@ export default function Garden({ shape, setShape }) {
     <>
       <Nav_Bar />
       <div className="container-fluid w85 ">
-        <div className="row w100 top2">
-          <div className="col-12 ">
-            {" "}
-            Loading ...
-            <div className="progress bg-primary">
-              <div
-                className="progress-bar progress-bar-striped progress-bar-animated bg-success "
-                role="progressbar"
-                aria-valuenow="75"
-                aria-valuemin="0"
-                aria-valuemax="100"
-              ></div>
-            </div>
-          </div>
-        </div>
+        {/* < Loading_Bar /> */}
 
         <div className="row w100 top2">
           <div className="col-3 container ">
@@ -127,10 +143,8 @@ export default function Garden({ shape, setShape }) {
             </div>
           </div>
           <div className="col-3   ">
-            <div className="plants container">
-              <div className="row blue ">
-                <div className="col-12 ">Plants</div>
-              </div>
+            <div className="plants container col-12">
+              <Plants />
             </div>
           </div>
         </div>
