@@ -124,7 +124,7 @@ export default function Garden({ shape, setShape }) {
 
   return (
     <>
-      <Nav_Bar />
+      {/* <Nav_Bar /> */}
       <div className="container-fluid w85 ">
         {/* < Loading_Bar /> */}
 

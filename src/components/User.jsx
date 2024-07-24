@@ -5,7 +5,7 @@ export default function Home() {
 
   return (
     <>
-      <Nav_Bar />
+      {/* <Nav_Bar /> */}
       <div className="container top5">
         <div className="row ">
           <div className="col-3"></div>

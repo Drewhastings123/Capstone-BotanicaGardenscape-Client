@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://localhost:3000/api/botanica/gardenscape/",
+    baseUrl: "https://capstone-botanicagardenscape-server.onrender.com/api/botanica/gardenscape/",
 
     prepareHeaders: (headers) => {
       const token = window.sessionStorage.getItem("Token");
