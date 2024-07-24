@@ -4,7 +4,7 @@ export default function Home() {
   window.sessionStorage.setItem("active_item", "home");
   return (
     <>
-      <Nav_Bar />
+      {/* <Nav_Bar /> */}
       <div className="container">
         <div className="row">
           <div className="col-3">

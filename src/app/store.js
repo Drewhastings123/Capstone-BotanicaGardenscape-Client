@@ -1,13 +1,18 @@
 import { configureStore } from "@reduxjs/toolkit";
-import registrationReducer from "./api";
-import loginReducer from "./api";
+import registrationReducer from "../components_db/registrationSlice";
+import userReducer from "../components_db/userSlice";
+import referenceReducer from "../components_db/referenceSlice";
+import plantsReducer from "../components_db/plantSlice";
+
 import { api } from "./api";
 
 const store = configureStore({
   reducer: {
     [api.reducerPath]: api.reducer,
     registration: registrationReducer,
-    login: loginReducer,
+    user: userReducer,
+    reference: referenceReducer,
+    plants: plantsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(api.middleware),
