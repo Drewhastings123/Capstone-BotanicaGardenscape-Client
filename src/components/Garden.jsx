@@ -84,7 +84,7 @@ export default function Garden({ shape, setShape }) {
           >
             <option>Shape</option>
             <option value="sq">Square</option>
-            <option value="rec">Rectangle</option>
+            <option value="rec" >Rectangle</option>
             <option value="cir">Circle</option>
           </select>
         );
@@ -92,8 +92,10 @@ export default function Garden({ shape, setShape }) {
         return (
           <select
             className="custom-select form-control input-sm p-1"
+
             onChange={updateShape}
             defaultValue="sq"
+
           >
             <option>Shape</option>
             <option value="sq">Square</option>
@@ -106,8 +108,10 @@ export default function Garden({ shape, setShape }) {
         return (
           <select
             className="custom-select form-control input-sm p-1"
+
             onChange={updateShape}
             defaultValue="sq"
+
           >
             <option>Shape</option>
             <option value="sq">Square</option>
