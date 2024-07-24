@@ -209,3 +209,25 @@ td {
   width: 70% !important;
   text-align: center !important;
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 0.8em;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 0.2em grey;
+  border-radius: 0.4em;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ee605b75;
+  border-radius: 0.4em;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #ee605be0;
+}

@@ -174,7 +174,7 @@ export default function Plants() {
           </div>
         </div>
       </div>
-      <div className="table-responsive ">
+      <div className="table-responsive mt2h ">
         {" "}
         <Plant_List />
       </div>
