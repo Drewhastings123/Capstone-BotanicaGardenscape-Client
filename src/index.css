@@ -9,6 +9,10 @@
 .w85 {
   width: 85% !important;
 }
+
+.w90 {
+  width: 90% !important;
+}
 .top3 {
   padding-top: 3em;
 }
@@ -34,7 +38,7 @@
   color: #62c462;
   font-size: 1.8em;
   padding-left: 2em;
-  padding-right: 0.4em;
+  padding-right: 0.3em;
 }
 
 .nav-link {
@@ -48,9 +52,7 @@
 .del_garden_button .btn-link {
   padding-top: 0.5em !important;
 }
-.form-control {
-  margin: 1.3em 0em !important;
-}
+
 
 .form-control-login {
   margin: 0.8em 0em !important;
@@ -91,10 +93,7 @@ small {
   background-color: lightgoldenrodyellow;
 }
 
-.garden-card,
-.user_card,
-.garden,
-.plants {
+.user_card {
   margin: 1em 0em 1.5em 0em;
 }
 
@@ -103,11 +102,13 @@ small {
   border-radius: 0.25em;
 }
 
-.custom-select {
-  margin-left: 1.5em;
+.custom-select,
+.list-select {
   padding: 0.2em;
   border-radius: 0.25em;
 }
+
+
 
 .garden-buttons button,
 .full-name span {
@@ -122,10 +123,6 @@ small {
 .center {
   display: flex;
   justify-content: center;
-  align-items: center !important;
-}
-.pt1 {
-  padding-top: 1em !important;
 }
 
 .mt2h {
@@ -139,27 +136,93 @@ small {
   background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
 }
 .square {
-  width: 90%;
-  height: 65vh;
+  width: 80%;
+  height: 86vh;
 }
 
 .rectangle {
-  width: 90%;
-  height: 50vh;
+  width: 95%;
+  height: 70vh;
 }
 
 .circle {
-  width: 85%;
-  height: 70vh;
+  width: 73%;
+  height: 85vh;
   border-radius: 50%;
 }
 
 .plants-header {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 img {
+  width: 50% !important;
+  height: 50% !important;
+}
+
+.space-around {
+  display: flex;
+  justify-content: space-around;
+  align-items: center !important;
+}
+
+.space-around > * {
+  padding: 0.1em 0em;
+}
+
+.input-sm {
+  width: 100%;
+  text-align: center;
+}
+
+.navbar {
+  margin-bottom: 3.5em;
+}
+.mtn1 {
+  margin-top: -1.5em !important;
+}
+.mtn2 {
+  margin-top: -2em !important;
+}
+
+.table-responsive {
+  max-height: 65vh;
+  border-radius: 0.3em !important;
+}
+
+td {
+  vertical-align: middle !important;
+}
+
+.w30 {
   width: 30% !important;
-  height: 30% !important;
+  text-align: left !important;
+  padding-left: 2em !important;
+}
+.w70 {
+  width: 70% !important;
+  text-align: center !important;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 0.6em;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 0.2em grey;
+  border-radius: 0.4em;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ee605b75;
+  border-radius: 0.4em;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #ee605be0;
 }

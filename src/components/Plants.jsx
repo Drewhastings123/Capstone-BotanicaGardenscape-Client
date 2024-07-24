@@ -4,6 +4,7 @@ import { useGetPlantsQuery } from "../components_db/plantSlice";
 import { useEffect, useState } from "react";
 
 export default function Plants() {
+
   const [plants, setPlants] = useState([]);
   const { data, isSuccess } = useGetPlantsQuery();
 
@@ -105,14 +106,91 @@ export default function Plants() {
   //   },
   // ];
 
+
+  function Plant_List() {
+    return (
+      <table className="table table-hover">
+        <tbody>
+          {plantsArray.map((plant) => {
+            let img = "../src/pictures/" + plant.pic + ".png";
+            return (
+              <tr className=" table-dark" key={plant.id}>
+                <td scope="row" className="w30">
+                  {plant.name}
+                </td>
+                <td className="w70">
+                  <img src={img} />
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    );
+  }
+
   return (
     <>
-      <div className="list-group border border-info">
-        <div className="card-header plants-header">
-          <div>Zone</div>
-          <div>Water</div>
-          <div>Sun</div>
+      <div className=" border-dark bg-primary  card">
+        <div className="card-header ">Plants</div>
+
+
+        <div className=" row   center mt-4 mb-3">
+          <div className="col-sm-5  ">
+            <select
+              className="list-select form-control input-sm p-1 "
+              defaultValue="0"
+            >
+              <option value="0">Zone</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>{" "}
+          </div>
+
+          <div className="col-sm-5 ">
+            <select
+              className="list-select form-control input-sm p-1 "
+              defaultValue="0"
+            >
+              <option value="0">H2O</option>
+              <option value="1">Wet</option>
+              <option value="2">Perfect</option>
+              <option value="3">Dry</option>
+            </select>
+          </div>
         </div>
+
+        <div className="row   center   mb-4">
+          <div className="col-sm-5  ">
+            <select
+              className="list-select form-control input-sm p-1 "
+              defaultValue="0"
+            >
+              <option value="0">Sun</option>
+              <option value="1">Full</option>
+              <option value="2">Half</option>
+              <option value="3">Shade</option>
+            </select>{" "}
+          </div>
+
+          <div className="col-sm-5 ">
+            <select
+              className="list-select form-control input-sm p-1 "
+              defaultValue="0"
+            >
+              <option value="0">Soil</option>
+              <option value="1">Hard</option>
+              <option value="2">Soft</option>
+            </select>
+          </div>
+        </div>
+        <div className="table-responsive  ">
+        {" "}
+        <Plant_List />
+      </div>
 
         {isSuccess &&
           plants.map((plant) => {
@@ -138,7 +216,9 @@ export default function Plants() {
               </section>
             );
           })}
+
       </div>
+      
     </>
   );
 }
