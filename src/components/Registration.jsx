@@ -17,8 +17,8 @@ export default function Registration() {
       let success = false;
 
       // TO DO - correctly handle user_role_id and zone_id
-      form.user_role_id = "504278d5-662a-424c-8dd2-f0a92d7e1b2a";
-      form.zone_id = "68db08f6-774a-4470-b85c-cb8044f29beb";
+      form.user_role_id = "e7a3bd11-2c6e-451d-beeb-e4ef9eeac9bf";
+      form.zone_id = "97e9d108-b6fe-4d5f-a2a6-72e5247d7fd6";
       console.log("form", form);
       success = await registerUser(form).unwrap();
 
@@ -44,7 +44,7 @@ export default function Registration() {
 
   return (
     <>
-      <Nav_Bar />
+      {/* <Nav_Bar /> */}
 
       <div className="container top5">
         <div className="row w100">
@@ -95,7 +95,7 @@ export default function Registration() {
                             <input
                               type="password"
                               className="form-control"
-                              name="password_input"
+                              name="password"
                               placeholder="Password"
                               onChange={updateForm}
                               required

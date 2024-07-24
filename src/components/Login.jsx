@@ -39,7 +39,8 @@ export default function Login() {
 
   return (
     <>
-      <Nav_Bar />
+    {/* added to the app.jsx so it appears on all pages */}
+      {/* <Nav_Bar /> */} 
 
       <div className="container top5">
         <div className="row w100 ">
