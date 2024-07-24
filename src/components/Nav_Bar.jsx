@@ -32,6 +32,7 @@ export default function Nav_Bar() {
 
   function RenderMenu() {
     const email = window.sessionStorage.getItem("email");
+    
     if (token && active == "home") {
       return (
         <ul className="navbar-nav mr-auto ">
