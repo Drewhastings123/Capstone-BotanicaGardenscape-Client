@@ -4,7 +4,6 @@ import { useGetPlantsQuery } from "../components_db/plantSlice";
 import { useEffect, useState } from "react";
 
 export default function Plants() {
-
   const [plants, setPlants] = useState([]);
   const { data, isSuccess } = useGetPlantsQuery();
 
@@ -106,7 +105,6 @@ export default function Plants() {
   //   },
   // ];
 
-
   function Plant_List() {
     return (
       <table className="table table-hover">
@@ -116,7 +114,7 @@ export default function Plants() {
             return (
               <tr className=" table-dark" key={plant.id}>
                 <td scope="row" className="w30">
-                  {plant.name}
+                  {plant.plant_name}
                 </td>
                 <td className="w70">
                   <img src={img} />
@@ -134,12 +132,11 @@ export default function Plants() {
       <div className=" border-dark bg-primary  card">
         <div className="card-header ">Plants</div>
 
-
-        <div className=" row   center mt-4 mb-3">
+        {/* <div className=" row   center mt-4 mb-3">
           <div className="col-sm-5  ">
             <select
               className="list-select form-control input-sm p-1 "
-              defaultValue="0"
+              value="0"
             >
               <option value="0">Zone</option>
               <option value="1">1</option>
@@ -153,7 +150,7 @@ export default function Plants() {
           <div className="col-sm-5 ">
             <select
               className="list-select form-control input-sm p-1 "
-              defaultValue="0"
+              value="0"
             >
               <option value="0">H2O</option>
               <option value="1">Wet</option>
@@ -167,7 +164,7 @@ export default function Plants() {
           <div className="col-sm-5  ">
             <select
               className="list-select form-control input-sm p-1 "
-              defaultValue="0"
+              value="0"
             >
               <option value="0">Sun</option>
               <option value="1">Full</option>
@@ -179,20 +176,20 @@ export default function Plants() {
           <div className="col-sm-5 ">
             <select
               className="list-select form-control input-sm p-1 "
-              defaultValue="0"
+              value="0"
             >
               <option value="0">Soil</option>
               <option value="1">Hard</option>
               <option value="2">Soft</option>
             </select>
           </div>
-        </div>
+        </div> */}
         <div className="table-responsive  ">
-        {" "}
-        <Plant_List />
-      </div>
+          {" "}
+          <Plant_List />
+        </div>
 
-        {isSuccess &&
+        {/* {isSuccess &&
           plants.map((plant) => {
             const pic = "../src/pictures/" + plant.pic + ".png";
 
@@ -215,10 +212,8 @@ export default function Plants() {
                 </div>
               </section>
             );
-          })}
-
+          })} */}
       </div>
-      
     </>
   );
 }
