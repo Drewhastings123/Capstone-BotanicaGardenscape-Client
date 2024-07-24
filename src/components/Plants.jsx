@@ -118,10 +118,10 @@ export default function Plants() {
 
   return (
     <>
-      <div className=" border-primary mb-4   card">
+      <div className=" border-dark bg-primary  card">
         <div className="card-header ">Plants</div>
 
-        <div className="row   center  ">
+        <div className=" row   center mt-4 mb-3">
           <div className="col-sm-5  ">
             <select
               className="list-select form-control input-sm p-1 "
@@ -149,7 +149,7 @@ export default function Plants() {
           </div>
         </div>
 
-        <div className="row   center mtn1 ">
+        <div className="row   center   mb-4">
           <div className="col-sm-5  ">
             <select
               className="list-select form-control input-sm p-1 "
@@ -173,11 +173,12 @@ export default function Plants() {
             </select>
           </div>
         </div>
-      </div>
-      <div className="table-responsive mt2h ">
+        <div className="table-responsive  ">
         {" "}
         <Plant_List />
       </div>
+      </div>
+      
     </>
   );
 }

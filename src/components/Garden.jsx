@@ -127,7 +127,7 @@ export default function Garden({ shape, setShape }) {
       <div className="border-primary mb-3   card">
         <div className="card-header ">My Garden</div>
         <div className="row  center   ">
-          <div className="col-sm-6  ">
+          <div className="col-sm-6 mt-4 mb-3 ">
             <Shape_Select />
           </div>
         </div>{" "}
