@@ -7,6 +7,8 @@ import Registration from "./components/Registration";
 import Garden from "./components/Garden";
 import User from "./components/User";
 import { useState } from "react";
+import Protected from "./components/Protected.jsx";
+import Nav_Bar from "./components/Nav_Bar.jsx";
 
 // uncomment home page
 function App() {
@@ -16,12 +18,17 @@ function App() {
   return (
     <Provider store={store}>
       <div>
+        <Nav_Bar />
         <Routes>
-          <Route path="/user" element={<User />}></Route>
-          <Route
-            path="/garden"
-            element={<Garden shape={shape} setShape={setShape} />}
-          ></Route>
+          <Route path="/user" element={<Protected />}>
+            <Route path="/user" element={<User />}></Route>
+          </Route>
+          <Route path="/garden" element={<Protected />}>
+            <Route
+              path="/garden"
+              element={<Garden shape={shape} setShape={setShape} />}
+            ></Route>
+          </Route>
           <Route path="/" element={<Home />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/registration" element={<Registration />}></Route>

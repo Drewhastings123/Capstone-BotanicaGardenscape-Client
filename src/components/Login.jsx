@@ -1,31 +1,32 @@
 import Nav_Bar from "./Nav_Bar";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../components_db/userSlice";
 
 export default function Login() {
-  window.sessionStorage.setItem("active_item", "login");
   const navigate = useNavigate();
   const [form, setForm] = useState({});
-  window.sessionStorage.setItem("error_message", "Error Message");
-  const error_message = window.sessionStorage.getItem("error_message");
+  const [errM, setErrM] = useState(null);
+  const [loginUser] = useLoginMutation();
 
   const submit = async (e) => {
     e.preventDefault();
-
     try {
-      window.sessionStorage.setItem("token", "1234567");
-      window.sessionStorage.setItem("error_message", "");
-      window.sessionStorage.setItem("email", form.email_input);
-      window.sessionStorage.setItem("firstName", "Drew");
-      window.sessionStorage.setItem("lastName", "Hastings");
-      console.log(form);
+      let success = false;
 
-      navigate("/garden");
+      console.log("form", form);
+      success = await loginUser(form).unwrap();
+
+      if (success?.token) {
+        window.sessionStorage.setItem("Token", success.token);
+        navigate("/garden");
+      } else {
+        setErrM(
+          "Invalid Username or Password, Please check your input and try again."
+        );
+      }
     } catch (err) {
-      window.sessionStorage.setItem(
-        "error_message",
-        "Your credentials don't work, please try again."
-      );
+      setErrM(err?.data?.message);
     }
   };
 
@@ -38,7 +39,8 @@ export default function Login() {
 
   return (
     <>
-      <Nav_Bar />
+    {/* added to the app.jsx so it appears on all pages */}
+      {/* <Nav_Bar /> */} 
 
       <div className="container top5">
         <div className="row w100 ">
@@ -48,16 +50,6 @@ export default function Login() {
             <div className="card border-success  ">
               <div className="card-header ">
                 <h4 className="card-title">Login</h4>
-              </div>
-
-              <div className="card-body ">
-                <div className="row">
-                  <div className="col-12">
-                    <small id="emailHelp" className="form-text text-muted">
-                      We'll never share your email with anyone else.
-                    </small>
-                  </div>
-                </div>
 
                 <div className="card-text-login">
                   <form onSubmit={submit} name="formRegister">
@@ -66,7 +58,7 @@ export default function Login() {
                         <input
                           type="email"
                           className="form-control form-control-login"
-                          name="email_input"
+                          name="email"
                           aria-describedby="emailHelp"
                           placeholder="Email"
                           onChange={updateForm}
@@ -77,7 +69,7 @@ export default function Login() {
                         <input
                           type="password"
                           className="form-control form-control-login"
-                          name="password_input"
+                          name="password"
                           placeholder="Password"
                           onChange={updateForm}
                           required
@@ -94,17 +86,16 @@ export default function Login() {
                           Submit
                         </button>
                       </div>
+                      {errM && (
+                        <div className="row">
+                          <div className="col-12">
+                            <p className="text-warning">{errM}</p>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </form>
                 </div>
-
-                {error_message && (
-                  <div className="row">
-                    <div className="col-12">
-                      <p className="text-warning">{error_message}</p>
-                    </div>
-                  </div>
-                )}
               </div>
             </div>
           </div>
