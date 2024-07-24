@@ -37,7 +37,7 @@ export default function Plants() {
       pic: "pic2",
     },
     {
-      id: 15,
+      id: 12,
       name: "Silverberry",
       zone: "2",
       water: "dry",
@@ -94,86 +94,89 @@ export default function Plants() {
     },
   ];
 
+  function Plant_List() {
+    return (
+      <table className="table table-hover">
+        <tbody>
+          {plantsArray.map((plant) => {
+            let img = "../src/pictures/" + plant.pic + ".png";
+            return (
+              <tr className=" table-dark" key={plant.id}>
+                <td scope="row" className="w30">
+                  {plant.name}
+                </td>
+                <td className="w70">
+                  <img src={img} />
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    );
+  }
+
   return (
     <>
-      <div className="list-group border border-info w100">
-        <div className="card-header vertical space-around">
-          <div className="row ">
-            <div className="col-sm-5">
-              <select className="list-select m-1  form-control input-sm">
-                <option selected>Zone</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-              </select>{" "}
-            </div>
+      <div className=" border-primary mb-4   card">
+        <div className="card-header ">Plants</div>
 
-            <div className="col-sm-5">
-              <select className="list-select m-1">
-                <option selected>Water</option>
-                <option value="1">Dry</option>
-                <option value="2">Wet</option>
-                <option value="3">Humid</option>
-              </select>
-            </div>
-          </div>{" "}
-          <div className="row ">
-            <div className="col-sm-5">
-              <select className="list-select m-1">
-                <option selected>Sun</option>
-                <option value="1">Full</option>
-                <option value="2">Half</option>
-              </select>{" "}
-            </div>
+        <div className="row   center  ">
+          <div className="col-sm-5  ">
+            <select
+              className="list-select form-control input-sm p-1 "
+              defaultValue="0"
+            >
+              <option value="0">Zone</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>{" "}
+          </div>
 
-            <div className="col-sm-5">
-              <select className="list-select m-1">
-                <option selected>Soil</option>
-                <option value="1">Hard</option>
-                <option value="2">Soft</option>
-              </select>
-            </div>
+          <div className="col-sm-5 ">
+            <select
+              className="list-select form-control input-sm p-1 "
+              defaultValue="0"
+            >
+              <option value="0">H2O</option>
+              <option value="1">Wet</option>
+              <option value="2">Perfect</option>
+              <option value="3">Dry</option>
+            </select>
           </div>
         </div>
 
-        {plantsArray.map((plant) => {
-          const pic = "../src/pictures/" + plant.pic + ".png";
+        <div className="row   center mtn1 ">
+          <div className="col-sm-5  ">
+            <select
+              className="list-select form-control input-sm p-1 "
+              defaultValue="0"
+            >
+              <option value="0">Sun</option>
+              <option value="1">Full</option>
+              <option value="2">Half</option>
+              <option value="3">Shade</option>
+            </select>{" "}
+          </div>
 
-          console.log(pic);
-
-          return (
-            <div key={plant.id}>
-              <Link
-                to="/garden"
-                className="list-group-item list-group-item-action active p-0 "
-              >
-                <div className="space-around p-1 ">
-                  {" "}
-                  <p className="text-muted">{plant.name}</p>
-                  <img src={pic} />
-                </div>
-              </Link>
-            </div>
-
-            // <section key={plant.id} className="plants  ">
-            //   <div className="center list-group">
-            //     <Link
-            //       to="/garden"
-            //       className="list-group-item list-group-item-action active"
-            //     >
-            //       {plant.name}
-            //     </Link>{" "}
-            //   </div>
-
-            //   <div className="center bg-light">
-            //     {" "}
-            //     <img src={pic} />{" "}
-            //   </div>
-            // </section>
-          );
-        })}
+          <div className="col-sm-5 ">
+            <select
+              className="list-select form-control input-sm p-1 "
+              defaultValue="0"
+            >
+              <option value="0">Soil</option>
+              <option value="1">Hard</option>
+              <option value="2">Soft</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div className="table-responsive ">
+        {" "}
+        <Plant_List />
       </div>
     </>
   );

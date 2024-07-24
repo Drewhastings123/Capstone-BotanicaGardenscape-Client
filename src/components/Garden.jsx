@@ -30,7 +30,9 @@ export default function Garden({ shape, setShape }) {
     switch (shape) {
       case "sq":
         return (
-          <div className="  border-garden p-2 text-dark  square ">{shape}</div>
+          <div className="  border-garden p-2 text-dark  square br ">
+            {shape}
+          </div>
         );
       case "rec":
         return (
@@ -43,14 +45,6 @@ export default function Garden({ shape, setShape }) {
           <div className="  border-garden p-2 text-dark  circle ">{shape}</div>
         );
 
-      case "dia":
-        return (
-          <div className="  border-garden p-2 text-dark  diamond ">{shape}</div>
-        );
-      case "pie":
-        return (
-          <div className="  border-garden p-2 text-dark  pie ">{shape}</div>
-        );
       default:
         return (
           <div className="  border-garden p-2 text-dark bg-light square">
@@ -60,36 +54,104 @@ export default function Garden({ shape, setShape }) {
     }
   }
 
-  function GardenCard() {
+  function Shape_Select() {
     function updateShape(e) {
       console.log("Shape Selected!!", e.target.value);
       setShape(e.target.value);
       console.log("shape luego de setearla", shape);
     }
-    return (
-      <div className="col-12 card border-warning ">
-        <div className="card-header">My Garden</div>
 
-        <div className="d-grid gap-3  card-body form-group  w100 center p-4">
-          <div className="center p-1">
-            {" "}
-            Shape:{" "}
-            <select className="custom-select" onChange={updateShape}>
-              <option value="">Select Shape</option>
-              <option value="sq">Square</option>
-              <option value="rec">Rectangle</option>
-              <option value="cir">Circle</option>
-            </select>
+    switch (shape) {
+      case "sq":
+        return (
+          <select
+            className="custom-select form-control input-sm p-1"
+            onChange={updateShape}
+          >
+            <option>Shape</option>
+            <option value="sq" selected>
+              Square
+            </option>
+            <option value="rec">Rectangle</option>
+            <option value="cir">Circle</option>
+          </select>
+        );
+      case "rec":
+        return (
+          <select
+            className="custom-select form-control input-sm p-1"
+            onChange={updateShape}
+          >
+            <option>Shape</option>
+            <option value="sq">Square</option>
+            <option value="rec" selected>
+              Rectangle
+            </option>
+            <option value="cir">Circle</option>
+          </select>
+        );
+      case "cir":
+        return (
+          <select
+            className="custom-select form-control input-sm p-1"
+            onChange={updateShape}
+          >
+            <option>Shape</option>
+            <option value="sq">Square</option>
+            <option value="rec">Rectangle</option>
+            <option value="cir" selected>
+              Circle
+            </option>
+          </select>
+        );
+
+      default:
+        return (
+          <select
+            className="custom-select form-control input-sm p-1"
+            onChange={updateShape}
+          >
+            <option>Shape</option>
+            <option value="sq" selected>
+              Square
+            </option>
+            <option value="rec">Rectangle</option>
+            <option value="cir">Circle</option>
+          </select>
+        );
+    }
+  }
+
+  function GardenCard() {
+    return (
+      <div className="border-primary mb-3   card">
+        <div className="card-header ">My Garden</div>
+        <div className="row  center   ">
+          <div className="col-sm-6  ">
+            <Shape_Select />
           </div>
-          <div className="pt1   garden-buttons ">
-            <button type="button" className="btn btn-warning btn-sm">
+        </div>{" "}
+        <div className="row   center pt-2 ">
+          <div className="col-sm-5 center ">
+            <button
+              type="button"
+              className="btn btn-outline-warning btn-sm boder border-warning"
+            >
               Save Garden
             </button>
-            <button type="button" className="btn btn-warning btn-sm">
+          </div>
+
+          <div className="col-sm-5 center ">
+            <button
+              type="button"
+              className="btn btn-outline-warning btn-sm boder border-warning"
+            >
               Buy Garden
             </button>
           </div>
-          <div className="del_garden_button ">
+        </div>
+        <div className="row   center p-2 ">
+          <div className="col-sm-10 center  ">
             <button
               type="button"
               className="btn btn-link btn-sm text-secondary "
@@ -97,25 +159,26 @@ export default function Garden({ shape, setShape }) {
               Delete Garden
             </button>{" "}
           </div>
-        </div>
+        </div>{" "}
       </div>
     );
   }
 
   function UserCard() {
     return (
-      <div className="col-12 card border-danger mt2h ">
-        <div className="card-header">
+      <div className=" border-primary   mt-5 card">
+        <div className="card-header ">
+          {" "}
           {window.sessionStorage.getItem("email")}
         </div>
 
-        <div className="card-body center">
-          <div className="pt0  full-name ">
-            <span className="p-1">
-              {" "}
-              {window.sessionStorage.getItem("firstName")}
-            </span>
-            <span> {window.sessionStorage.getItem("lastName")}</span>
+        <div className="row   center pt-2 pb-3 ">
+          <div className="col-sm-5 center ">
+            {window.sessionStorage.getItem("firstName")}
+          </div>
+
+          <div className="col-sm-5 center ">
+            {window.sessionStorage.getItem("lastName")}
           </div>
         </div>
       </div>
@@ -125,11 +188,11 @@ export default function Garden({ shape, setShape }) {
   return (
     <>
       <Nav_Bar />
-      <div className="container-fluid w85 ">
+      <div className="container-fluid w90 ">
         {/* < Loading_Bar /> */}
 
-        <div className="row w100 top2">
-          <div className="col-3 container ">
+        <div className="row w100 ">
+          <div className="col-2  ">
             <div className="garden-card">
               <GardenCard />
             </div>
@@ -137,8 +200,8 @@ export default function Garden({ shape, setShape }) {
               <UserCard />
             </div>
           </div>
-          <div className="col-7 ">
-            <div className="container garden center ">
+          <div className="col-8   ">
+            <div className=" garden center ">
               <Garden_Canvas />
             </div>
           </div>
