@@ -111,7 +111,7 @@ export default function Plants() {
     return (
       <table className="table table-hover">
         <tbody>
-          {plantsArray.map((plant) => {
+          {plants.map((plant) => {
             let img = "../src/pictures/" + plant.pic + ".png";
             return (
               <tr className=" table-dark" key={plant.id}>
