@@ -79,13 +79,12 @@ export default function Garden({ shape, setShape }) {
         return (
           <select
             className="custom-select form-control input-sm p-1"
-            onChange={updateShape}  defaultValue="sq"
+            onChange={updateShape}
+            defaultValue="sq"
           >
             <option>Shape</option>
             <option value="sq">Square</option>
-            <option value="rec" selected>
-              Rectangle
-            </option>
+            <option value="rec" >Rectangle</option>
             <option value="cir">Circle</option>
           </select>
         );
@@ -93,14 +92,15 @@ export default function Garden({ shape, setShape }) {
         return (
           <select
             className="custom-select form-control input-sm p-1"
-            onChange={updateShape}  defaultValue="sq"
+
+            onChange={updateShape}
+            defaultValue="sq"
+
           >
             <option>Shape</option>
             <option value="sq">Square</option>
             <option value="rec">Rectangle</option>
-            <option value="cir" selected>
-              Circle
-            </option>
+            <option value="cir">Circle</option>
           </select>
         );
 
@@ -108,12 +108,13 @@ export default function Garden({ shape, setShape }) {
         return (
           <select
             className="custom-select form-control input-sm p-1"
-            onChange={updateShape}  defaultValue="sq"
+
+            onChange={updateShape}
+            defaultValue="sq"
+
           >
             <option>Shape</option>
-            <option value="sq" selected>
-              Square
-            </option>
+            <option value="sq">Square</option>
             <option value="rec">Rectangle</option>
             <option value="cir">Circle</option>
           </select>
@@ -186,10 +187,8 @@ export default function Garden({ shape, setShape }) {
 
   return (
     <>
-
       {/* <Nav_Bar /> */}
       <div className="container-fluid w85 ">
-
         {/* < Loading_Bar /> */}
 
         <div className="row w100 ">
