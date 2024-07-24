@@ -1,6 +1,7 @@
 import Nav_Bar from "./Nav_Bar";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useReferenceQuery } from "../components_db/referenceSlice";
 import { useRegistrationMutation } from "../components_db/registrationSlice";
 
 export default function Registration() {
@@ -8,6 +9,7 @@ export default function Registration() {
   const [form, setForm] = useState({});
   const [errM, setErrM] = useState(null);
 
+  const referenceLists = useReferenceQuery();
   const [registerUser] = useRegistrationMutation();
 
   const submit = async (e) => {
@@ -15,6 +17,12 @@ export default function Registration() {
 
     try {
       let success = false;
+
+      // The call to useReferenceQuery - so we can see how the data looks.
+      // Could be prudent to add getXXXList methods to the reference slice so you can
+      // grab just the list you want.
+      const allTheLists = await referenceLists();
+      console.log("all the lists: ", allTheLists);
 
       // TO DO - correctly handle user_role_id and zone_id
       form.user_role_id = "e7a3bd11-2c6e-451d-beeb-e4ef9eeac9bf";
