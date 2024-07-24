@@ -52,7 +52,7 @@ export default function Nav_Bar() {
           <li className="nav-item logout ">
             <button
               type="button"
-              className="btn btn-link text-white-50 pt-1 "
+              className="btn btn-link text-white-50 pt1 "
               onClick={() => Logout()}
             >
               Logout
