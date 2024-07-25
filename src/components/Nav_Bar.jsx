@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom";
 
 export default function Nav_Bar() {
   const active = window.sessionStorage.getItem("active_item");
-  const token = window.sessionStorage.getItem("token");
+  const token = window.sessionStorage.getItem("Token");
 
   const navigate = useNavigate();
 
   function Logout() {
-    window.sessionStorage.removeItem("token");
+    window.sessionStorage.removeItem("Token");
     navigate("/login");
   }
 
@@ -32,8 +32,8 @@ export default function Nav_Bar() {
 
   function RenderMenu() {
     const email = window.sessionStorage.getItem("email");
-    
-    if (token && active == "home") {
+
+    if (active === "home") {
       return (
         <ul className="navbar-nav mr-auto ">
           <li className="nav-item">
@@ -43,8 +43,8 @@ export default function Nav_Bar() {
           </li>
 
           <li className="nav-item">
-            <Link to="/user" className="nav-link ">
-              {email}
+            <Link to="/user/:id" className="nav-link ">
+              User Page
             </Link>
           </li>
 
@@ -61,7 +61,7 @@ export default function Nav_Bar() {
       );
     }
 
-    if (token && active == "garden") {
+    if (active === "garden") {
       return (
         <ul className="navbar-nav mr-auto ">
           <li className="nav-item active bg-success">
@@ -70,8 +70,8 @@ export default function Nav_Bar() {
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/user" className="nav-link ">
-              {email}
+            <Link to="/user/:id" className="nav-link ">
+              User Page
             </Link>
           </li>
           <li className="nav-item">
@@ -87,7 +87,7 @@ export default function Nav_Bar() {
       );
     }
 
-    if (token && active == "user") {
+    if (active === "user") {
       return (
         <ul className="navbar-nav mr-auto ">
           <li className="nav-item ">
@@ -96,7 +96,7 @@ export default function Nav_Bar() {
             </Link>
           </li>
           <li className="nav-item active bg-success">
-            <Link to="/user" className="nav-link ">
+            <Link to="/user/:id" className="nav-link ">
               {email}
             </Link>
           </li>
@@ -113,7 +113,7 @@ export default function Nav_Bar() {
       );
     }
 
-    if (!token && active == "home") {
+    if (active === "home") {
       return (
         <ul className="navbar-nav mr-auto ">
           <li className="nav-item  ">
@@ -132,11 +132,20 @@ export default function Nav_Bar() {
               Register{" "}
             </Link>
           </li>
+          <li className="nav-item">
+            <button
+              type="button"
+              className="btn btn-link text-white-50"
+              onClick={() => Logout()}
+            >
+              Logout
+            </button>
+          </li>
         </ul>
       );
     }
 
-    if (!token && active == "login") {
+    if (active === "login") {
       return (
         <ul className="navbar-nav mr-auto ">
           <li className="nav-item  ">
@@ -159,7 +168,7 @@ export default function Nav_Bar() {
       );
     }
 
-    if (!token && active == "register") {
+    if (active === "registration") {
       return (
         <ul className="navbar-nav mr-auto ">
           <li className="nav-item  ">

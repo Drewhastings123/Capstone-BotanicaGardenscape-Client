@@ -5,14 +5,36 @@ import { useEffect, useState } from "react";
 
 export default function Plants() {
   const [plants, setPlants] = useState([]);
-  const { data, isSuccess } = useGetPlantsQuery();
+  const { data, isLoading, error } = useGetPlantsQuery();
 
-  useEffect(() => {
-    if (isSuccess) {
-      setPlants(data.plants);
-    }
-  }, []);
-  console.log(data);
+  if (isLoading) {
+    return (
+      <div className="row w100 top2">
+        <div className="col-12 ">
+          {" "}
+          Loading ...
+          <div className="progress bg-primary">
+            <div
+              className="progress-bar progress-bar-striped progress-bar-animated bg-success "
+              role="progressbar"
+              aria-valuenow="75"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  if (!data) {
+    return <div>No plants found.</div>;
+  }
+  // console.log(data);
   // const plantsArray = [
   //   {
   //     id: 1,
@@ -109,7 +131,7 @@ export default function Plants() {
     return (
       <table className="table table-hover">
         <tbody>
-          {plants.map((plant) => {
+          {data.plants.map((plant) => {
             let img = "../src/pictures/" + plant.pic + ".png";
             return (
               <tr className=" table-dark" key={plant.id}>
