@@ -1,8 +1,10 @@
 import { useGetAllUsersQuery } from "../components_db/userSlice";
 import Nav_Bar from "./Nav_Bar";
 
-export default function Home() {
-  // window.sessionStorage.setItem("active_item", "user");
+export default function User() {
+
+  window.sessionStorage.setItem("active_item", "user");
+
   const { data, error, isLoading } = useGetAllUsersQuery();
 
   console.log("userData", data)

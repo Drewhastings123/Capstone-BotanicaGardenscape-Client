@@ -69,6 +69,4 @@ export const {
 
 export const { setLoginToken, clearLoginToken } = userSlice.actions;
 
-export default {
-  userSlice: userSlice.reducer,
-};
+export default userSlice.reducer;
