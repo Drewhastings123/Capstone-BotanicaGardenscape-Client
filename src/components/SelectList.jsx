@@ -5,6 +5,8 @@ export default function SelectList({
   theListName,
   theParentForm,
   onChangeFunction,
+  theFieldName,
+  the2FieldName,
 }) {
   const ConsoleTheSelected = (e) => {
     console.log(e.target.value);
@@ -29,7 +31,7 @@ export default function SelectList({
               return (
                 // eslint-disable-next-line react/jsx-key
                 <option value={String(opt.id)} key={String(opt.id)}>
-                  {opt.zone_name + " (" + opt.temp_range + ") "}
+                  {opt[theFieldName] + " (" + opt[the2FieldName] + ")"}
                 </option>
               );
             })
