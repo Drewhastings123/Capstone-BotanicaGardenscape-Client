@@ -19,7 +19,7 @@ const userApi = api.injectEndpoints({
     }),
 
     getUser: builder.query({
-      query: (id) => `/users/${id}`,
+      query: (id) => `/user/${id}`,
       method: "GET",
       providesTags: ["User"],
     }),
@@ -42,20 +42,42 @@ const userApi = api.injectEndpoints({
   }),
 });
 
+const storeUser = (state, { payload }) => {
+  console.log("payload", payload);
+  state.id = payload.user.id;
+  state.firstname = payload.user.firstname;
+  state.lastname = payload.user.lastname;
+  state.email = payload.user.email;
+  state.phone_number = payload.user.phone_number;
+  state.zone_id = payload.user.zone_id;
+  state.user_role_id = payload.user.user_role_id;
+};
+
 const userSlice = createSlice({
   name: "user",
-  initialState: {},
+  initialState: {
+    // id: "",
+    // firstname: "",
+    // lastname: "",
+    // email: "",
+    // phone_number: null,
+    // zone_id: "",
+    // user_role_id: "",
+  },
   reducers: {
-    setLoginToken: ({ payload }) => {
+    setLoginToken: (state, { payload }) => {
       window.sessionStorage.setItem("Token", payload.token);
+      state.currentUserId = payload.user.id;
     },
 
-    clearLoginToken: () => {
+    clearLoginToken: ({ state }) => {
       window.sessionStorage.removeItem("Token");
+      state.currentUserId = null;
     },
   },
   extraReducers: (builder) => {
     builder.addMatcher(api.endpoints.login.matchFulfilled, setLoginToken);
+    builder.addMatcher(api.endpoints.login.matchFulfilled, storeUser);
   },
 });
 

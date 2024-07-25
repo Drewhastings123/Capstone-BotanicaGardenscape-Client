@@ -20,8 +20,8 @@ function App() {
       <div>
         <Nav_Bar />
         <Routes>
-          <Route path="/user" element={<Protected />}>
-            <Route path="/user" element={<User />}></Route>
+          <Route path="/user/:id" element={<Protected />}>
+            <Route path="/user/:id" element={<User />}></Route>
           </Route>
           <Route path="/garden" element={<Protected />}>
             <Route
