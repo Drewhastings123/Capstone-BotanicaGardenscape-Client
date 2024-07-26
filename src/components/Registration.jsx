@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useRegistrationMutation } from "../components_db/registrationSlice";
+import { useLoginMutation } from "../components_db/userSlice";
+
 import SelectList from "./SelectList";
 
 export default function Registration() {
@@ -12,18 +14,24 @@ export default function Registration() {
 
   const [registerUser] = useRegistrationMutation();
 
+  const [loginUser] = useLoginMutation();
+
   const submit = async (e) => {
     e.preventDefault();
     console.log("submit");
 
     try {
       let success = false;
+      let loginSuccess = false;
 
       // TO DO - correctly handle and zone_id
       form.user_role_id = "e7a3bd11-2c6e-451d-beeb-e4ef9eeac9bf";
       console.log("form", form);
       success = await registerUser(form).unwrap();
+      loginSuccess = await loginUser(form).unwrap();
+
       console.log(success);
+      console.log(loginSuccess);
 
       if (!success) {
         return (

@@ -10,13 +10,12 @@ import { useState } from "react";
 import Protected from "./components/Protected.jsx";
 import Nav_Bar from "./components/Nav_Bar.jsx";
 
-// uncomment home page
 function App() {
   window.sessionStorage.setItem("active_item", "home");
   const [shape, setShape] = useState("sq");
 
   return (
-    <Provider store={store}>
+    <Provider store={store} >
       <div>
         <Nav_Bar />
         <Routes>

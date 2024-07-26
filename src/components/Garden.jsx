@@ -9,25 +9,28 @@ import { Link } from "react-router-dom";
 export default function Garden({ shape, setShape }) {
   window.sessionStorage.setItem("active_item", "garden");
 
-  function Loading_Bar() {
-    return (
-      <div className="row w100 top2">
-        <div className="col-12 ">
-          {" "}
-          Loading ...
-          <div className="progress bg-primary">
-            <div
-              className="progress-bar progress-bar-striped progress-bar-animated bg-success "
-              role="progressbar"
-              aria-valuenow="75"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            ></div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  // const temp = useSelector((state) => state);
+  // console.log(temp);
+
+  // function Loading_Bar() {
+  //   return (
+  //     <div className="row w100 top2">
+  //       <div className="col-12 ">
+  //         {" "}
+  //         Loading ...
+  //         <div className="progress bg-primary">
+  //           <div
+  //             className="progress-bar progress-bar-striped progress-bar-animated bg-success "
+  //             role="progressbar"
+  //             aria-valuenow="75"
+  //             aria-valuemin="0"
+  //             aria-valuemax="100"
+  //           ></div>
+  //         </div>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   function Garden_Canvas() {
     switch (shape) {
@@ -167,14 +170,23 @@ export default function Garden({ shape, setShape }) {
     const id = useSelector((state) => {
       return state.user.id;
     });
+
     const name = useSelector((state) => {
       return state.reference.zoneList;
     });
     console.log(name);
-
     console.log(id);
+
     const { data, error, isLoading } = useGetUserQuery(id);
+
     console.log(data);
+
+    if (!isLoading) {
+      const specificName = name?.filter((obj) => {
+        if (obj.id === data.user.zone_id) return obj.zone_name;
+      });
+      console.log(specificName[0].zone_name);
+    }
 
     if (isLoading) {
       return (
@@ -204,7 +216,6 @@ export default function Garden({ shape, setShape }) {
       return <div>No user found.</div>;
     }
     const specificName = name?.filter((obj) => {
-      
       if (obj.id === data?.user?.zone_id) return obj.zone_name;
     });
     console.log(specificName[0].zone_name);

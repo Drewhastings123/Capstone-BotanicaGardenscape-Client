@@ -63,11 +63,13 @@ const userSlice = createSlice({
     // phone_number: null,
     // zone_id: "",
     // user_role_id: "",
+    user: {},
   },
   reducers: {
     setLoginToken: (state, { payload }) => {
       window.sessionStorage.setItem("Token", payload.token);
       state.currentUserId = payload.user.id;
+      state.user = payload.user;
     },
 
     clearLoginToken: ({ state }) => {
