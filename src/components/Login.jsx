@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../components_db/userSlice";
 
 export default function Login() {
+  window.sessionStorage.setItem("active_item", "login");
+
   const navigate = useNavigate();
   const [form, setForm] = useState({});
   const [errM, setErrM] = useState(null);
@@ -16,6 +18,27 @@ export default function Login() {
 
       console.log("form", form);
       success = await loginUser(form).unwrap();
+      console.log(success);
+
+      if (!success) {
+        return (
+          <div className="row w100 top2">
+            <div className="col-12 ">
+              {" "}
+              Loading ...
+              <div className="progress bg-primary">
+                <div
+                  className="progress-bar progress-bar-striped progress-bar-animated bg-success "
+                  role="progressbar"
+                  aria-valuenow="75"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                ></div>
+              </div>
+            </div>
+          </div>
+        );
+      }
 
       if (success?.token) {
         window.sessionStorage.setItem("Token", success.token);
@@ -39,8 +62,8 @@ export default function Login() {
 
   return (
     <>
-    {/* added to the app.jsx so it appears on all pages */}
-      {/* <Nav_Bar /> */} 
+      {/* added to the app.jsx so it appears on all pages */}
+      {/* <Nav_Bar /> */}
 
       <div className="container top5">
         <div className="row w100 ">

@@ -35,6 +35,4 @@ export const { useRegistrationMutation } = registrationApi;
 
 export const { setToken, clearToken } = registrationSlice.actions;
 
-export default {
-  registrationSlice: registrationSlice.reducer,
-};
+export default registrationSlice.reducer;

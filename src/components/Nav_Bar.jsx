@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom";
 
 export default function Nav_Bar() {
   const active = window.sessionStorage.getItem("active_item");
-  const token = window.sessionStorage.getItem("token");
+  const token = window.sessionStorage.getItem("Token");
 
   const navigate = useNavigate();
 
   function Logout() {
-    window.sessionStorage.removeItem("token");
+    window.sessionStorage.removeItem("Token");
     navigate("/login");
   }
 
@@ -31,27 +31,28 @@ export default function Nav_Bar() {
   }
 
   function RenderMenu() {
-    const email = window.sessionStorage.getItem("email");
-    
-    if (token && active == "home") {
+    if (active === "home") {
       return (
         <ul className="navbar-nav mr-auto ">
+          <li className="nav-item ">
+            <Link to="/login" className="nav-link ">
+              Login{" "}
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/registration" className="nav-link ">
+              Register{" "}
+            </Link>
+          </li>
           <li className="nav-item">
             <Link to="/garden" className="nav-link ">
               My Garden{" "}
             </Link>
           </li>
-
-          <li className="nav-item">
-            <Link to="/user" className="nav-link ">
-              {email}
-            </Link>
-          </li>
-
           <li className="nav-item logout ">
             <button
               type="button"
-              className="btn btn-link text-white-50 pt-1 "
+              className="btn btn-link text-white-50 pt1 "
               onClick={() => Logout()}
             >
               Logout
@@ -61,17 +62,12 @@ export default function Nav_Bar() {
       );
     }
 
-    if (token && active == "garden") {
+    if (active === "garden") {
       return (
         <ul className="navbar-nav mr-auto ">
           <li className="nav-item active bg-success">
             <Link to="/garden" className="nav-link ">
               My Garden{" "}
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/user" className="nav-link ">
-              {email}
             </Link>
           </li>
           <li className="nav-item">
@@ -87,7 +83,7 @@ export default function Nav_Bar() {
       );
     }
 
-    if (token && active == "user") {
+    if (active === "user") {
       return (
         <ul className="navbar-nav mr-auto ">
           <li className="nav-item ">
@@ -97,7 +93,7 @@ export default function Nav_Bar() {
           </li>
           <li className="nav-item active bg-success">
             <Link to="/user" className="nav-link ">
-              {email}
+              User Info
             </Link>
           </li>
           <li className="nav-item">
@@ -113,53 +109,7 @@ export default function Nav_Bar() {
       );
     }
 
-    if (!token && active == "home") {
-      return (
-        <ul className="navbar-nav mr-auto ">
-          <li className="nav-item  ">
-            <Link to="/login" className="nav-link ">
-              My Garden{" "}
-            </Link>
-          </li>
-
-          <li className="nav-item ">
-            <Link to="/login" className="nav-link ">
-              Login{" "}
-            </Link>
-          </li>
-          <li className="nav-item  ">
-            <Link to="/registration" className="nav-link ">
-              Register{" "}
-            </Link>
-          </li>
-        </ul>
-      );
-    }
-
-    if (!token && active == "login") {
-      return (
-        <ul className="navbar-nav mr-auto ">
-          <li className="nav-item  ">
-            <Link to="/login" className="nav-link ">
-              My Garden{" "}
-            </Link>
-          </li>
-
-          <li className="nav-item active bg-success ">
-            <Link to="/login" className="nav-link ">
-              Login{" "}
-            </Link>
-          </li>
-          <li className="nav-item  ">
-            <Link to="/registration" className="nav-link ">
-              Register{" "}
-            </Link>
-          </li>
-        </ul>
-      );
-    }
-
-    if (!token && active == "register") {
+    if (active === "registration") {
       return (
         <ul className="navbar-nav mr-auto ">
           <li className="nav-item  ">
