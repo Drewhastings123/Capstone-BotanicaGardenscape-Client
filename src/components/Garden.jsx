@@ -175,10 +175,7 @@ export default function Garden({ shape, setShape }) {
     console.log(id);
     const { data, error, isLoading } = useGetUserQuery(id);
     console.log(data);
-    const specificName = name?.filter((obj) => {
-      if (obj.id === data.user.zone_id) return obj.zone_name;
-    });
-    console.log(specificName[0].zone_name);
+
     if (isLoading) {
       return (
         <div className="row w100 top2">
@@ -206,6 +203,11 @@ export default function Garden({ shape, setShape }) {
     if (!data) {
       return <div>No user found.</div>;
     }
+    const specificName = name?.filter((obj) => {
+      
+      if (obj.id === data?.user?.zone_id) return obj.zone_name;
+    });
+    console.log(specificName[0].zone_name);
     return (
       <div className=" border-primary   mt-5 card">
         <div className="card-header "> {data.user.email}</div>
