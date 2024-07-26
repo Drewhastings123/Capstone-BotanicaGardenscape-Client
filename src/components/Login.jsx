@@ -89,7 +89,7 @@ export default function Login() {
                       <div className="col-12">
                         <button
                           type="submit"
-                          className="btn btn-success form-control"
+                          className="btn btn-success form-control mv1"
                         >
                           Submit
                         </button>

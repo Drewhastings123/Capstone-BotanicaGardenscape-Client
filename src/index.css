@@ -23,6 +23,12 @@
   padding-top: 5em;
 }
 
+.mv2 {
+  margin: 2em 0em !important;
+}
+.mv1 {
+  margin: 1em 0em !important;
+}
 .progress-bar-animated {
   width: 75%;
 }
@@ -52,7 +58,6 @@
 .del_garden_button .btn-link {
   padding-top: 0.5em !important;
 }
-
 
 .form-control-login {
   margin: 0.8em 0em !important;
@@ -107,8 +112,6 @@ small {
   padding: 0.2em;
   border-radius: 0.25em;
 }
-
-
 
 .garden-buttons button,
 .full-name span {

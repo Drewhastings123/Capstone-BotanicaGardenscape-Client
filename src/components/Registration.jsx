@@ -64,7 +64,7 @@ export default function Registration() {
                     <div className="row">
                       <div className="col-12">
                         <div className="row">
-                          <div className="col-6">
+                          <div className="col-6 ">
                             <input
                               type="email"
                               className="form-control"
@@ -77,7 +77,7 @@ export default function Registration() {
 
                             <input
                               type="password"
-                              className="form-control"
+                              className="form-control mv2"
                               name="password_input"
                               placeholder="Password"
                               onChange={updateForm}
@@ -85,7 +85,7 @@ export default function Registration() {
                             />
                           </div>
 
-                          <div className="col-6">
+                          <div className="col-6 ">
                             <input
                               type="text"
                               className="form-control"
@@ -96,7 +96,7 @@ export default function Registration() {
                             />
                             <input
                               type="text"
-                              className="form-control"
+                              className="form-control mv2 "
                               name="lastName_input"
                               placeholder="Last Name"
                               onChange={updateForm}
