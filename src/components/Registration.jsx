@@ -157,6 +157,8 @@ export default function Registration() {
                               theListName="zone_id"
                               theParentForm="Registration"
                               onChangeFunction={updateFormOnListChange}
+                              theFieldName="zone_name"
+                              the2FieldName="temp_range"
                             />
                           </div>
                           {/*  //close col-6 */}
