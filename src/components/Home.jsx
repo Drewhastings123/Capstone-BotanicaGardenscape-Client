@@ -1,27 +1,12 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
-//import SelectList from "./SelectList";
-
 import mag3Url from "../assets/homePage/MagnoliaMulti.jpg";
 import solarGnome from "../assets/homePage/solarGnome.png";
 
-import { useGetReferenceQuery } from "../components_db/referenceSlice";
+import loadReference from "./reference.js";
 
 export default function Home() {
   window.sessionStorage.setItem("active_item", "home");
 
-  const [errM, setErrM] = useState(null);
-
-  const { data, isSuccess } = useGetReferenceQuery();
-  if (isSuccess) {
-    console.log("all the lists: ", data);
-    console.log("isSuccess: ", isSuccess);
-  }
-
-  const zoneList = useSelector((state) => {
-    return state.reference.zoneList;
-  });
-  console.log("z: ", zoneList);
+  loadReference();
 
   return (
     <>
@@ -29,7 +14,10 @@ export default function Home() {
         <div className="homeH1">
           <h1>Welcome to Botanica Gardenscape</h1>
           <h5>User our handy layout tool and plot your dream garden. </h5>
-          <h6>Please register to access our full functionality and begin designing today </h6>
+          <h6>
+            Please register to access our full functionality and begin designing
+            today{" "}
+          </h6>
         </div>
         <div className="homeImgPlaceTopRight">
           <img
@@ -55,9 +43,9 @@ export default function Home() {
           <figure>
             <blockquote className="blockquote ">
               <p className="mb-0">
-                The glory of gardening: hands in the dirt, head
-                in the sun, heart with nature. To nurture a garden is to feed
-                not just the body, but the soul.
+                The glory of gardening: hands in the dirt, head in the sun,
+                heart with nature. To nurture a garden is to feed not just the
+                body, but the soul.
               </p>
             </blockquote>
             <figcaption className="blockquote-footer">Alfred Austin</figcaption>
@@ -68,19 +56,18 @@ export default function Home() {
           <figure>
             <blockquote className="blockquote ">
               <p className="mb-0">
-              Trees and plants always look like the people they live with, somehow.
+                Trees and plants always look like the people they live with,
+                somehow.
               </p>
             </blockquote>
-            <figcaption className="blockquote-footer">Zora Neale Hurston</figcaption>
+            <figcaption className="blockquote-footer">
+              Zora Neale Hurston
+            </figcaption>
           </figure>
         </div>
 
         <div className="homeImgPlaceLowerLeft">
-          <img
-            className="homeImg"
-            src={solarGnome}
-            alt="Gnome"
-          ></img>
+          <img className="homeImg" src={solarGnome} alt="Gnome"></img>
         </div>
 
         <div className="homeHelpfulLinks">
