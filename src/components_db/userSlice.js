@@ -13,14 +13,17 @@ const userApi = api.injectEndpoints({
     }),
 
     getAllUsers: builder.query({
-      query: () => "/users",
-      method: "GET",
+      query: () => ({
+        url: "/users",
+        method: "GET",
+      }),
       providesTags: ["User"],
     }),
-
     getUser: builder.query({
-      query: (id) => `/user/${id}`,
-      method: "GET",
+      query: (id) => ({
+        url: `/user/${id}`,
+        method: "GET",
+      }),
       providesTags: ["User"],
     }),
 
@@ -29,15 +32,15 @@ const userApi = api.injectEndpoints({
         url: `/users/${user.id}`,
         method: "PUT",
         body: user,
-        invalidatesTags: ["User"],
       }),
+      invalidatesTags: ["User"],
     }),
     deleteUser: builder.mutation({
       query: (id) => ({
         url: `/delete/${id}`,
         method: "DELETE",
-        invalidatesTags: ["User"],
       }),
+      invalidatesTags: ["User"],
     }),
   }),
 });

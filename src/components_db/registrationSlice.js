@@ -9,7 +9,7 @@ const registrationApi = api.injectEndpoints({
         method: "POST",
         body: credentials,
       }),
-      invalidateTags: ["User"],
+      invalidatesTags: ["User"],
     }),
   }),
 });
