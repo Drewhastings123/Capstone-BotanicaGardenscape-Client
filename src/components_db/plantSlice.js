@@ -7,8 +7,8 @@ const plantApi = api.injectEndpoints({
       query: () => ({
         url: "/plants",
         method: "GET",
-        providesTags: ["Plants"],
       }),
+      providesTags: ["Plants"],
     }),
   }),
 });
