@@ -5,6 +5,7 @@ import "./index.css";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootswatch/dist/slate/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.js";
 
 import { BrowserRouter } from "react-router-dom";
 

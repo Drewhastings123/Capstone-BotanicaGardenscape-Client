@@ -1,5 +1,4 @@
-import Nav_Bar from "./Nav_Bar";
-import { Link } from "react-router-dom";
+
 import { useGetPlantsQuery } from "../components_db/plantSlice";
 import { useEffect, useState } from "react";
 

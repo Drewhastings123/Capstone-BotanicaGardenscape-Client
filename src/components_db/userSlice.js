@@ -78,7 +78,13 @@ const userSlice = createSlice({
     clearLoginToken: ({ state }) => {
       window.sessionStorage.removeItem("Token");
       state.currentUserId = null;
+      state.user = null;
     },
+
+    // storeUser: (state, { payload }) => {
+    //   state.currentUserId = payload.user.id;
+    //   state.user = payload.user;
+    // },
   },
   extraReducers: (builder) => {
     builder.addMatcher(api.endpoints.login.matchFulfilled, setLoginToken);
@@ -94,6 +100,7 @@ export const {
   useDeleteUserMutation,
 } = userApi;
 
-export const { setLoginToken, clearLoginToken } = userSlice.actions;
+export const { setLoginToken, clearLoginToken /*,  storeUser*/ } =
+  userSlice.actions;
 
 export default userSlice.reducer;

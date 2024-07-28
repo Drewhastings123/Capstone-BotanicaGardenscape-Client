@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 export default function Nav_Bar() {
-  const active = window.sessionStorage.getItem("active_item");
   const token = window.sessionStorage.getItem("Token");
 
   const navigate = useNavigate();
@@ -12,182 +11,97 @@ export default function Nav_Bar() {
     navigate("/login");
   }
 
-  function RenderLogo() {
-    if (active === "home") {
-      return (
-        <>
-          <Link to="/" className=" navbar-brand active bg-success ">
-            Botanica Gardenscape
-          </Link>
-        </>
-      );
-    } else {
-      return (
-        <Link to="/" className="navbar-brand">
-          Botanica Gardenscape
-        </Link>
-      );
-    }
-  }
-
-  // function RenderMenu() {
-  //   //if (active === "home") {
-  //     return (
-  //       <ul className="navbar-nav mr-auto ">
-  //         <li className="nav-item ">
-  //           <Link to="/login" className="nav-link ">
-  //             Login{" "}
-  //           </Link>
-  //         </li>
-  //         <li className="nav-item">
-  //           <Link to="/registration" className="nav-link ">
-  //             Register{" "}
-  //           </Link>
-  //         </li>
-  //         <li className="nav-item">
-  //           <Link to="/garden" className="nav-link ">
-  //             My Garden{" "}
-  //           </Link>
-  //         </li>
-  //         <li className="nav-item active bg-success">
-  //           <Link to="/user" className="nav-link ">
-  //             User Info
-  //           </Link>
-  //         </li>
-  //         <li className="nav-item logout ">
-  //           <button
-  //             type="button"
-  //             className="btn btn-link text-white-50 pt1 "
-  //             onClick={() => Logout()}
-  //           >
-  //             Logout
-  //           </button>
-  //         </li>
-  //       </ul>
-  //     );
+  // set up the links to show which is active
+  // TODO - get it to work...
+  // document.querySelectorAll(".nav-link").forEach((link) => {
+  //   if (link.href === window.location.href) {
+  //     link.classList.add("active");
+  //     link.setAttribute("aria-current", "page");
+  //     console.log("set active link");
+  //   } else {
+  //     link.classList.remove("active");
+  //     console.log("set inactive link");
   //   }
-
-  // if (active === "garden") {
-  //   return (
-  //     <ul className="navbar-nav mr-auto ">
-  //       <li className="nav-item active bg-success">
-  //         <Link to="/garden" className="nav-link ">
-  //           My Garden{" "}
-  //         </Link>
-  //       </li>
-  //       <li className="nav-item">
-  //         <button
-  //           type="button"
-  //           className="btn btn-link text-white-50"
-  //           onClick={() => Logout()}
-  //         >
-  //           Logout
-  //         </button>
-  //       </li>
-  //     </ul>
-  //   );
-  // }
-
-  // if (active === "user") {
-  //   return (
-  //     <ul className="navbar-nav mr-auto ">
-  //       <li className="nav-item ">
-  //         <Link to="/garden" className="nav-link ">
-  //           My Garden{" "}
-  //         </Link>
-  //       </li>
-  //       <li className="nav-item active bg-success">
-  //         <Link to="/user" className="nav-link ">
-  //           User Info
-  //         </Link>
-  //       </li>
-  //       <li className="nav-item">
-  //         <button
-  //           type="button"
-  //           className="btn btn-link text-white-50"
-  //           onClick={() => Logout()}
-  //         >
-  //           Logout
-  //         </button>
-  //       </li>
-  //     </ul>
-  //   );
-  // }
-
-  //   if (active === "registration") {
-  //     return (
-  //       <ul className="navbar-nav mr-auto ">
-  //         <li className="nav-item  ">
-  //           <Link to="/garden" className="nav-link ">
-  //             My Garden{" "}
-  //           </Link>
-  //         </li>
-
-  //         <li className="nav-item ">
-  //           <Link to="/login" className="nav-link ">
-  //             Login{" "}
-  //           </Link>
-  //         </li>
-  //         <li className="nav-item active bg-success  ">
-  //           <Link to="/registration" className="nav-link ">
-  //             Register{" "}
-  //           </Link>
-  //         </li>
-  //       </ul>
-  //     );
-  //   }
-  // }
+  // });
 
   return (
     <>
-      {" "}
-      <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-        <span className="material-symbols-outlined">yard</span>
-        <RenderLogo />
+      <nav className="navbar navbar-expand-md  bg-primary" data-bs-theme="dark">
+        <div className="container-fluid">
+          <span className="material-symbols-outlined">yard</span>
+          <a
+            className="navbar-brand active bg-success"
+            aria-current="page"
+            href="/"
+          >
+            Botanica Gardenscape
+          </a>
 
-        <div className="collapse navbar-collapse">
-          {/* //<RenderMenu /> */}
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarColor01"
+            aria-controls="navbarColor01"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse" id="navbarColor01">
+            <ul className="navbar-nav mr-auto ">
+              {!token && (
+                <div className="navalign">
+                  <li className="nav-item ">
+                    <Link to="/login" className="nav-link ">
+                      Login{" "}
+                    </Link>
+                  </li>{" "}
+                </div>
+              )}
+              {!token && (
+                <div className="navalign">
+                  <li className="nav-item">
+                    <Link to="/registration" className="nav-link ">
+                      Register{" "}
+                    </Link>
+                  </li>
+                </div>
+              )}
 
-          <ul className="navbar-nav mr-auto ">
-            {!token && (
-              <div>
-                <li className="nav-item ">
-                  <Link to="/login" className="nav-link ">
-                    Login{" "}
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/registration" className="nav-link ">
-                    Register{" "}
-                  </Link>
-                </li>
-              </div>
-            )}
-
-            {token && (
-              <div>
-                <li className="nav-item">
-                  <Link to="/garden" className="nav-link ">
-                    My Garden{" "}
-                  </Link>
-                </li>
-                <li className="nav-item active bg-success">
-                  <Link to="/user" className="nav-link ">
-                    User Info
-                  </Link>
-                </li>
-                <li className="nav-item logout ">
-                  <button
-                    type="button"
-                    className="btn btn-link text-white-50 pt1 "
-                    onClick={() => Logout()}
-                  >
-                    Logout
-                  </button>
-                </li>
-              </div>
-            )}
-          </ul>
+              {token && (
+                <div className="navalign">
+                  <li className="nav-item">
+                    <Link to="/garden" className="nav-link ">
+                      My Garden{" "}
+                    </Link>
+                  </li>
+                </div>
+              )}
+              {token && (
+                <div className="navalign">
+                  <li className="nav-item">
+                    <Link to="/user" className="nav-link ">
+                      User Info
+                    </Link>
+                  </li>
+                </div>
+              )}
+              {token && (
+                <div className="navalign">
+                  <li className="nav-item logout ">
+                    <button
+                      type="button"
+                      className="btn btn-link text-white-50 pt1 "
+                      onClick={() => Logout()}
+                    >
+                      Logout
+                    </button>
+                  </li>
+                </div>
+              )}
+            </ul>
+          </div>
         </div>
       </nav>
     </>

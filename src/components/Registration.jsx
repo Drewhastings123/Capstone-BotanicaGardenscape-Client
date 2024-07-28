@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { useRegistrationMutation } from "../components_db/registrationSlice";
 import { useLoginMutation } from "../components_db/userSlice";
 
+import Loading_Bar from "./Loading_Bar";
 import SelectList from "./SelectList";
 
 export default function Registration() {
-  window.sessionStorage.setItem("active_item", "registration");
   const navigate = useNavigate();
   const [form, setForm] = useState({});
   const [errM, setErrM] = useState(null);
@@ -34,23 +34,8 @@ export default function Registration() {
       console.log(loginSuccess);
 
       if (!success) {
-        return (
-          <div className="row w100 top2">
-            <div className="col-12 ">
-              {" "}
-              Loading ...
-              <div className="progress bg-primary">
-                <div
-                  className="progress-bar progress-bar-striped progress-bar-animated bg-success "
-                  role="progressbar"
-                  aria-valuenow="25"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                ></div>
-              </div>
-            </div>
-          </div>
-        );
+        console.log("Registration calling loading bar");
+        Loading_Bar();
       }
 
       if (success?.token) {
@@ -85,8 +70,6 @@ export default function Registration() {
 
   return (
     <>
-      {/* <Nav_Bar /> */}
-
       <div className="container top5">
         <div className="row w100">
           <div className="col"></div>

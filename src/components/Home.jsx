@@ -4,8 +4,6 @@ import solarGnome from "../assets/homePage/solarGnome.png";
 import loadReference from "./reference.js";
 
 export default function Home() {
-  window.sessionStorage.setItem("active_item", "home");
-
   loadReference();
 
   return (
@@ -80,28 +78,34 @@ export default function Home() {
             <tbody>
               <tr className="table-success homeTr">
                 <td>
-                  <a href="https://wfoplantlist.org/">
+                  <a href="https://wfoplantlist.org/" target="_blank">
                     The World Flora Online (WFO) Plant List
                   </a>
                 </td>
               </tr>
               <tr className="table-success">
                 <td>
-                  <a href="https://www.farmersalmanac.com/farmers-almanac-summer-2024-weather-forecast">
+                  <a
+                    href="https://www.farmersalmanac.com/farmers-almanac-summer-2024-weather-forecast"
+                    target="_blank"
+                  >
                     Farmers' Almanac Summer Weather Forecast 2024
                   </a>
                 </td>
               </tr>
               <tr className="table-success">
                 <td>
-                  <a href="https://extension.colostate.edu">
+                  <a href="https://extension.colostate.edu" target="_blank">
                     Colorado State University Extension
                   </a>
                 </td>
               </tr>
               <tr className="table-success">
                 <td>
-                  <a href="https://www.nevadaaudubon.org/native-gardening/10-native-plants-for-your-nevada-garden">
+                  <a
+                    href="https://www.nevadaaudubon.org/native-gardening/10-native-plants-for-your-nevada-garden"
+                    target="_blank"
+                  >
                     Nevada Audubon Organization - 10 Native Plants for your
                     Garden
                   </a>
@@ -109,7 +113,10 @@ export default function Home() {
               </tr>
               <tr className="table-success">
                 <td>
-                  <a href="https://extension.uga.edu/publications/detail.html?number=B625">
+                  <a
+                    href="https://extension.uga.edu/publications/detail.html?number=B625"
+                    target="_blank"
+                  >
                     University of Georgia Extension - Landscape Plants for
                     Georgia
                   </a>

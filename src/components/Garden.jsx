@@ -1,127 +1,40 @@
 // import Garden_Canvas from "./Garden_Canvas";
-import Nav_Bar from "./Nav_Bar";
 import Plants from "./Plants";
 import { useState } from "react";
 import { useGetUserQuery } from "../components_db/userSlice";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-export default function Garden({ shape, setShape }) {
-  window.sessionStorage.setItem("active_item", "garden");
+import SelectList from "./SelectList";
 
-  // const temp = useSelector((state) => state);
-  // console.log(temp);
+export default function Garden() {
+  let [currentShape, setShape] = useState("square");
 
-  // function Loading_Bar() {
-  //   return (
-  //     <div className="row w100 top2">
-  //       <div className="col-12 ">
-  //         {" "}
-  //         Loading ...
-  //         <div className="progress bg-primary">
-  //           <div
-  //             className="progress-bar progress-bar-striped progress-bar-animated bg-success "
-  //             role="progressbar"
-  //             aria-valuenow="75"
-  //             aria-valuemin="0"
-  //             aria-valuemax="100"
-  //           ></div>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-  // }
+  //TO DO - fix hard code
+  let [currentShapeId, setShapeId] = useState(
+    "20f66411-157c-431f-8b25-2d23aac9ad6e"
+  );
+
+  const shapeList = useSelector((state) => {
+    return state.reference.shapeList;
+  });
 
   function Garden_Canvas() {
-    switch (shape) {
-      case "sq":
-        return (
-          <div className="  border-garden p-2 text-dark  square br ">
-            {shape}
-          </div>
-        );
-      case "rec":
-        return (
-          <div className="  border-garden p-2 text-dark  rectangle ">
-            {shape}
-          </div>
-        );
-      case "cir":
-        return (
-          <div className="  border-garden p-2 text-dark  circle ">{shape}</div>
-        );
-
-      default:
-        return (
-          <div className="  border-garden p-2 text-dark bg-light square">
-            {shape}
-          </div>
-        );
-    }
+    // let currentShapeClass = shapeList.find((shapeObj) => {
+    // if (shapeObj.shape_name === currentShape) return shapeObj.css_class;
+    //  });
+    // console.log(currentShapeClass);
+    // console.log("Garden_Canvas");
+    // // <div className={`  border-garden p-2 text-dark  ${currentShapeClass} br`}>
+    // //   {currentShape}
+    // // </div>;
   }
 
-  function Shape_Select() {
-    function updateShape(e) {
-      console.log("Shape Selected!!", e.target.value);
-      setShape(e.target.value);
-      console.log("shape luego de setearla", shape);
-    }
+  function updateShape(e) {
+    setShape(e.target.value);
+    currentShapeId = setShapeId(e.target.value);
 
-    switch (shape) {
-      case "sq":
-        return (
-          <select
-            className="custom-select form-control input-sm p-1"
-            onChange={updateShape}
-            defaultValue="sq"
-          >
-            <option>Shape</option>
-            <option value="sq">Square</option>
-            <option value="rec">Rectangle</option>
-            <option value="cir">Circle</option>
-          </select>
-        );
-      case "rec":
-        return (
-          <select
-            className="custom-select form-control input-sm p-1"
-            onChange={updateShape}
-            defaultValue="sq"
-          >
-            <option>Shape</option>
-            <option value="sq">Square</option>
-            <option value="rec">Rectangle</option>
-            <option value="cir">Circle</option>
-          </select>
-        );
-      case "cir":
-        return (
-          <select
-            className="custom-select form-control input-sm p-1"
-            onChange={updateShape}
-            defaultValue="sq"
-          >
-            <option>Shape</option>
-            <option value="sq">Square</option>
-            <option value="rec">Rectangle</option>
-            <option value="cir">Circle</option>
-          </select>
-        );
-
-      default:
-        return (
-          <select
-            className="custom-select form-control input-sm p-1"
-            onChange={updateShape}
-            defaultValue="sq"
-          >
-            <option>Shape</option>
-            <option value="sq">Square</option>
-            <option value="rec">Rectangle</option>
-            <option value="cir">Circle</option>
-          </select>
-        );
-    }
+    console.log("shape updated: ", currentShapeId);
   }
 
   function GardenCard() {
@@ -130,14 +43,21 @@ export default function Garden({ shape, setShape }) {
         <div className="card-header ">My Garden</div>
         <div className="row  center   ">
           <div className="col-sm-6 mt-4 mb-3 ">
-            <Shape_Select />
+            <SelectList
+              theList={shapeList}
+              theListName="shape_id"
+              theParentForm="Garden"
+              onChangeFunction={updateShape}
+              theFieldName="shape_name"
+              the2FieldName=":)"
+            />
           </div>
         </div>{" "}
         <div className="row   center pt-2 ">
           <div className="col-sm-5 center ">
             <button
               type="button"
-              className="btn btn-outline-warning btn-sm boder border-warning"
+              className="btn btn-outline-warning btn-sm border border-warning"
             >
               Save Garden
             </button>
@@ -146,7 +66,7 @@ export default function Garden({ shape, setShape }) {
           <div className="col-sm-5 center ">
             <button
               type="button"
-              className="btn btn-outline-warning btn-sm boder border-warning"
+              className="btn btn-outline-warning btn-sm border border-warning"
             >
               Buy Garden
             </button>
@@ -167,77 +87,60 @@ export default function Garden({ shape, setShape }) {
   }
 
   function UserCard() {
+    // // const { data, error, isLoading } = useGetUserQuery(id);
+    // if (!isLoading) {
+    //   const specificName = name?.filter((obj) => {
+    //     if (obj.id === data.user.zone_id) return obj.zone_name;
+    //   });
+    //   console.log(specificName[0].zone_name);
+    // }
+    // if (error) {
+    //   return <div>Error: {error.message}</div>;
+    // }
+    const zoneList = useSelector((state) => {
+      return state.reference.zoneList;
+    });
+
+    const theUser = useSelector((state) => {
+      return state.user;
+    });
+
     const id = useSelector((state) => {
       return state.user.id;
     });
 
-    const name = useSelector((state) => {
-      return state.reference.zoneList;
-    });
-    console.log(name);
-    console.log(id);
+    console.log("zoneList: ", zoneList);
+    console.log("theUser: ", theUser);
+    console.log("id: ", id);
 
-    const { data, error, isLoading } = useGetUserQuery(id);
+    let specificZone;
 
-    console.log(data);
-
-    if (!isLoading) {
-      const specificName = name?.filter((obj) => {
-        if (obj.id === data.user.zone_id) return obj.zone_name;
+    if (theUser && zoneList) {
+      specificZone = zoneList.filter((obj) => {
+        if (obj.id === theUser.zone_id) return obj.zone_name;
       });
-      console.log(specificName[0].zone_name);
+      console.log(specificZone[0].zone_name);
     }
 
-    if (isLoading) {
-      return (
-        <div className="row w100 top2">
-          <div className="col-12 ">
-            {" "}
-            Loading ...
-            <div className="progress bg-primary">
-              <div
-                className="progress-bar progress-bar-striped progress-bar-animated bg-success "
-                role="progressbar"
-                aria-valuenow="75"
-                aria-valuemin="0"
-                aria-valuemax="100"
-              ></div>
-            </div>
-          </div>
-        </div>
-      );
-    }
-
-    if (error) {
-      return <div>Error: {error.message}</div>;
-    }
-
-    if (!data) {
-      return <div>No user found.</div>;
-    }
-    const specificName = name?.filter((obj) => {
-      if (obj.id === data?.user?.zone_id) return obj.zone_name;
-    });
-    console.log(specificName[0].zone_name);
     return (
       <div className=" border-primary   mt-5 card">
-        <div className="card-header "> {data.user.email}</div>
+        <div className="card-header "> {theUser.email}</div>
 
         <div className="row   center pt-2 pb-3 ">
-          <div className="col-sm-5 center ">{data.user.firstname}</div>
+          <div className="col-sm-5 center ">{theUser.firstname}</div>
 
-          <div className="col-sm-5 center ">{data.user.lastname}</div>
+          <div className="col-sm-5 center ">{theUser.lastname}</div>
           <div className="col-sm-5 center ">
             <p>Zone</p>
 
-            <p>{specificName[0].zone_name}</p>
+            <p>{specificZone[0].zone_name}</p>
           </div>
           {/* <div className="col-sm-5 center ">{specificName[0].temp_range}</div> */}
           <div className="col-sm-5 center ">
-            <Link to={`/user/${data.user.id}`}>
+            <Link to={`/user/`}>
               <button
                 type="button"
-                className="btn btn-outline-warning btn-sm boder border-warning"
+                className="btn btn-outline-warning btn-sm border border-warning"
               >
                 Update User
               </button>
@@ -250,10 +153,7 @@ export default function Garden({ shape, setShape }) {
 
   return (
     <>
-      {/* <Nav_Bar /> */}
       <div className="container-fluid w85 ">
-        {/* < Loading_Bar /> */}
-
         <div className="row w100 ">
           <div className="col-2  ">
             <div className="garden-card">
