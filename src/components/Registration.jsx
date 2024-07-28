@@ -7,7 +7,6 @@ import { useLoginMutation } from "../components_db/userSlice";
 import SelectList from "./SelectList";
 
 export default function Registration() {
-  window.sessionStorage.setItem("active_item", "registration");
   const navigate = useNavigate();
   const [form, setForm] = useState({});
   const [errM, setErrM] = useState(null);

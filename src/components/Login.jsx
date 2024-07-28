@@ -1,10 +1,9 @@
-import Nav_Bar from "./Nav_Bar";
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../components_db/userSlice";
 
 export default function Login() {
-  window.sessionStorage.setItem("active_item", "login");
 
   const navigate = useNavigate();
   const [form, setForm] = useState({});

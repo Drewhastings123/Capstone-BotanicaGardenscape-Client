@@ -1,17 +1,17 @@
 import { useParams } from "react-router-dom";
 import { useUpdateUserMutation } from "../components_db/userSlice";
-import Nav_Bar from "./Nav_Bar";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import SelectList from "./SelectList";
 
 export default function User() {
-  window.sessionStorage.setItem("active_item", "user");
-  const id = useParams();
-  const [updateUser] = useUpdateUserMutation(id);
-  const user = useSelector((state) => {
+
+ const user = useSelector((state) => {
     return state.user;
   });
+  
+  const [updateUser] = useUpdateUserMutation(user.id);
+ 
   const zoneList = useSelector((state) => {
     return state.reference.zoneList;
   });

@@ -1,5 +1,4 @@
 // import Garden_Canvas from "./Garden_Canvas";
-import Nav_Bar from "./Nav_Bar";
 import Plants from "./Plants";
 import { useState } from "react";
 import { useGetUserQuery } from "../components_db/userSlice";
@@ -7,7 +6,6 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 export default function Garden({ shape, setShape }) {
-  window.sessionStorage.setItem("active_item", "garden");
 
   // const temp = useSelector((state) => state);
   // console.log(temp);

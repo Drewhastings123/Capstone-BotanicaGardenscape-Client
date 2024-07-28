@@ -1,6 +1,6 @@
-.nav-link:hover {
-  background-color: #62c462 !important;
-}
+/* .nav-link:hover {
+  background-color: #62c462 ;
+} */
 
 .w100 {
   width: 100% !important;
@@ -218,11 +218,11 @@ td {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #ee605b75;
+  background: #5bee5b75;
   border-radius: 0.4em;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #ee605be0;
+  background:#5bee5b75;
 }
