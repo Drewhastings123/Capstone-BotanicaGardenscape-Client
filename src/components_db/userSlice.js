@@ -46,7 +46,7 @@ const userApi = api.injectEndpoints({
 });
 
 const storeUser = (state, { payload }) => {
-  console.log("payload", payload);
+  console.log("storeuser: payload", payload);
   state.id = payload.user.id;
   state.firstname = payload.user.firstname;
   state.lastname = payload.user.lastname;

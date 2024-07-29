@@ -1,11 +1,9 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../components_db/userSlice";
 import Loading_Bar from "./Loading_Bar";
 
 export default function Login() {
-
   const navigate = useNavigate();
   const [form, setForm] = useState({});
   const [errM, setErrM] = useState(null);
@@ -17,10 +15,10 @@ export default function Login() {
       let success = false;
       success = await loginUser(form).unwrap();
 
+      console.log("Login() SUCCESS: ", success);
+
       if (!success) {
-        return (
-          Loading_Bar("50")
-        );
+        return Loading_Bar("50");
       }
 
       if (success?.token) {
