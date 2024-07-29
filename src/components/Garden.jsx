@@ -166,81 +166,69 @@ export default function Garden({ shape, setShape }) {
   }
 
   function UserCard() {
-    const id = useSelector((state) => {
-      return state.user.id;
-    });
+    // const id = useSelector((state) => {
+    //   return state.user.id;
+    // });
+    // const { data, error, isLoading } = useGetUserQuery(id);
+    //  console.log(data);
+    // if (isLoading) {
+    //   return Loading_Bar("45");
+    // }
+    // if (error) {
+    //   return <div>Error: {error.message}</div>;
+    // }
+    // if (!data) {
+    //   return <div>No user found.</div>;
+    // }
 
+    // get the current logged in user from state
     const theUser = useSelector((state) => {
       return state.user;
     });
 
-    const name = useSelector((state) => {
+    // get the zonelist to display users zonelist
+    const zoneList = useSelector((state) => {
       return state.reference.zoneList;
     });
 
-    console.log(name);
-    console.log(id);
-    console.log(theUser);
+    console.log("UserCard: ", zoneList);
+    console.log("UserCard: ", theUser);
 
-    const { data, error, isLoading } = useGetUserQuery(id);
-
-    console.log(data);
-
-    const userAfter = useSelector((state) => {
-      return state.user;
+    const specificZoneName = zoneList?.filter((obj) => {
+      if (obj.id === theUser.zone_id) return obj.zone_name;
     });
+    console.log("UserCard: ", specificZoneName[0].zone_name);
 
-    console.log(`userAfter getQuery:  ${userAfter}`);
+    if (!theUser)
+      return <div>No User Found - Please logout and login again.</div>;
+    else
+      return (
+        <div className=" border-primary   mt-5 card">
+          <div className="card-header "> {theUser.email}</div>
 
-    if (!isLoading) {
-      const specificName = name?.filter((obj) => {
-        if (obj.id === data.user.zone_id) return obj.zone_name;
-      });
-      console.log(specificName[0].zone_name);
-    }
+          <div className="row   center pt-2 pb-3 ">
+            <div className="col-sm-5 center ">{theUser.firstname}</div>
 
-    if (isLoading) {
-      return Loading_Bar("45");
-    }
+            <div className="col-sm-5 center ">{theUser.lastname}</div>
+            <div className="col-sm-5 center ">
+              <p>Zone</p>
 
-    if (error) {
-      return <div>Error: {error.message}</div>;
-    }
-
-    if (!data) {
-      return <div>No user found.</div>;
-    }
-    const specificName = name?.filter((obj) => {
-      if (obj.id === data?.user?.zone_id) return obj.zone_name;
-    });
-    console.log(specificName[0].zone_name);
-    return (
-      <div className=" border-primary   mt-5 card">
-        <div className="card-header "> {data.user.email}</div>
-
-        <div className="row   center pt-2 pb-3 ">
-          <div className="col-sm-5 center ">{data.user.firstname}</div>
-
-          <div className="col-sm-5 center ">{data.user.lastname}</div>
-          <div className="col-sm-5 center ">
-            <p>Zone</p>
-
-            <p>{specificName[0].zone_name}</p>
-          </div>
-          {/* <div className="col-sm-5 center ">{specificName[0].temp_range}</div> */}
-          <div className="col-sm-5 center ">
-            <Link to={`/user/`}>
-              <button
-                type="button"
-                className="btn btn-outline-warning btn-sm boder border-warning"
-              >
-                Update User
-              </button>
-            </Link>
+              <p>{specificZoneName[0].zone_name}</p>
+            </div>
+            {/* <div className="col-sm-5 center ">{specificName[0].temp_range}</div> */}
+            <div className="col-sm-5 center ">
+              <Link to={`/user/`}>
+                <button
+                  type="button"
+                  className="btn btn-outline-warning btn-sm border border-warning"
+                >
+                  Update User
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
-    );
+      );
   }
 
   return (
