@@ -74,7 +74,7 @@ body {
 .gridHome {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr ;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
   /* grid-auto-rows: minmax(30%, auto); */
   column-gap: 1em;
   row-gap: 1em;
@@ -82,4 +82,26 @@ body {
 
   width: 100vw;
   height: 100vh;
+}
+
+/* .active {
+  background-color: #5bee5b75;
+  color: whitesmoke;
+} */
+
+.navbar li > .active {
+  font-weight: bold;
+  color: purple;
+}
+
+.card-email-header {
+  display: inline-block;
+  /* font-size: calc(.75vw + .75vh); */
+  font-size: .95em;
+}
+
+.card-user {
+  display: inline-block;
+  /* font-size: calc(.75vw + .75vh); */
+  font-size: .90em;
 }

@@ -46,7 +46,7 @@ const userApi = api.injectEndpoints({
 });
 
 const storeUser = (state, { payload }) => {
-  console.log("payload", payload);
+  console.log("storeuser: payload", payload);
   state.id = payload.user.id;
   state.firstname = payload.user.firstname;
   state.lastname = payload.user.lastname;
@@ -54,6 +54,17 @@ const storeUser = (state, { payload }) => {
   state.phone_number = payload.user.phone_number;
   state.zone_id = payload.user.zone_id;
   state.user_role_id = payload.user.user_role_id;
+};
+
+const storeUpdateUser = (state, { payload }) => {
+  console.log("storeUpdateUser: payload", payload);
+  state.id = payload.id;
+  state.firstname = payload.firstname;
+  state.lastname = payload.lastname;
+  state.email = payload.email;
+  state.phone_number = payload.phone_number;
+  state.zone_id = payload.zone_id;
+  state.user_role_id = payload.user_role_id;
 };
 
 const userSlice = createSlice({
@@ -78,11 +89,27 @@ const userSlice = createSlice({
     clearLoginToken: ({ state }) => {
       window.sessionStorage.removeItem("Token");
       state.currentUserId = null;
+      state.user = null;
     },
+
+    // storeUser: (state, { payload }) => {
+    //   console.log("storeUserPayload", payload);
+    //   state.id = payload.user.id;
+    //   state.firstname = payload.user.firstname;
+    //   state.lastname = payload.user.lastname;
+    //   state.email = payload.user.email;
+    //   state.phone_number = payload.user.phone_number;
+    //   state.zone_id = payload.user.zone_id;
+    //   state.user_role_id = payload.user.user_role_id;
+    // },
   },
   extraReducers: (builder) => {
     builder.addMatcher(api.endpoints.login.matchFulfilled, setLoginToken);
     builder.addMatcher(api.endpoints.login.matchFulfilled, storeUser);
+    builder.addMatcher(
+      api.endpoints.updateUser.matchFulfilled,
+      storeUpdateUser
+    );
   },
 });
 
@@ -94,6 +121,7 @@ export const {
   useDeleteUserMutation,
 } = userApi;
 
-export const { setLoginToken, clearLoginToken } = userSlice.actions;
+export const { setLoginToken, clearLoginToken /*, storeUser */ } =
+  userSlice.actions;
 
 export default userSlice.reducer;
