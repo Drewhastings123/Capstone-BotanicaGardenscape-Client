@@ -2,29 +2,35 @@
 import Nav_Bar from "./Nav_Bar";
 import Plants_Filter from "./Plants_Filter";
 import { useState } from "react";
+import { useGetUserQuery } from "../components_db/userSlice";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 export default function Garden({ shape, setShape }) {
   window.sessionStorage.setItem("active_item", "garden");
 
-  function Loading_Bar() {
-    return (
-      <div className="row w100 top2">
-        <div className="col-12 ">
-          {" "}
-          Loading ...
-          <div className="progress bg-primary">
-            <div
-              className="progress-bar progress-bar-striped progress-bar-animated bg-success "
-              role="progressbar"
-              aria-valuenow="75"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            ></div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  // const temp = useSelector((state) => state);
+  // console.log(temp);
+
+  // function Loading_Bar() {
+  //   return (
+  //     <div className="row w100 top2">
+  //       <div className="col-12 ">
+  //         {" "}
+  //         Loading ...
+  //         <div className="progress bg-primary">
+  //           <div
+  //             className="progress-bar progress-bar-striped progress-bar-animated bg-success "
+  //             role="progressbar"
+  //             aria-valuenow="75"
+  //             aria-valuemin="0"
+  //             aria-valuemax="100"
+  //           ></div>
+  //         </div>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   function Garden_Canvas() {
     switch (shape) {
@@ -93,7 +99,7 @@ export default function Garden({ shape, setShape }) {
           <select
             className="custom-select form-control input-sm p-1"
             onChange={updateShape}
-            defaultValue="cir"
+            defaultValue="sq"
           >
             <option>Shape</option>
             <option value="sq">Square</option>
@@ -161,20 +167,81 @@ export default function Garden({ shape, setShape }) {
   }
 
   function UserCard() {
+    const id = useSelector((state) => {
+      return state.user.id;
+    });
+
+    const name = useSelector((state) => {
+      return state.reference.zoneList;
+    });
+    console.log(name);
+    console.log(id);
+
+    const { data, error, isLoading } = useGetUserQuery(id);
+
+    console.log(data);
+
+    if (!isLoading) {
+      const specificName = name?.filter((obj) => {
+        if (obj.id === data.user.zone_id) return obj.zone_name;
+      });
+      console.log(specificName[0].zone_name);
+    }
+
+    if (isLoading) {
+      return (
+        <div className="row w100 top2">
+          <div className="col-12 ">
+            {" "}
+            Loading ...
+            <div className="progress bg-primary">
+              <div
+                className="progress-bar progress-bar-striped progress-bar-animated bg-success "
+                role="progressbar"
+                aria-valuenow="75"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (error) {
+      return <div>Error: {error.message}</div>;
+    }
+
+    if (!data) {
+      return <div>No user found.</div>;
+    }
+    const specificName = name?.filter((obj) => {
+      if (obj.id === data?.user?.zone_id) return obj.zone_name;
+    });
+    console.log(specificName[0].zone_name);
     return (
       <div className=" border-primary   mt-5 card">
-        <div className="card-header ">
-          {" "}
-          {window.sessionStorage.getItem("email")}
-        </div>
+        <div className="card-header "> {data.user.email}</div>
 
         <div className="row   center pt-2 pb-3 ">
-          <div className="col-sm-5 center ">
-            {window.sessionStorage.getItem("firstName")}
-          </div>
+          <div className="col-sm-5 center ">{data.user.firstname}</div>
 
+          <div className="col-sm-5 center ">{data.user.lastname}</div>
           <div className="col-sm-5 center ">
-            {window.sessionStorage.getItem("lastName")}
+            <p>Zone</p>
+
+            <p>{specificName[0].zone_name}</p>
+          </div>
+          {/* <div className="col-sm-5 center ">{specificName[0].temp_range}</div> */}
+          <div className="col-sm-5 center ">
+            <Link to={`/user/${data.user.id}`}>
+              <button
+                type="button"
+                className="btn btn-outline-warning btn-sm boder border-warning"
+              >
+                Update User
+              </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -183,8 +250,8 @@ export default function Garden({ shape, setShape }) {
 
   return (
     <>
-      <Nav_Bar />
-      <div className="container-fluid w90 ">
+      {/* <Nav_Bar /> */}
+      <div className="container-fluid w85 ">
         {/* < Loading_Bar /> */}
 
         <div className="row w100 ">
