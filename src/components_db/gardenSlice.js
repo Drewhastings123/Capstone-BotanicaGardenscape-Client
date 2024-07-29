@@ -4,10 +4,11 @@ import { api } from "../app/api";
 const gardenApi = api.injectEndpoints({
   endpoints: (builder) => ({
     createGarden: builder.mutation({
-      query: (specifications) => ({
+      query: ({ specifications }) => ({
         url: "/garden",
         method: "POST",
         body: specifications,
+        // headers: { authorization: `Bearer ${token}` },
       }),
       invalidatesTags: ["Garden"],
     }),
@@ -66,7 +67,7 @@ const gardenSlice = createSlice({
   initialState: {},
   reducers: {},
   extraReducers: (builder) => {
-    builder.addMatcher(api.endpoints.reserve.matchFulfilled);
+    builder.addMatcher(api.endpoints.createGarden.matchFulfilled);
   },
 });
 

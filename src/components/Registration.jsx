@@ -6,6 +6,7 @@ import { useLoginMutation } from "../components_db/userSlice";
 
 import Loading_Bar from "./Loading_Bar";
 import SelectList from "./SelectList";
+import { useCreateGardenMutation } from "../components_db/gardenSlice";
 
 export default function Registration() {
   const navigate = useNavigate();
@@ -13,27 +14,73 @@ export default function Registration() {
   const [errM, setErrM] = useState(null);
 
   const [registerUser] = useRegistrationMutation();
-
+  const [createGarden] = useCreateGardenMutation();
   const [loginUser] = useLoginMutation();
 
+  // const id = useSelector((state) => {
+  //   return state.user.id;
+  // });
   const submit = async (e) => {
     e.preventDefault();
     console.log("submit");
 
     try {
-      let success = false;
-      let loginSuccess = false;
+      // let success = false;
+
+      // let loginSuccess = false;
 
       // TO DO - correctly handle and zone_id
       form.user_role_id = "e7a3bd11-2c6e-451d-beeb-e4ef9eeac9bf";
       console.log("form", form);
-      success = await registerUser(form).unwrap();
+      
+      const success = await registerUser(form).unwrap();
+      console.log("first success", success);
 
-      // TODO Handle failed registration better
-      //if we got the token back from registration
-      if (success?.token) {
-        loginSuccess = await loginUser(form).unwrap();
-      }
+      const loginSuccess = await loginUser(form).unwrap();
+      console.log("login", loginSuccess);
+      const specifications = {
+        description: "default garden",
+        user_id: loginSuccess.user.id,
+        zone_id: loginSuccess.user.zone_id,
+        shape_id: "20f66411-157c-431f-8b25-2d23aac9ad6e",
+        water_requirement_id: "9b2ce2d0-7e2f-4404-a7aa-d3505d6b3079",
+        sun_requirement_id: "98d6ac5a-5a50-4bf6-9b43-a6d6866c4de8",
+        soil_requirement_id: "76327833-1121-4a07-8197-a0fc5c641b5a",
+      };
+      // const token = success.token;
+      // console.log(token);
+      window.sessionStorage.setItem("Token", loginSuccess.token);
+
+      await createGarden({ specifications }).unwrap();
+
+      // console.log(success);
+      // console.log(loginSuccess);
+
+      // if (!success) {
+      //   return (
+      //     <div className="row w100 top2">
+      //       <div className="col-12 ">
+      //         {" "}
+      //         Loading ...
+      //         <div className="progress bg-primary">
+      //           <div
+      //             className="progress-bar progress-bar-striped progress-bar-animated bg-success "
+      //             role="progressbar"
+      //             aria-valuenow="25"
+      //             aria-valuemin="0"
+      //             aria-valuemax="100"
+      //           ></div>
+      //         </div>
+      //       </div>
+      //     </div>
+      //   );
+      // }
+
+//       // TODO Handle failed registration better
+//       //if we got the token back from registration
+//       if (success?.token) {
+//         loginSuccess = await loginUser(form).unwrap();
+//       }
 
       console.log("Registration success: ", success);
       console.log("Registration loginSuccess: ", loginSuccess);
@@ -45,7 +92,8 @@ export default function Registration() {
         setErrM("There is a problem with your registration, please try again.");
       }
     } catch (err) {
-      setErrM(err?.data?.message);
+      errM;
+      // setErrM(err?.data?.message);
     }
   };
 
@@ -59,7 +107,7 @@ export default function Registration() {
 
   const updateFormOnListChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    console.log(updateFormOnListChange);
+    // console.log(updateFormOnListChange);
     console.log(form);
   };
 
