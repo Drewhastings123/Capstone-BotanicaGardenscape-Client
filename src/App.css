@@ -103,5 +103,5 @@ body {
 .card-user {
   display: inline-block;
   /* font-size: calc(.75vw + .75vh); */
-  font-size: .95em;
+  font-size: .90em;
 }

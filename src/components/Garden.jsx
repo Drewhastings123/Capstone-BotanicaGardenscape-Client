@@ -7,100 +7,72 @@ import { useNavigate } from "react-router-dom";
 import Loading_Bar from "./Loading_Bar";
 import SelectList from "./SelectList";
 
-export default function Garden({ shape, setShape }) {
+export default function Garden() {
   const navigate = useNavigate();
 
+  // get the current logged in user from state
+  const theUser = useSelector((state) => {
+    return state.user;
+  });
+
+  // get the zonelist to display users zone
+  const zoneList = useSelector((state) => {
+    return state.reference.zoneList;
+  });
+
+  // get the shapeList to display users Shape
+  const shapeList = useSelector((state) => {
+    return state.reference.shapeList;
+  });
+
+  console.log("Garden SHAPELIST: ", shapeList);
+  console.log("Garden ZONELIST: ", zoneList);
+  console.log("Garden USER: ", theUser);
+
+  // find the correct name for display based on id
+  const specificZoneName = zoneList?.filter((obj) => {
+    if (obj.id === theUser.zone_id) return obj;
+  });
+  console.log("Garden USERS ZONE: ", specificZoneName[0]);
+  const displayZoneName =
+    specificZoneName[0].zone_name + " (" + specificZoneName[0].temp_range + ")";
+
+  // Temporary hard coded value
+  // Should be from user's garden or default
+  const [currentCanvas, setCurrentCanvas] = useState(shapeList[0].id);
+
+  const updateCanvasOnListChange = (e) => {
+    console.log(
+      `updateCanvasOnListChange: ${e.target.name}: ${e.target.value}`
+    );
+    setCurrentCanvas((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    console.log("updateCanvasOnListChange: ", currentCanvas);
+  };
+
   function Garden_Canvas() {
-    switch (shape) {
-      case "sq":
-        return (
-          <div className="  border-garden p-2 text-dark  square br ">
-            {shape}
-          </div>
-        );
-      case "rec":
-        return (
-          <div className="  border-garden p-2 text-dark  rectangle ">
-            {shape}
-          </div>
-        );
-      case "cir":
-        return (
-          <div className="  border-garden p-2 text-dark  circle ">{shape}</div>
-        );
+    const specificShapeClass = shapeList?.filter((obj) => {
+      if (obj.id === currentCanvas) return obj;
+    });
+    const canvasClasses =
+      "  border-garden p-2 text-dark " + specificShapeClass[0].css_class;
 
-      default:
-        return (
-          <div className="  border-garden p-2 text-dark bg-light square">
-            {shape}
-          </div>
-        );
-    }
+    console.log("Garden_Canvas: ", canvasClasses);
+
+    return <div className={canvasClasses}></div>;
   }
 
-  function Shape_Select() {
-    function updateShape(e) {
-      console.log("Shape Selected!!", e.target.value);
-      setShape(e.target.value);
-      console.log("shape luego de setearla", shape);
-    }
-
-    switch (shape) {
-      case "sq":
-        return (
-          <select
-            className="custom-select form-control input-sm p-1"
-            onChange={updateShape}
-            defaultValue="sq"
-          >
-            <option>Shape</option>
-            <option value="sq">Square</option>
-            <option value="rec">Rectangle</option>
-            <option value="cir">Circle</option>
-          </select>
-        );
-      case "rec":
-        return (
-          <select
-            className="custom-select form-control input-sm p-1"
-            onChange={updateShape}
-            defaultValue="sq"
-          >
-            <option>Shape</option>
-            <option value="sq">Square</option>
-            <option value="rec">Rectangle</option>
-            <option value="cir">Circle</option>
-          </select>
-        );
-      case "cir":
-        return (
-          <select
-            className="custom-select form-control input-sm p-1"
-            onChange={updateShape}
-            defaultValue="sq"
-          >
-            <option>Shape</option>
-            <option value="sq">Square</option>
-            <option value="rec">Rectangle</option>
-            <option value="cir">Circle</option>
-          </select>
-        );
-
-      default:
-        return (
-          <select
-            className="custom-select form-control input-sm p-1"
-            onChange={updateShape}
-            defaultValue="sq"
-          >
-            <option>Shape</option>
-            <option value="sq">Square</option>
-            <option value="rec">Rectangle</option>
-            <option value="cir">Circle</option>
-          </select>
-        );
-    }
-  }
+  // function Shape_Select() {
+  //   // TODO - USE THE GARDEN's Shape list
+  //   <SelectList
+  //     theList={shapeList}
+  //     theListName="id"
+  //     theParentForm="Garden"
+  //     onChangeFunction={updateCanvasOnListChange}
+  //     theCurrentValue={shapeList[0].id}
+  //     theFieldName="shape_name"
+  //     /* the2FieldName="css_class" */
+  //   />;
+  // }
 
   function GardenCard() {
     return (
@@ -108,7 +80,16 @@ export default function Garden({ shape, setShape }) {
         <div className="card-header ">My Garden</div>
         <div className="row  center   ">
           <div className="col-sm-6 mt-4 mb-3 ">
-            <Shape_Select />
+            {/* <Shape_Select /> */}
+            <SelectList
+              theList={shapeList}
+              theListName="id"
+              theParentForm="Garden"
+              onChangeFunction={updateCanvasOnListChange}
+              theCurrentValue={shapeList[0].id}
+              theFieldName="shape_name"
+              /* the2FieldName="css_class" */
+            />
           </div>
         </div>{" "}
         <div className="row   center pt-2 ">
@@ -145,26 +126,6 @@ export default function Garden({ shape, setShape }) {
   }
 
   function UserCard() {
-    // get the current logged in user from state
-    const theUser = useSelector((state) => {
-      return state.user;
-    });
-
-    // get the zonelist to display users zonelist
-    const zoneList = useSelector((state) => {
-      return state.reference.zoneList;
-    });
-
-    console.log("UserCard ZONELIST: ", zoneList);
-    console.log("UserCard USER: ", theUser);
-
-    const specificZoneName = zoneList?.filter((obj) => {
-      if (obj.id === theUser.zone_id)
-        return obj;
-    });
-    console.log("UserCard USERS ZONE: ", specificZoneName[0]);
-    const displayZoneName = specificZoneName[0].zone_name + " (" + specificZoneName[0].temp_range + ")";
-
     if (!theUser)
       return <div>No User Found - Please logout and login again.</div>;
     else

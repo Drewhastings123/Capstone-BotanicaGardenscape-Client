@@ -33,9 +33,9 @@ export default function SelectList({
               return (
                 // eslint-disable-next-line react/jsx-key
                 <option value={String(opt.id)} key={String(opt.id)}>
-                  {opt[theFieldName] + (opt[the2FieldName] &&
-                    " (" + opt[the2FieldName] + ")" ||
-                    " ")}
+                  {opt[theFieldName] +
+                    ((opt[the2FieldName] && " (" + opt[the2FieldName] + ")") ||
+                      " ")}
                 </option>
               );
             })
