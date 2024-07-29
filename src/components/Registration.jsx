@@ -4,11 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { useRegistrationMutation } from "../components_db/registrationSlice";
 import { useLoginMutation } from "../components_db/userSlice";
 
+import Loading_Bar from "./Loading_Bar";
 import SelectList from "./SelectList";
 import { useCreateGardenMutation } from "../components_db/gardenSlice";
 
 export default function Registration() {
-  window.sessionStorage.setItem("active_item", "registration");
   const navigate = useNavigate();
   const [form, setForm] = useState({});
   const [errM, setErrM] = useState(null);
@@ -32,6 +32,7 @@ export default function Registration() {
       // TO DO - correctly handle and zone_id
       form.user_role_id = "e7a3bd11-2c6e-451d-beeb-e4ef9eeac9bf";
       console.log("form", form);
+      
       const success = await registerUser(form).unwrap();
       console.log("first success", success);
 
@@ -75,7 +76,16 @@ export default function Registration() {
       //   );
       // }
 
-      if (success?.token) {
+//       // TODO Handle failed registration better
+//       //if we got the token back from registration
+//       if (success?.token) {
+//         loginSuccess = await loginUser(form).unwrap();
+//       }
+
+      console.log("Registration success: ", success);
+      console.log("Registration loginSuccess: ", loginSuccess);
+
+      if (loginSuccess?.token) {
         window.sessionStorage.setItem("Token", success.token);
         navigate("/garden");
       } else {
@@ -108,8 +118,6 @@ export default function Registration() {
 
   return (
     <>
-      {/* <Nav_Bar /> */}
-
       <div className="container top5">
         <div className="row w100">
           <div className="col"></div>
@@ -173,15 +181,6 @@ export default function Registration() {
                               onChange={updateForm}
                               required
                             />
-
-                            {/*<input
-                              type="text"
-                              className="form-control"
-                              name="zone_id"
-                              placeholder="Zone 3"
-                              onChange={updateFormOnListChange}
-                              required
-                            />*/}
 
                             <SelectList
                               theList={zoneList}
