@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useRegistrationMutation } from "../components_db/registrationSlice";
 import { useLoginMutation } from "../components_db/userSlice";
 
+import Loading_Bar from "./Loading_Bar";
 import SelectList from "./SelectList";
 
 export default function Registration() {
@@ -27,32 +28,17 @@ export default function Registration() {
       form.user_role_id = "e7a3bd11-2c6e-451d-beeb-e4ef9eeac9bf";
       console.log("form", form);
       success = await registerUser(form).unwrap();
-      loginSuccess = await loginUser(form).unwrap();
 
-      console.log(success);
-      console.log(loginSuccess);
-
-      if (!success) {
-        return (
-          <div className="row w100 top2">
-            <div className="col-12 ">
-              {" "}
-              Loading ...
-              <div className="progress bg-primary">
-                <div
-                  className="progress-bar progress-bar-striped progress-bar-animated bg-success "
-                  role="progressbar"
-                  aria-valuenow="25"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                ></div>
-              </div>
-            </div>
-          </div>
-        );
+      // TODO Handle failed registration better
+      //if we got the token back from registration
+      if (success?.token) {
+        loginSuccess = await loginUser(form).unwrap();
       }
 
-      if (success?.token) {
+      console.log("Registration success: ", success);
+      console.log("Registration loginSuccess: ", loginSuccess);
+
+      if (loginSuccess?.token) {
         window.sessionStorage.setItem("Token", success.token);
         navigate("/garden");
       } else {

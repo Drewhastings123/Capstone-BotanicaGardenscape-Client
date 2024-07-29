@@ -89,7 +89,19 @@ body {
   color: whitesmoke;
 } */
 
-.navbar li>.active {
+.navbar li > .active {
   font-weight: bold;
   color: purple;
+}
+
+.card-email-header {
+  display: inline-block;
+  /* font-size: calc(.75vw + .75vh); */
+  font-size: .95em;
+}
+
+.card-user {
+  display: inline-block;
+  /* font-size: calc(.75vw + .75vh); */
+  font-size: .95em;
 }

@@ -8,7 +8,6 @@ import Loading_Bar from "./Loading_Bar";
 import SelectList from "./SelectList";
 
 export default function Garden({ shape, setShape }) {
-  
   const navigate = useNavigate();
 
   function Garden_Canvas() {
@@ -146,21 +145,6 @@ export default function Garden({ shape, setShape }) {
   }
 
   function UserCard() {
-    // const id = useSelector((state) => {
-    //   return state.user.id;
-    // });
-    // const { data, error, isLoading } = useGetUserQuery(id);
-    //  console.log(data);
-    // if (isLoading) {
-    //   return Loading_Bar("45");
-    // }
-    // if (error) {
-    //   return <div>Error: {error.message}</div>;
-    // }
-    // if (!data) {
-    //   return <div>No user found.</div>;
-    // }
-
     // get the current logged in user from state
     const theUser = useSelector((state) => {
       return state.user;
@@ -175,28 +159,26 @@ export default function Garden({ shape, setShape }) {
     console.log("UserCard USER: ", theUser);
 
     const specificZoneName = zoneList?.filter((obj) => {
-      if (obj.id === theUser.zone_id) return obj.zone_name;
+      if (obj.id === theUser.zone_id)
+        return obj;
     });
-    console.log("UserCard USERS ZONE: ", specificZoneName[0].zone_name);
+    console.log("UserCard USERS ZONE: ", specificZoneName[0]);
+    const displayZoneName = specificZoneName[0].zone_name + " (" + specificZoneName[0].temp_range + ")";
 
     if (!theUser)
       return <div>No User Found - Please logout and login again.</div>;
     else
       return (
-        <div className=" border-primary   mt-5 card">
-          <div className="card-header "> {theUser.email}</div>
+        <div className=" border-primary mt-5 card">
+          <div className="card-header card-email-header"> {theUser.email}</div>
 
-          <div className="row   center pt-2 pb-3 ">
-            <div className="col-sm-5 center ">{theUser.firstname}</div>
-
-            <div className="col-sm-5 center ">{theUser.lastname}</div>
-            <div className="col-sm-5 center ">
-              <p>Zone</p>
-
-              <p>{specificZoneName[0].zone_name}</p>
+          <div className="grid center pt-2 pb-3 card-user">
+            <div className="center card-user">
+              {theUser.firstname} {theUser.lastname}
             </div>
-            {/* <div className="col-sm-5 center ">{specificName[0].temp_range}</div> */}
-            <div className="col-sm-5 center ">
+            <div className="center card-user"> Zone: {displayZoneName} </div>
+
+            <div className="center pt-3 ">
               <button
                 type="button"
                 className="btn btn-outline-warning btn-sm border border-warning"
@@ -212,12 +194,9 @@ export default function Garden({ shape, setShape }) {
 
   return (
     <>
-      {/* <Nav_Bar /> */}
-      <div className="container-fluid w85 ">
-        {/* < Loading_Bar /> */}
-
-        <div className="row w100 ">
-          <div className="col-2  ">
+      <div className="container-fluid w95">
+        <div className="row ">
+          <div className="col-3">
             <div className="garden-card">
               <GardenCard />
             </div>
@@ -225,8 +204,8 @@ export default function Garden({ shape, setShape }) {
               <UserCard />
             </div>
           </div>
-          <div className="col-8   ">
-            <div className=" garden center ">
+          <div className="col-5   ">
+            <div className=" garden-canvas ">
               <Garden_Canvas />
             </div>
           </div>
