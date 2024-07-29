@@ -17,11 +17,7 @@ export default function Nav_Bar() {
       {" "}
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
         <span className="material-symbols-outlined">yard</span>
-        <NavLink
-          to="/"
-          className="navbar-brand bg-success"
-          activeClassName="active"
-        >
+        <NavLink to="/" className="navbar-brand active bg-success">
           Botanica Gardenscape
         </NavLink>
         <button
@@ -41,11 +37,7 @@ export default function Nav_Bar() {
             {!token && (
               <div>
                 <li className="nav-item ">
-                  <NavLink
-                    to="/login"
-                    className="nav-link "
-                    activeClassName="active"
-                  >
+                  <NavLink to="/login" className="nav-link ">
                     Login{" "}
                   </NavLink>
                 </li>{" "}
@@ -54,11 +46,7 @@ export default function Nav_Bar() {
             {!token && (
               <div>
                 <li className="nav-item">
-                  <NavLink
-                    to="/registration"
-                    className="nav-link "
-                    activeClassName="active"
-                  >
+                  <NavLink to="/registration" className="nav-link ">
                     Register{" "}
                   </NavLink>
                 </li>
@@ -68,11 +56,7 @@ export default function Nav_Bar() {
             {token && (
               <div>
                 <li className="nav-item">
-                  <NavLink
-                    to="/garden"
-                    className="nav-link "
-                    activeClassName="active"
-                  >
+                  <NavLink to="/garden" className="nav-link ">
                     My Garden{" "}
                   </NavLink>
                 </li>
@@ -81,11 +65,7 @@ export default function Nav_Bar() {
             {token && (
               <div>
                 <li className="nav-item active bg-success">
-                  <NavLink
-                    to="/user"
-                    className="nav-link "
-                    activeClassName="active"
-                  >
+                  <NavLink to="/user" className="nav-link ">
                     User Info
                   </NavLink>
                 </li>

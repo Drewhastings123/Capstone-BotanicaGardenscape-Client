@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../components_db/userSlice";
+import Loading_Bar from "./Loading_Bar";
 
 export default function Login() {
 
@@ -14,28 +15,11 @@ export default function Login() {
     e.preventDefault();
     try {
       let success = false;
-
-      console.log("form", form);
       success = await loginUser(form).unwrap();
-      console.log(success);
 
       if (!success) {
         return (
-          <div className="row w100 top2">
-            <div className="col-12 ">
-              {" "}
-              Loading ...
-              <div className="progress bg-primary">
-                <div
-                  className="progress-bar progress-bar-striped progress-bar-animated bg-success "
-                  role="progressbar"
-                  aria-valuenow="75"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                ></div>
-              </div>
-            </div>
-          </div>
+          Loading_Bar("50")
         );
       }
 

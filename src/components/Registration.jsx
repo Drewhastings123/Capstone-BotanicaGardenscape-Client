@@ -84,8 +84,6 @@ export default function Registration() {
 
   return (
     <>
-      {/* <Nav_Bar /> */}
-
       <div className="container top5">
         <div className="row w100">
           <div className="col"></div>
@@ -149,15 +147,6 @@ export default function Registration() {
                               onChange={updateForm}
                               required
                             />
-
-                            {/*<input
-                              type="text"
-                              className="form-control"
-                              name="zone_id"
-                              placeholder="Zone 3"
-                              onChange={updateFormOnListChange}
-                              required
-                            />*/}
 
                             <SelectList
                               theList={zoneList}

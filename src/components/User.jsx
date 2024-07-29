@@ -1,109 +1,185 @@
-import { useParams } from "react-router-dom";
 import { useUpdateUserMutation } from "../components_db/userSlice";
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import SelectList from "./SelectList";
+import Loading_Bar from "./Loading_Bar";
 
 export default function User() {
+  // setup the return button
+  const navigate = useNavigate();
 
- const user = useSelector((state) => {
+  // Get the current User
+  const user = useSelector((state) => {
     return state.user;
   });
-  
-  const [updateUser] = useUpdateUserMutation(user.id);
- 
+  console.log(`(useSelector(state) - function User() USER: ${user}`);
+
+  // Get the reference list for Zone
   const zoneList = useSelector((state) => {
     return state.reference.zoneList;
   });
+  console.log(`(useSelector(state) - function User() ZONELIST: ${zoneList}`);
 
-  const [editing, setEditing] = useState(false);
-  const [email, setEmail] = useState(user.email);
-  const [zone_id, setZone_id] = useState(user.zone_id);
-  const [lastname, setLastname] = useState(user.lastname);
-  const [firstname, setFirstname] = useState(user.firstname);
+  // set up the relationship to the user mutation
+  const [updateUser] = useUpdateUserMutation();
 
-  function onEdit(event) {
-    event.preventDefault();
-    if (editing) {
-      updateUser({ id: user.id, email, zone_id, lastname, firstname });
+  const [form, setForm] = useState({});
+  const [errM, setErrM] = useState(null);
+
+  //  What to do when the submit button is clicked
+  const submit = async (e) => {
+    e.preventDefault();
+    console.log(`(useSelector(state) - function User() SUBMIT`);
+
+    try {
+      let updateSuccess = false;
+      // add the user id to the form
+      setForm((prev) => ({
+        ...prev,
+        ["id"]: user.id,
+      }));
+
+      // add the user role id to the form
+      setForm((prev) => ({
+        ...prev,
+        ["user_role_id"]: user.user_role_id,
+      }));
+
+      console.log(`(function User() SUBMIT FORM: ${form}`);
+
+      updateSuccess = updateUser(form).unwrap();
+
+      console.log(`(function User() SUBMIT UPDATESUCCESS: ${updateSuccess}`);
+
+      if (!updateSuccess) {
+        return Loading_Bar("30");
+      }
+    } catch (err) {
+      setErrM(err?.data?.message);
     }
-    setEditing(!editing);
-  }
+  };
 
-  const editFields = (
-    <>
-      <td>
-        <input
-          type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </td>
-      <td>
-        <SelectList
-          theList={zoneList}
-          theListName="zone_id"
-          theParentForm="User"
-          onChangeFunction={(e) => setZone_id(e.target.value)}
-          theFieldName="zone_name"
-          the2FieldName="temp_range"
-        />
-      </td>
-      <td>
-        <input
-          type="text"
-          value={firstname}
-          onChange={(e) => setFirstname(e.target.value)}
-        />
-      </td>
-      <td>
-        <input
-          type="text"
-          value={lastname}
-          onChange={(e) => setLastname(e.target.value)}
-        />
-      </td>
-    </>
-  );
+  const updateForm = (e) => {
+    console.log(`updateForm: ${e.target.name}: ${e.target.value}`);
+    setForm((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const updateFormOnListChange = (e) => {
+    console.log(`updateFormOnListChange: ${e.target.name}: ${e.target.value}`);
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    console.log(updateFormOnListChange);
+    console.log(form);
+  };
+
   return (
     <>
-      <tbody>
-        <tr>
-          {editing ? (
-            editFields
-          ) : (
-            <>
-              <td>{email}</td>
+      <div className="container top5">
+        <div className="row w100">
+          <div className="col"></div>
 
-              <td>{lastname}</td>
-              <td>{firstname}</td>
-            </>
-          )}
-          <td className="buttons_users">
-            <button onClick={onEdit}>{editing ? "Save" : "Edit"}</button>
-          </td>
-        </tr>
-      </tbody>
-      {/* <Nav_Bar /> */}
-      {/* <div className="container top5">
-        <div className="row ">
-          <div className="col-3"></div>
-          <div className="col-12">
-            <h1>{window.sessionStorage.getItem("email")}</h1>
-            <div className="row space-top  ">
-              <p className="col-2 text-danger">
-                {" "}
-                {window.sessionStorage.getItem("firstName")}{" "}
-              </p>
+          <div className="col-8">
+            <div className="card border-success ">
+              <div className="card-header ">
+                <h4 className="card-title">User Details</h4>
+              </div>
 
-              <p className="col-10 text-info">
-                {window.sessionStorage.getItem("lastName")}{" "}
-              </p>
+              <div className="card-body">
+                <div className="card-text ">
+                  <form onSubmit={submit} name="formUserUpdate">
+                    <div className="row">
+                      <div className="col-12">
+                        <div className="row">
+                          <div className="col-6">
+                            <input
+                              type="email"
+                              className="form-control"
+                              name="email"
+                              aria-describedby="emailHelp"
+                              placeholder="Email"
+                              onChange={updateForm}
+                              required
+                            />
+                            <input
+                              type="text"
+                              className="form-control"
+                              name="firstname"
+                              placeholder="First Name"
+                              onChange={updateForm}
+                              required
+                            />
+
+                            <input
+                              type="phone"
+                              className="form-control"
+                              name="phone_number"
+                              placeholder="(XXX) 867-5209"
+                              onChange={updateForm}
+                              required
+                            />
+                          </div>
+                          <div>
+                            <input
+                              type="text"
+                              className="form-control"
+                              name="lastname"
+                              placeholder="Last Name"
+                              onChange={updateForm}
+                              required
+                            />
+
+                            <SelectList
+                              theList={zoneList}
+                              theListName="zone_id"
+                              theParentForm="UserUpdate"
+                              onChangeFunction={updateFormOnListChange}
+                              theFieldName="zone_name"
+                              the2FieldName="temp_range"
+                            />
+                          </div>
+                          {/*  //close col-6 */}
+                        </div>{" "}
+                        {/*  //close row */}
+                      </div>{" "}
+                      {/*  //close col-12 */}
+                    </div>{" "}
+                    {/*  //close row */}
+                    <div className="row">
+                      <div className="col-12">
+                        <button
+                          type="submit"
+                          className="btn btn-success form-control"
+                        >
+                          Submit
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-success"
+                          onClick={() => navigate("/garden")}
+                        >
+                          Return
+                        </button>
+                      </div>
+                      {errM && (
+                        <div className="row">
+                          <div className="col-12">
+                            <p className="text-warning">{errM}</p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </form>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="col-3"></div>
-        </div>
-      </div> */}
+
+          <div className="col"></div>
+        </div>{" "}
+      </div>
     </>
   );
 }

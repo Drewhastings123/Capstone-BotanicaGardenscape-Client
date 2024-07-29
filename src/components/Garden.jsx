@@ -4,9 +4,10 @@ import { useState } from "react";
 import { useGetUserQuery } from "../components_db/userSlice";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import Loading_Bar from "./Loading_Bar";
+import SelectList from "./SelectList";
 
 export default function Garden({ shape, setShape }) {
-
   // const temp = useSelector((state) => state);
   // console.log(temp);
 
@@ -169,15 +170,27 @@ export default function Garden({ shape, setShape }) {
       return state.user.id;
     });
 
+    const theUser = useSelector((state) => {
+      return state.user;
+    });
+
     const name = useSelector((state) => {
       return state.reference.zoneList;
     });
+
     console.log(name);
     console.log(id);
+    console.log(theUser);
 
     const { data, error, isLoading } = useGetUserQuery(id);
 
     console.log(data);
+
+    const userAfter = useSelector((state) => {
+      return state.user;
+    });
+
+    console.log(`userAfter getQuery:  ${userAfter}`);
 
     if (!isLoading) {
       const specificName = name?.filter((obj) => {
@@ -187,23 +200,7 @@ export default function Garden({ shape, setShape }) {
     }
 
     if (isLoading) {
-      return (
-        <div className="row w100 top2">
-          <div className="col-12 ">
-            {" "}
-            Loading ...
-            <div className="progress bg-primary">
-              <div
-                className="progress-bar progress-bar-striped progress-bar-animated bg-success "
-                role="progressbar"
-                aria-valuenow="75"
-                aria-valuemin="0"
-                aria-valuemax="100"
-              ></div>
-            </div>
-          </div>
-        </div>
-      );
+      return Loading_Bar("45");
     }
 
     if (error) {
@@ -232,7 +229,7 @@ export default function Garden({ shape, setShape }) {
           </div>
           {/* <div className="col-sm-5 center ">{specificName[0].temp_range}</div> */}
           <div className="col-sm-5 center ">
-            <Link to={`/user/${data.user.id}`}>
+            <Link to={`/user/`}>
               <button
                 type="button"
                 className="btn btn-outline-warning btn-sm boder border-warning"
