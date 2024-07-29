@@ -91,17 +91,17 @@ body {
 
 .navbar li > .active {
   font-weight: bold;
-  color: purple;
+  background-color: purple !important;
 }
 
 .card-email-header {
   display: inline-block;
   /* font-size: calc(.75vw + .75vh); */
-  font-size: .95em;
+  font-size: 0.95em;
 }
 
 .card-user {
   display: inline-block;
   /* font-size: calc(.75vw + .75vh); */
-  font-size: .90em;
+  font-size: 0.9em;
 }

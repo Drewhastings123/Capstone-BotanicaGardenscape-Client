@@ -47,6 +47,9 @@ const userApi = api.injectEndpoints({
 
 const storeUser = (state, { payload }) => {
   console.log("storeuser: payload", payload);
+
+  //TODO - modify this to state.user = payload.user;
+
   state.id = payload.user.id;
   state.firstname = payload.user.firstname;
   state.lastname = payload.user.lastname;
@@ -58,6 +61,9 @@ const storeUser = (state, { payload }) => {
 
 const storeUpdateUser = (state, { payload }) => {
   console.log("storeUpdateUser: payload", payload);
+
+  //TODO - modify this to state.user = payload;
+
   state.id = payload.id;
   state.firstname = payload.firstname;
   state.lastname = payload.lastname;
@@ -105,7 +111,7 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addMatcher(api.endpoints.login.matchFulfilled, setLoginToken);
-    builder.addMatcher(api.endpoints.login.matchFulfilled, storeUser);
+    builder.addMatcher(api.endpoints.getUser.matchFulfilled, storeUser);
     builder.addMatcher(
       api.endpoints.updateUser.matchFulfilled,
       storeUpdateUser
