@@ -1,23 +1,40 @@
-import Nav_Bar from "./Nav_Bar";
+import Nav_Bar from "./Nav_Bar.jsx";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
-export default function Plants() {
+import { useSelector, useDispatch } from "react-redux";
+
+import { setSun, setSoil, setWater, setZone } from "../app/currentViewSlice.js";
+
+export default function Plants_Filter() {
+  //const currentView = useSelector((state) => state.currentView);
+
   const plantsArray = [
     {
       id: 1,
       name: "Netleaf willow",
-      zone: "1",
+      zone: "3",
       water: "dry",
-      sun: "full",
+      sun: "shade",
+      soil: "soft",
       pic: "pic1",
     },
-    { id: 2, name: "Dwarf", zone: "1", water: "wet", sun: "full", pic: "pic2" },
+    {
+      id: 2,
+      name: "Dwarf",
+      zone: "3",
+      water: "dry",
+      sun: "shade",
+      soil: "soft",
+      pic: "pic2",
+    },
     {
       id: 3,
       name: "Crowberr",
       zone: "1",
       water: "dry",
       sun: "shade",
+      soil: "hard",
       pic: "pic3",
     },
     {
@@ -26,22 +43,25 @@ export default function Plants() {
       zone: "2",
       water: "wet",
       sun: "full",
+      soil: "soft",
       pic: "pic1",
     },
     {
       id: 5,
       name: "Bunchberry",
-      zone: "2",
-      water: "moistured",
+      zone: "3",
+      water: "dry",
       sun: "shade",
+      soil: "soft",
       pic: "pic2",
     },
     {
       id: 12,
       name: "Silverberry",
-      zone: "2",
+      zone: "1",
       water: "dry",
       sun: "shade",
+      soil: "soft",
       pic: "pic3",
     },
     {
@@ -50,6 +70,7 @@ export default function Plants() {
       zone: "3",
       water: "dry",
       sun: "full",
+      soil: "soft",
       pic: "pic1",
     },
     {
@@ -58,6 +79,7 @@ export default function Plants() {
       zone: "3",
       water: "wet",
       sun: "full",
+      soil: "hard",
       pic: "pic2",
     },
     {
@@ -66,39 +88,105 @@ export default function Plants() {
       zone: "3",
       water: "dry",
       sun: "shade",
+      soil: "hard",
       pic: "pic3",
     },
     {
       id: 9,
       name: "Sugar maple",
-      zone: "4",
-      water: "wet",
-      sun: "full",
+      zone: "2",
+      water: "dry",
+      sun: "shade",
+      soil: "soft",
       pic: "pic1",
     },
     {
       id: 10,
       name: "Crabapple tree",
       zone: "4",
-      water: "moistured",
+      water: "dry",
       sun: "shade",
+      soil: "soft",
       pic: "pic2",
     },
     {
       id: 11,
       name: "Delphinium",
-      zone: "5",
+      zone: "4",
       water: "dry",
       sun: "shade",
+      soil: "hard",
       pic: "pic3",
     },
   ];
 
+  const dispatch = useDispatch();
+
+  // function updateCurrentView(e) {
+  //   console.log(e.target.name + "- e -" + e.target.value);
+
+  // setForm((prev) => ({
+  //   ...prev,
+  //   [e.target.name]: e.target.value,
+  // }));
+
+  const updateCurrentView = (e) => {
+    switch (e.target.name) {
+      case "s_soil":
+        dispatch(setSoil(e.target.value));
+        break;
+      case "s_sun":
+        dispatch(setSun(e.target.value));
+        break;
+      case "s_water":
+        dispatch(setWater(e.target.value));
+        break;
+      case "s_zone":
+        dispatch(setZone(e.target.value));
+        break;
+      default:
+        break;
+    }
+  };
+
+  // const nArray = [];
+  // plantsArray.forEach((plant) => {
+  //   if (
+  //     plant.zone == cv.zone &&
+  //     plant.soil == cv.soil &&
+  //     plant.water == cv.water &&
+  //     plant.sun == cv.sun
+  //   ) {
+  //     nArray.push(plant);
+  //   }
+  // });
+  //  dispatch(setCurrentView(nArray));
+
   function Plant_List() {
+    //const newZone = useSelector((state) => state.currentView.zone);
+    const cv = useSelector((state) => state.currentView);
+
+    console.log("new:  " + cv.water + cv.soil + cv.sun + cv.zone);
+    // const newCV = useSelector((state) => state.currentView.currentView);
+    const newCV = [];
+    plantsArray.forEach((plant) => {
+      if (
+        plant.zone == cv.zone &&
+        plant.soil == cv.soil &&
+        plant.water == cv.water &&
+        plant.sun == cv.sun
+      ) {
+        newCV.push(plant);
+      }
+    });
+
+    console.log("new list " + newCV);
+    // dispatch(setCurrentView(nArray));
+
     return (
       <table className="table table-hover">
         <tbody>
-          {plantsArray.map((plant) => {
+          {newCV.map((plant) => {
             let img = "../src/pictures/" + plant.pic + ".png";
             return (
               <tr className=" table-dark" key={plant.id}>
@@ -123,9 +211,12 @@ export default function Plants() {
 
         <div className=" row   center mt-4 mb-3">
           <div className="col-sm-5  ">
+            {/* <label htmlFor="s_zone"> Zone</label> */}
             <select
               className="list-select form-control input-sm p-1 "
               defaultValue="0"
+              onChange={updateCurrentView}
+              name="s_zone"
             >
               <option value="0">Zone</option>
               <option value="1">1</option>
@@ -137,28 +228,34 @@ export default function Plants() {
           </div>
 
           <div className="col-sm-5 ">
+            {/* <label htmlFor="s_water"> Water</label> */}
             <select
               className="list-select form-control input-sm p-1 "
               defaultValue="0"
+              onChange={updateCurrentView}
+              name="s_water"
             >
               <option value="0">H2O</option>
-              <option value="1">Wet</option>
-              <option value="2">Perfect</option>
-              <option value="3">Dry</option>
+              <option value="wet">Wet</option>
+              <option value="per">Perfect</option>
+              <option value="dry">Dry</option>
             </select>
           </div>
         </div>
 
         <div className="row   center   mb-4">
           <div className="col-sm-5  ">
+            {/* <label htmlFor="s_sun"> Sun</label> */}
             <select
               className="list-select form-control input-sm p-1 "
               defaultValue="0"
+              onChange={updateCurrentView}
+              name="s_sun"
             >
               <option value="0">Sun</option>
-              <option value="1">Full</option>
-              <option value="2">Half</option>
-              <option value="3">Shade</option>
+              <option value="full">Full</option>
+              <option value="half">Half</option>
+              <option value="shade">Shade</option>
             </select>{" "}
           </div>
 
@@ -166,19 +263,20 @@ export default function Plants() {
             <select
               className="list-select form-control input-sm p-1 "
               defaultValue="0"
+              onChange={updateCurrentView}
+              name="s_soil"
             >
               <option value="0">Soil</option>
-              <option value="1">Hard</option>
-              <option value="2">Soft</option>
+              <option value="hard">Hard</option>
+              <option value="soft">Soft</option>
             </select>
           </div>
         </div>
         <div className="table-responsive  ">
-        {" "}
-        <Plant_List />
+          {" "}
+          <Plant_List />
+        </div>
       </div>
-      </div>
-      
     </>
   );
 }

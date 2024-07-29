@@ -1,6 +1,6 @@
 // import Garden_Canvas from "./Garden_Canvas";
 import Nav_Bar from "./Nav_Bar";
-import Plants from "./Plants";
+import Plants_Filter from "./Plants_Filter";
 import { useState } from "react";
 
 export default function Garden({ shape, setShape }) {
@@ -67,11 +67,10 @@ export default function Garden({ shape, setShape }) {
           <select
             className="custom-select form-control input-sm p-1"
             onChange={updateShape}
+            defaultValue="sq"
           >
             <option>Shape</option>
-            <option value="sq" selected>
-              Square
-            </option>
+            <option value="sq">Square</option>
             <option value="rec">Rectangle</option>
             <option value="cir">Circle</option>
           </select>
@@ -81,12 +80,11 @@ export default function Garden({ shape, setShape }) {
           <select
             className="custom-select form-control input-sm p-1"
             onChange={updateShape}
+            defaultValue="rec"
           >
             <option>Shape</option>
             <option value="sq">Square</option>
-            <option value="rec" selected>
-              Rectangle
-            </option>
+            <option value="rec">Rectangle</option>
             <option value="cir">Circle</option>
           </select>
         );
@@ -95,13 +93,12 @@ export default function Garden({ shape, setShape }) {
           <select
             className="custom-select form-control input-sm p-1"
             onChange={updateShape}
+            defaultValue="cir"
           >
             <option>Shape</option>
             <option value="sq">Square</option>
             <option value="rec">Rectangle</option>
-            <option value="cir" selected>
-              Circle
-            </option>
+            <option value="cir">Circle</option>
           </select>
         );
 
@@ -110,11 +107,10 @@ export default function Garden({ shape, setShape }) {
           <select
             className="custom-select form-control input-sm p-1"
             onChange={updateShape}
+            defaultValue="sq"
           >
             <option>Shape</option>
-            <option value="sq" selected>
-              Square
-            </option>
+            <option value="sq">Square</option>
             <option value="rec">Rectangle</option>
             <option value="cir">Circle</option>
           </select>
@@ -206,7 +202,7 @@ export default function Garden({ shape, setShape }) {
             </div>
           </div>
           <div className="col-2   ">
-            <Plants />
+            <Plants_Filter />
           </div>
         </div>
       </div>
