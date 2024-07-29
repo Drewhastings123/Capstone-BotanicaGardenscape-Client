@@ -13,7 +13,7 @@ export default function User() {
   const user = useSelector((state) => {
     return state.user;
   });
-  console.log(`(useSelector(state) - function User() USER: ${user}`);
+  console.log(`(useSelector(state) - function User() USER: ${{ user }}`);
 
   // Get the reference list for Zone
   const zoneList = useSelector((state) => {
@@ -24,8 +24,10 @@ export default function User() {
   // set up the relationship to the user mutation
   const [updateUser] = useUpdateUserMutation();
 
-  const [form, setForm] = useState({});
+  const [form, setForm] = useState(user);
   const [errM, setErrM] = useState(null);
+
+  console.log("function User() SETFORM currentUser: ", form);
 
   //  What to do when the submit button is clicked
   const submit = async (e) => {
@@ -34,19 +36,6 @@ export default function User() {
 
     try {
       let updateSuccess = false;
-      // add the user id to the form
-      setForm((prev) => ({
-        ...prev,
-        ["id"]: user.id,
-      }));
-
-      // add the user role id to the form
-      setForm((prev) => ({
-        ...prev,
-        ["user_role_id"]: user.user_role_id,
-      }));
-
-      console.log(`(function User() SUBMIT FORM: ${form}`);
 
       updateSuccess = updateUser(form).unwrap();
 
@@ -90,63 +79,62 @@ export default function User() {
               <div className="card-body">
                 <div className="card-text ">
                   <form onSubmit={submit} name="formUserUpdate">
-                    <div className="row">
-                      <div className="col-12">
-                        <div className="row">
-                          <div className="col-6">
-                            <input
-                              type="email"
-                              className="form-control"
-                              name="email"
-                              aria-describedby="emailHelp"
-                              placeholder="Email"
-                              onChange={updateForm}
-                              required
-                            />
-                            <input
-                              type="text"
-                              className="form-control"
-                              name="firstname"
-                              placeholder="First Name"
-                              onChange={updateForm}
-                              required
-                            />
+                    <div className="col-12">
+                      <div className="row">
+                        <input
+                          type="email"
+                          className="form-control"
+                          name="email"
+                          aria-describedby="emailHelp"
+                          placeholder="Email"
+                          onChange={updateForm}
+                          value={form.email}
+                          disabled
+                          required
+                        />
+                        <input
+                          type="text"
+                          className="form-control"
+                          name="firstname"
+                          placeholder="First Name"
+                          onChange={updateForm}
+                          value={form.firstname}
+                          required
+                        />
 
-                            <input
-                              type="phone"
-                              className="form-control"
-                              name="phone_number"
-                              placeholder="(XXX) 867-5209"
-                              onChange={updateForm}
-                              required
-                            />
-                          </div>
-                          <div>
-                            <input
-                              type="text"
-                              className="form-control"
-                              name="lastname"
-                              placeholder="Last Name"
-                              onChange={updateForm}
-                              required
-                            />
+                        <input
+                          type="phone"
+                          className="form-control"
+                          name="phone_number"
+                          placeholder="(XXX) 867-5209"
+                          onChange={updateForm}
+                          value={form.phone_number}
+                          required
+                        />
 
-                            <SelectList
-                              theList={zoneList}
-                              theListName="zone_id"
-                              theParentForm="UserUpdate"
-                              onChangeFunction={updateFormOnListChange}
-                              theFieldName="zone_name"
-                              the2FieldName="temp_range"
-                            />
-                          </div>
-                          {/*  //close col-6 */}
-                        </div>{" "}
-                        {/*  //close row */}
+                        <input
+                          type="text"
+                          className="form-control"
+                          name="lastname"
+                          placeholder="Last Name"
+                          value={form.lastname}
+                          onChange={updateForm}
+                          required
+                        />
+
+                        <SelectList
+                          theList={zoneList}
+                          theListName="zone_id"
+                          theParentForm="UserUpdate"
+                          onChangeFunction={updateFormOnListChange}
+                          theCurrentValue={form.zone_id}
+                          theFieldName="zone_name"
+                          the2FieldName="temp_range"
+                        />
                       </div>{" "}
-                      {/*  //close col-12 */}
+                      {/*  //close row */}
                     </div>{" "}
-                    {/*  //close row */}
+                    {/*  //close col-12 */}
                     <div className="row">
                       <div className="col-12">
                         <button

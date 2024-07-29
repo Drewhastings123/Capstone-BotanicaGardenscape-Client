@@ -19,6 +19,7 @@ const registrationSlice = createSlice({
   initialState: {},
   reducers: {
     setToken: ({ payload }) => {
+      console.log("Registration setToken: ", payload.token);
       window.sessionStorage.setItem("Token", payload.token);
     },
 

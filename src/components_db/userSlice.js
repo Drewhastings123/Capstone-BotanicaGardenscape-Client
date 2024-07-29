@@ -56,6 +56,17 @@ const storeUser = (state, { payload }) => {
   state.user_role_id = payload.user.user_role_id;
 };
 
+const storeUpdateUser = (state, { payload }) => {
+  console.log("storeUpdateUser: payload", payload);
+  state.id = payload.id;
+  state.firstname = payload.firstname;
+  state.lastname = payload.lastname;
+  state.email = payload.email;
+  state.phone_number = payload.phone_number;
+  state.zone_id = payload.zone_id;
+  state.user_role_id = payload.user_role_id;
+};
+
 const userSlice = createSlice({
   name: "user",
   initialState: {
@@ -95,6 +106,10 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder.addMatcher(api.endpoints.login.matchFulfilled, setLoginToken);
     builder.addMatcher(api.endpoints.login.matchFulfilled, storeUser);
+    builder.addMatcher(
+      api.endpoints.updateUser.matchFulfilled,
+      storeUpdateUser
+    );
   },
 });
 

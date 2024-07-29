@@ -3,33 +3,13 @@ import Plants from "./Plants";
 import { useState } from "react";
 import { useGetUserQuery } from "../components_db/userSlice";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Loading_Bar from "./Loading_Bar";
 import SelectList from "./SelectList";
 
 export default function Garden({ shape, setShape }) {
-  // const temp = useSelector((state) => state);
-  // console.log(temp);
-
-  // function Loading_Bar() {
-  //   return (
-  //     <div className="row w100 top2">
-  //       <div className="col-12 ">
-  //         {" "}
-  //         Loading ...
-  //         <div className="progress bg-primary">
-  //           <div
-  //             className="progress-bar progress-bar-striped progress-bar-animated bg-success "
-  //             role="progressbar"
-  //             aria-valuenow="75"
-  //             aria-valuemin="0"
-  //             aria-valuemax="100"
-  //           ></div>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-  // }
+  
+  const navigate = useNavigate();
 
   function Garden_Canvas() {
     switch (shape) {
@@ -191,13 +171,13 @@ export default function Garden({ shape, setShape }) {
       return state.reference.zoneList;
     });
 
-    console.log("UserCard: ", zoneList);
-    console.log("UserCard: ", theUser);
+    console.log("UserCard ZONELIST: ", zoneList);
+    console.log("UserCard USER: ", theUser);
 
     const specificZoneName = zoneList?.filter((obj) => {
       if (obj.id === theUser.zone_id) return obj.zone_name;
     });
-    console.log("UserCard: ", specificZoneName[0].zone_name);
+    console.log("UserCard USERS ZONE: ", specificZoneName[0].zone_name);
 
     if (!theUser)
       return <div>No User Found - Please logout and login again.</div>;
@@ -217,14 +197,13 @@ export default function Garden({ shape, setShape }) {
             </div>
             {/* <div className="col-sm-5 center ">{specificName[0].temp_range}</div> */}
             <div className="col-sm-5 center ">
-              <Link to={`/user/`}>
-                <button
-                  type="button"
-                  className="btn btn-outline-warning btn-sm border border-warning"
-                >
-                  Update User
-                </button>
-              </Link>
+              <button
+                type="button"
+                className="btn btn-outline-warning btn-sm border border-warning"
+                onClick={() => navigate("/user")}
+              >
+                Update User
+              </button>
             </div>
           </div>
         </div>
