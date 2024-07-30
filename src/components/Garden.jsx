@@ -1,6 +1,8 @@
 // import Garden_Canvas from "./Garden_Canvas";
 import Nav_Bar from "./Nav_Bar";
-import Plants_Filter from "./Plants_Filter";
+import Plants from "./Plants";
+
+// import Plants from "./Plants";
 import { useState } from "react";
 import { useGetUserQuery } from "../components_db/userSlice";
 import { useSelector } from "react-redux";
@@ -152,8 +154,8 @@ export default function Garden({ shape, setShape }) {
             </button>
           </div>
         </div>
-        <div className="row   center p-2 ">
-          <div className="col-sm-10 center  ">
+        <div className="row   center pb-3 ">
+          <div className="col-sm-10 center p-2 ">
             <button
               type="button"
               className="btn btn-link btn-sm text-secondary "
@@ -183,9 +185,9 @@ export default function Garden({ shape, setShape }) {
 
     if (!isLoading) {
       const specificName = name?.filter((obj) => {
-        if (obj.id === data.user.zone_id) return obj.zone_name;
+        if (obj.id === data.user?.zone_id) return obj.zone_name;
       });
-      console.log(specificName[0].zone_name);
+      // console.log(specificName[0].zone_name);
     }
 
     if (isLoading) {
@@ -218,22 +220,27 @@ export default function Garden({ shape, setShape }) {
     const specificName = name?.filter((obj) => {
       if (obj.id === data?.user?.zone_id) return obj.zone_name;
     });
-    console.log(specificName[0].zone_name);
+    //console.log(specificName[0].zone_name);
     return (
-      <div className=" border-primary   mt-5 card">
-        <div className="card-header "> {data.user.email}</div>
+      <div className=" border-primary   mt-5 card center  ">
+        <div className="card-header pl-5"> {data.user.email}</div>
 
-        <div className="row   center pt-2 pb-3 ">
-          <div className="col-sm-5 center ">{data.user.firstname}</div>
-
-          <div className="col-sm-5 center ">{data.user.lastname}</div>
-          <div className="col-sm-5 center ">
-            <p>Zone</p>
-
-            <p>{specificName[0].zone_name}</p>
+        <div className="row    pt-3 pb-1 center  m-1 ">
+          <div className="col-sm-12 center ">
+            {data.user.firstname}{" "}
+            <span className="pl-1"> {data.user.lastname}</span>
           </div>
-          {/* <div className="col-sm-5 center ">{specificName[0].temp_range}</div> */}
-          <div className="col-sm-5 center ">
+        </div>
+
+        <div className="row   center pt-2  center  m-2 ">
+          <div className="col-sm-12 center ">
+            Zone <span className="pl-1">{specificName[0].zone_name}</span>
+          </div>
+        </div>
+
+        <div className="row   center pt-3 pb-5  ">
+          <div className="col-sm-12 center ">
+            {" "}
             <Link to={`/user/${data.user.id}`}>
               <button
                 type="button"
@@ -251,11 +258,11 @@ export default function Garden({ shape, setShape }) {
   return (
     <>
       {/* <Nav_Bar /> */}
-      <div className="container-fluid w85 ">
+      <div className="container-fluid  ">
         {/* < Loading_Bar /> */}
 
-        <div className="row w100 ">
-          <div className="col-2  ">
+        <div className="row p-0 ">
+          <div className="col-3  ">
             <div className="garden-card">
               <GardenCard />
             </div>
@@ -263,13 +270,14 @@ export default function Garden({ shape, setShape }) {
               <UserCard />
             </div>
           </div>
-          <div className="col-8   ">
+          <div className="col-6   ">
             <div className=" garden center ">
               <Garden_Canvas />
             </div>
           </div>
-          <div className="col-2   ">
-            <Plants_Filter />
+          <div className="col-3   ">
+            {/* <Plants_Filter /> */}
+            <Plants />
           </div>
         </div>
       </div>

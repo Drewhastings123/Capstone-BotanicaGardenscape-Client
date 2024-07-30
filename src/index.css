@@ -9,6 +9,9 @@
 .w85 {
   width: 85% !important;
 }
+.w95 {
+  width: 85% !important;
+}
 
 .w90 {
   width: 90% !important;
@@ -29,6 +32,18 @@
 .mv1 {
   margin: 1em 0em !important;
 }
+
+.pl-1 {
+  padding-left: 0.5em !important;
+}
+.pl-5 {
+  padding-left: 5em !important;
+}
+.p-lados-5 {
+  padding-left: 5em !important;
+  padding-right: 5em !important;
+}
+
 .progress-bar-animated {
   width: 75%;
 }
@@ -91,6 +106,7 @@ small {
 .pink {
   background-color: pink;
 }
+
 .blue {
   background-color: lightblue;
 }
@@ -139,18 +155,18 @@ small {
   background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
 }
 .square {
-  width: 80%;
-  height: 86vh;
+  width: 95%;
+  height: 550px;
 }
 
 .rectangle {
-  width: 95%;
-  height: 70vh;
+  width: 100%;
+  height: 450px;
 }
 
 .circle {
-  width: 73%;
-  height: 85vh;
+  width: 95%;
+  height: 550px;
   border-radius: 50%;
 }
 
@@ -160,14 +176,18 @@ small {
 }
 
 img {
-  width: 50% !important;
-  height: 50% !important;
+  width: 70% !important;
+  height: 70% !important;
 }
 
 .space-around {
   display: flex;
   justify-content: space-around;
   align-items: center !important;
+}
+.space-evenly {
+  display: flex;
+  justify-content: space-evenly !important;
 }
 
 .space-around > * {
@@ -207,6 +227,9 @@ td {
   width: 70% !important;
   text-align: center !important;
 }
+.card {
+  width: 100% !important;
+}
 
 /* width */
 ::-webkit-scrollbar {
@@ -228,4 +251,14 @@ td {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #ee605be0;
+}
+
+.dropdown-item {
+  /* background-color: rgba(0, 0, 0, 0.233) !important ; */
+  background-color: #343a41 !important;
+  padding: 0.4em !important;
+}
+
+.dropdown {
+  border-radius: 0.4em !important;
 }

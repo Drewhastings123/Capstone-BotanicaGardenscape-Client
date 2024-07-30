@@ -5,7 +5,6 @@ import { useState } from "react";
 // Load the reference data
 // TODO - should add a pop up if it fails
 const loadReference = () => {
-
   console.log("loadReference");
   const [errM, setErrM] = useState(null);
   const { data, isSuccess } = useGetReferenceQuery();
@@ -17,7 +16,13 @@ const loadReference = () => {
   const zoneList = useSelector((state) => {
     return state.reference.zoneList;
   });
+
+  const allRef = useSelector((state) => {
+    return state.reference;
+  });
+
   console.log("z: ", zoneList);
+  // console.log("all ref: ", allRef);
 };
 
 export default loadReference;

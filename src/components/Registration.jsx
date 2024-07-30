@@ -123,17 +123,10 @@ export default function Registration() {
                             />
 
                             <input
-<<<<<<< HEAD
-                              type="password"
-                              className="form-control mv2"
-                              name="password_input"
-                              placeholder="Password"
-=======
                               type="phone"
                               className="form-control"
                               name="phone_number"
                               placeholder="(XXX) 867-5209"
->>>>>>> 5d988b05f311fed54a877140fc0ddbb5a9fc88af
                               onChange={updateForm}
                               required
                             />
@@ -151,13 +144,8 @@ export default function Registration() {
 
                             <input
                               type="text"
-<<<<<<< HEAD
-                              className="form-control mv2 "
-                              name="lastName_input"
-=======
                               className="form-control"
                               name="lastname"
->>>>>>> 5d988b05f311fed54a877140fc0ddbb5a9fc88af
                               placeholder="Last Name"
                               onChange={updateForm}
                               required
