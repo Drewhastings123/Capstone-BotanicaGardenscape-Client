@@ -12,6 +12,13 @@ const gardenApi = api.injectEndpoints({
       }),
       invalidatesTags: ["Garden"],
     }),
+    getMyGarden: builder.query({
+      query: (user_id) => ({
+        url: `/gardens/${user_id}`,
+        method: "GET",
+      }),
+      providesTags: ["Garden"],
+    }),
     getUserGarden: builder.query({
       query: ({ user_id, garden_id }) => ({
         url: `/garden/${user_id}/myGarden/${garden_id}`,
@@ -22,10 +29,10 @@ const gardenApi = api.injectEndpoints({
     //-Drew - not sure if I need to add anything to the get to be able to return the garden info and the garden_plants info
     //also should it be id instead of garden_id?
     updateGarden: builder.mutation({
-      query: (garden) => ({
-        url: `/garden/${garden.id}`,
+      query: ({ garden_id, form }) => ({
+        url: `/garden/${garden_id}`,
         method: "PUT",
-        body: garden,
+        body: form,
       }),
       invalidatesTags: ["Garden"],
     }),
@@ -62,15 +69,36 @@ const gardenApi = api.injectEndpoints({
   }),
 });
 
+const storeGarden = (state, { payload }) => {
+  console.log("storeGarden", payload);
+  state.garden = payload.gardenInfo;
+};
+const storeUpdatedGarden = (state, { payload }) => {
+  console.log("updateGarden's payload", payload);
+  state.garden = payload.gardenInfo;
+};
 const gardenSlice = createSlice({
   name: "garden",
   initialState: {},
   reducers: {},
   extraReducers: (builder) => {
-    builder.addMatcher(api.endpoints.createGarden.matchFulfilled);
+    builder.addMatcher(api.endpoints.createGarden.matchFulfilled, storeGarden);
+    builder.addMatcher(api.endpoints.getMyGarden.matchFulfilled, storeGarden);
+    builder.addMatcher(
+      api.endpoints.updateGarden.matchFulfilled,
+      storeUpdatedGarden
+    );
   },
 });
 
-export const { useCreateGardenMutation } = gardenApi;
+export const {
+  useCreateGardenMutation,
+  useGetUserGardenQuery,
+  useGetMyGardenQuery,
+  useUpdateGardenMutation,
+  useAddGardenPlantMutation,
+  useDeleteGardenPlantMutation,
+  useUpdateGardenPlantMutation,
+} = gardenApi;
 
 export default gardenSlice.reducer;
