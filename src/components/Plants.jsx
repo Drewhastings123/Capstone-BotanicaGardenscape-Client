@@ -44,9 +44,9 @@ export default function Plants() {
       id: 3,
       plant_name: "Paper birc",
       zone_id: "83ec730b-86d9-470f-8976-66d7c2493f02", // 6A
-      water_requirement_id: "a670a36b-9ce9-4165-81bc-795d12bec052", // Moist
-      sun_requirement_id: "ff25b1d9-6222-4771-b981-79dd5cd9fc8e", //  Part Shade
-      soil_requirement_id: "71bd5721-9da4-4b7f-8e30-3b104e91f67d", //Chalk Soil
+      water_requirement_id: "97ee6f82-7570-4741-8dc0-32571e99330c", // Wet
+      sun_requirement_id: "996e59b5-a311-41a9-a323-37e667852b25", // Shade
+      soil_requirement_id: "13313161-f9a9-43d3-b7b2-3de6d8279644", // Loam Soil
       pic: "3",
     },
     {
@@ -63,16 +63,16 @@ export default function Plants() {
       plant_name: "Silverberry",
       zone_id: "ed8ab558-2d7f-4a6f-94f8-e5e975062da9", // 4A
       water_requirement_id: "9b2ce2d0-7e2f-4404-a7aa-d3505d6b3079", // Moderate
-      sun_requirement_id: "ff25b1d9-6222-4771-b981-79dd5cd9fc8e", //  Part Shade
+      sun_requirement_id: "03d4d735-e460-4b7f-9c27-63bfe2441455", // Part Sun
       soil_requirement_id: "71bd5721-9da4-4b7f-8e30-3b104e91f67d", // Chalk Soil
       pic: "5",
     },
     {
       id: 6,
       plant_name: "Foxglove",
-      zone_id: "ed8ab558-2d7f-4a6f-94f8-e5e975062da9", // 4A
-      water_requirement_id: "5a1da49a-b12f-4f1c-ac1a-5312df8f34e1", // Damp
-      sun_requirement_id: "ff25b1d9-6222-4771-b981-79dd5cd9fc8e", //  Part Shade
+      zone_id: "2150bf16-e297-409a-a487-586478f98b22", // 5A
+      water_requirement_id: "97ee6f82-7570-4741-8dc0-32571e99330c", // Wet
+      sun_requirement_id: "98d6ac5a-5a50-4bf6-9b43-a6d6866c4de8", //full sun
       soil_requirement_id: "6fd3f3e0-4a07-44bc-9aa4-ceb8a2f2e79a", //Silty Soil
       pic: "6",
     },
@@ -81,7 +81,7 @@ export default function Plants() {
       plant_name: "Common juniper",
       zone_id: "f8cb79dd-7e13-4f3c-8aa0-3a464a27d04a", // 3a
       water_requirement_id: "542cf1e2-6526-4988-ab10-9b6244b5b1d4", //dry
-      sun_requirement_id: "ff25b1d9-6222-4771-b981-79dd5cd9fc8e", //  Part Shade
+      sun_requirement_id: "03d4d735-e460-4b7f-9c27-63bfe2441455", // Part Sun
       soil_requirement_id: "13313161-f9a9-43d3-b7b2-3de6d8279644", // Loam Soil
       pic: "7",
     },
@@ -133,7 +133,8 @@ export default function Plants() {
   const allSuns = allRef.sunRequirementList;
   const allH2O = allRef.waterRequirementList;
   const allSoil = allRef.soilRequirementList;
-  const [plants, setPlants] = useState([])
+
+  let newCV = [];
 
   // const fullSelects = [];
 
@@ -167,50 +168,249 @@ export default function Plants() {
   }
 
   const updateCurrentView = (e) => {
-    e.preventDefault();
     // console.log("NAME: " + e.target.name);
     // console.log("VALUE: " + e.target.value);
     const selectedIndex = e.target.options.selectedIndex;
-    const newName = e.target.name;
-    const newId = e.target.options[selectedIndex].id;
-    const tempPlant = allPlantsBurnt
-    const filteredPlants = tempPlant.filter((plant) => {
-      return plant[newName] === newId
-    })
-    setPlants(filteredPlants)
+    const newValue = e.target.options[selectedIndex].getAttribute("key2");
+    console.log("NEW VALUE" + newValue);
+
+    switch (e.target.name) {
+      case "s_soil":
+        dispatch(setSoil(newValue));
+        break;
+      case "s_sun":
+        dispatch(setSun(newValue));
+        break;
+      case "s_water":
+        dispatch(setWater(newValue));
+        break;
+      case "s_zone":
+        dispatch(setZone(newValue));
+        break;
+      default:
+        break;
+    }
   };
 
-  useEffect(() => {
-    setPlants(allPlantsBurnt)
-  },[])
+  function Manage_1_Filter() {
+    allPlantsBurnt?.forEach((plant) => {
+      if (cv.zone != 0) {
+        if (cv.zone == plant.zone_id) {
+          newCV.push(plant);
+        }
+      }
+      if (cv.sun != 0) {
+        if (cv.sun == plant.sun_requirement_id) {
+          newCV.push(plant);
+        }
+        //es sun
+      }
+      if (cv.water != 0) {
+        if (cv.water == plant.water_requirement_id) {
+          newCV.push(plant);
+        }
+        //es water
+      }
+      if (cv.soil != 0) {
+        //es soil
+        if (cv.soil == plant.soil_requirement_id) {
+          newCV.push(plant);
+        }
+      }
+    });
+  }
+
+  // function Manage_2_Filters() {}
+  // function Manage_3_Filters() {}
+
+  function Manage_Filters() {
+    newCV = [];
+    console.log("NewCV in manage filters" + newCV);
+    const filters = [];
+
+    if (cv.zone != "0") {
+      filters.push("zone");
+    }
+    if (cv.water != "0") {
+      filters.push("water");
+    }
+    if (cv.soil != "0") {
+      filters.push("soil");
+    }
+    if (cv.sun != "0") {
+      filters.push("sun");
+    }
+
+    switch (filters.length) {
+      case 0: // 0 filters
+        newCV = allPlantsBurnt;
+        break;
+
+      case 1: // 1 filter
+        allPlantsBurnt?.forEach((plant) => {
+          if (cv.zone != 0) {
+            if (cv.zone == plant.zone_id) {
+              newCV.push(plant);
+            }
+          }
+          if (cv.sun != 0) {
+            if (cv.sun == plant.sun_requirement_id) {
+              newCV.push(plant);
+            }
+          }
+          if (cv.water != 0) {
+            if (cv.water == plant.water_requirement_id) {
+              newCV.push(plant);
+            }
+          }
+          if (cv.soil != 0) {
+            if (cv.soil == plant.soil_requirement_id) {
+              newCV.push(plant);
+            }
+          }
+        });
+        break;
+
+      case 2: // 2 filters
+        allPlantsBurnt?.forEach((plant) => {
+          if (cv.zone != 0 && cv.water != 0) {
+            //zone & waterq
+            if (
+              cv.zone == plant.zone_id &&
+              cv.water == plant.water_requirement_id
+            ) {
+              newCV.push(plant);
+            }
+          }
+
+          if (cv.zone != 0 && cv.sun != 0) {
+            //zone & sun
+            if (
+              cv.zone == plant.zone_id &&
+              cv.sun == plant.sun_requirement_id
+            ) {
+              newCV.push(plant);
+            }
+          }
+
+          if (cv.zone != 0 && cv.soil != 0) {
+            //zone & soil
+            if (
+              cv.zone == plant.zone_id &&
+              cv.soil == plant.soil_requirement_id
+            ) {
+              newCV.push(plant);
+            }
+          }
+
+          if (cv.water != 0 && cv.sun != 0) {
+            //water & sun
+            if (
+              cv.sun == plant.sun_requirement_id &&
+              cv.water == plant.water_requirement_id
+            ) {
+              newCV.push(plant);
+            }
+          }
+
+          if (cv.water != 0 && cv.soil != 0) {
+            //water & soil
+            if (
+              cv.soil == plant.soil_requirement_id &&
+              cv.water == plant.water_requirement_id
+            ) {
+              newCV.push(plant);
+            }
+          }
+
+          if (cv.sun != 0 && cv.soil != 0) {
+            //sun & soil
+            if (
+              cv.soil == plant.soil_requirement_id &&
+              cv.sun == plant.sun_requirement_id
+            ) {
+              newCV.push(plant);
+            }
+          }
+        });
+        break;
+
+      case 3: // 3 filters
+        allPlantsBurnt?.forEach((plant) => {
+          if (cv.zone == 0) {
+            // selected are soil, h20, sun
+            if (
+              cv.soil == plant.soil_requirement_id &&
+              cv.water == plant.water_requirement_id &&
+              cv.sun == plant.sun_requirement_id
+            ) {
+              newCV.push(plant);
+            }
+          }
+          if (cv.sun == 0) {
+            // selected are soil, water, zone
+            if (
+              cv.soil == plant.soil_requirement_id &&
+              cv.water == plant.water_requirement_id &&
+              cv.zone == plant.zone_id
+            ) {
+              newCV.push(plant);
+            }
+          }
+          if (cv.water == 0) {
+            // selected are soil, sun, zone
+            if (
+              cv.soil == plant.soil_requirement_id &&
+              cv.zone == plant.zone_id &&
+              cv.sun == plant.sun_requirement_id
+            ) {
+              newCV.push(plant);
+            }
+          }
+          if (cv.soil == 0) {
+            // selected are sun, water, zone
+            if (
+              cv.water == plant.water_requirement_id &&
+              cv.zone == plant.zone_id &&
+              cv.sun == plant.sun_requirement_id
+            ) {
+              newCV.push(plant);
+            }
+          }
+        });
+        break;
+
+      case 4:
+        allPlantsBurnt?.forEach((plant) => {
+          if (
+            cv.zone == plant.zone_id &&
+            cv.soil == plant.soil_requirement_id &&
+            cv.water == plant.water_requirement_id &&
+            cv.sun == plant.sun_requirement_id
+          ) {
+            newCV.push(plant);
+          }
+        });
+        break;
+
+      default:
+        break;
+    }
+  }
 
   function Plant_List() {
-    // setPlants(allPlantsBurnt)
-    // const cv = useSelector((state) => state.currentView);
-    // console.log("current view" + cv);
-    // let newCV = [];
-    // if (cv.zone == "0" && cv.soil == "0" && cv.water == "0" && cv.sun == "0") {
-    //   newCV = allPlantsBurnt;
-    // } else {
-    //   allPlantsBurnt?.forEach((plant) => {
-    //     if (
-    //       cv.zone == plant.zone_id &&
-    //       cv.soil == plant.soil_requirement_id &&
-    //       cv.water == plant.water_requirement_id &&
-    //       cv.sun == plant.sun_requirement_id
-    //     ) {
-    //       newCV.push(plant);
-    //     }
-    //   });
-    // }
+    const cv = useSelector((state) => state.currentView);
+    console.log("current view" + cv);
 
-    // console.log("All Plants: " + plants);
-    // console.log("CURRENT VIEW " + newCV);
+    Manage_Filters();
+
+    console.log("All Plants: " + allPlantsBurnt);
+    console.log("CURRENT VIEW " + newCV);
 
     return (
       <table className="table table-hover">
         <tbody>
-          {plants?.map((plant) => {
+          {newCV?.map((plant) => {
             const random_number = Math.floor(Math.random() * 10);
             const img = "../src/assets/pictures/" + random_number + ".png";
 
@@ -241,9 +441,9 @@ export default function Plants() {
               className="list-select form-control input-sm p-1 dropdown-item text-warning dropdown border border-warning "
               defaultValue="0"
               onChange={updateCurrentView}
-              name="zone_id"
+              name="s_zone"
             >
-              <option key="0" className="dropdown-item" value="0">
+              <option key="0" className="dropdown-item" value="0" key2="0">
                 Zone &#x1F321; &#8623;
               </option>
 
@@ -253,6 +453,7 @@ export default function Plants() {
                     key={zone.id}
                     className="dropdown-item"
                     value={zone.id}
+                    key2={zone.id}
                   >
                     {zone.zone_name}
                     &#x1F321; {zone.temp_range}
@@ -269,14 +470,14 @@ export default function Plants() {
               className="list-select form-control input-sm p-1  dropdown-item text-warning dropdown border border-warning"
               defaultValue="0"
               onChange={updateCurrentView}
-              name="water_requirement_id"
+              name="s_water"
             >
-              <option key="0" className="dropdown-item">
+              <option key="0" className="dropdown-item" key2="0">
                 Water &#x1F4A7; &#8623;
               </option>
               {allH2O?.map((h2o) => {
                 return (
-                  <option key={h2o.id} id={h2o.id}>
+                  <option key={h2o.id} key2={h2o.id}>
                     {" "}
                     &#x1F4A7; {h2o.water_name}
                   </option>
@@ -292,14 +493,14 @@ export default function Plants() {
               className=" form-control input-sm p-1 dropdown-item text-warning dropdown border border-warning"
               defaultValue="0"
               onChange={updateCurrentView}
-              name="sun_requirement_id"
+              name="s_sun"
             >
-              <option key="0" className="dropdown-item">
+              <option key="0" className="dropdown-item" key2="0">
                 Sun &#9728; &#8623;{" "}
               </option>
               {allSuns?.map((sun) => {
                 return (
-                  <option key={sun.id} className="dropdown-item" id={sun.id}>
+                  <option key={sun.id} className="dropdown-item" key2={sun.id}>
                     &#9728; {sun.sun_name}
                   </option>
                 );
@@ -312,14 +513,14 @@ export default function Plants() {
               className="list-select form-control input-sm p-1 dropdown-item text-warning dropdown border border-warning"
               defaultValue="0"
               onChange={updateCurrentView}
-              name="soil_requirement_id"
+              name="s_soil"
             >
-              <option key="0" className="dropdown-item  ">
+              <option key="0" key2="0" className="dropdown-item  ">
                 Soil &#9968; &#8623;{" "}
               </option>
               {allSoil?.map((soil) => {
                 return (
-                  <option key={soil.id} id={soil.id}>
+                  <option key={soil.id} key2={soil.id}>
                     &#9178; {soil.soil_name}
                   </option>
                 );
