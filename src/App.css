@@ -91,7 +91,7 @@ body {
 
 .navbar li > .active {
   font-weight: bold;
-  background-color: purple !important;
+  background-color: green !important;
 }
 
 .card-email-header {
