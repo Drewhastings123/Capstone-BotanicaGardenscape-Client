@@ -133,6 +133,7 @@ export default function Plants() {
   const allSuns = allRef.sunRequirementList;
   const allH2O = allRef.waterRequirementList;
   const allSoil = allRef.soilRequirementList;
+  const [plants, setPlants] = useState([])
 
   // const fullSelects = [];
 
@@ -166,55 +167,50 @@ export default function Plants() {
   }
 
   const updateCurrentView = (e) => {
+    e.preventDefault();
     // console.log("NAME: " + e.target.name);
     // console.log("VALUE: " + e.target.value);
     const selectedIndex = e.target.options.selectedIndex;
-    const newValue = e.target.options[selectedIndex].getAttribute("key2");
-    console.log("NEW VALUE" + newValue);
-
-    switch (e.target.name) {
-      case "s_soil":
-        dispatch(setSoil(newValue));
-        break;
-      case "s_sun":
-        dispatch(setSun(newValue));
-        break;
-      case "s_water":
-        dispatch(setWater(newValue));
-        break;
-      case "s_zone":
-        dispatch(setZone(newValue));
-        break;
-      default:
-        break;
-    }
+    const newName = e.target.name;
+    const newId = e.target.options[selectedIndex].id;
+    const tempPlant = allPlantsBurnt
+    const filteredPlants = tempPlant.filter((plant) => {
+      return plant[newName] === newId
+    })
+    setPlants(filteredPlants)
   };
 
+  useEffect(() => {
+    setPlants(allPlantsBurnt)
+  },[])
+
   function Plant_List() {
-    const cv = useSelector((state) => state.currentView);
-    console.log("current view" + cv);
-    let newCV = [];
-    if (cv.zone == "0" && cv.soil == "0" && cv.water == "0" && cv.sun == "0") {
-      newCV = allPlantsBurnt;
-    } else {
-      allPlantsBurnt?.forEach((plant) => {
-        if (
-          cv.zone == plant.zone_id &&
-          cv.soil == plant.soil_requirement_id &&
-          cv.water == plant.water_requirement_id &&
-          cv.sun == plant.sun_requirement_id
-        ) {
-          newCV.push(plant);
-        }
-      });
-    }
-    console.log("All Plants: " + allPlantsBurnt);
-    console.log("CURRENT VIEW " + newCV);
+    // setPlants(allPlantsBurnt)
+    // const cv = useSelector((state) => state.currentView);
+    // console.log("current view" + cv);
+    // let newCV = [];
+    // if (cv.zone == "0" && cv.soil == "0" && cv.water == "0" && cv.sun == "0") {
+    //   newCV = allPlantsBurnt;
+    // } else {
+    //   allPlantsBurnt?.forEach((plant) => {
+    //     if (
+    //       cv.zone == plant.zone_id &&
+    //       cv.soil == plant.soil_requirement_id &&
+    //       cv.water == plant.water_requirement_id &&
+    //       cv.sun == plant.sun_requirement_id
+    //     ) {
+    //       newCV.push(plant);
+    //     }
+    //   });
+    // }
+
+    // console.log("All Plants: " + plants);
+    // console.log("CURRENT VIEW " + newCV);
 
     return (
       <table className="table table-hover">
         <tbody>
-          {newCV?.map((plant) => {
+          {plants?.map((plant) => {
             const random_number = Math.floor(Math.random() * 10);
             const img = "../src/assets/pictures/" + random_number + ".png";
 
@@ -245,9 +241,9 @@ export default function Plants() {
               className="list-select form-control input-sm p-1 dropdown-item text-warning dropdown border border-warning "
               defaultValue="0"
               onChange={updateCurrentView}
-              name="s_zone"
+              name="zone_id"
             >
-              <option key="0" className="dropdown-item" value="0" key2="0">
+              <option key="0" className="dropdown-item" value="0">
                 Zone &#x1F321; &#8623;
               </option>
 
@@ -257,7 +253,6 @@ export default function Plants() {
                     key={zone.id}
                     className="dropdown-item"
                     value={zone.id}
-                    key2={zone.id}
                   >
                     {zone.zone_name}
                     &#x1F321; {zone.temp_range}
@@ -274,14 +269,14 @@ export default function Plants() {
               className="list-select form-control input-sm p-1  dropdown-item text-warning dropdown border border-warning"
               defaultValue="0"
               onChange={updateCurrentView}
-              name="s_water"
+              name="water_requirement_id"
             >
-              <option key="0" className="dropdown-item" key2="0">
+              <option key="0" className="dropdown-item">
                 Water &#x1F4A7; &#8623;
               </option>
               {allH2O?.map((h2o) => {
                 return (
-                  <option key={h2o.id} key2={h2o.id}>
+                  <option key={h2o.id} id={h2o.id}>
                     {" "}
                     &#x1F4A7; {h2o.water_name}
                   </option>
@@ -297,14 +292,14 @@ export default function Plants() {
               className=" form-control input-sm p-1 dropdown-item text-warning dropdown border border-warning"
               defaultValue="0"
               onChange={updateCurrentView}
-              name="s_sun"
+              name="sun_requirement_id"
             >
-              <option key="0" className="dropdown-item" key2="0">
+              <option key="0" className="dropdown-item">
                 Sun &#9728; &#8623;{" "}
               </option>
               {allSuns?.map((sun) => {
                 return (
-                  <option key={sun.id} className="dropdown-item" key2={sun.id}>
+                  <option key={sun.id} className="dropdown-item" id={sun.id}>
                     &#9728; {sun.sun_name}
                   </option>
                 );
@@ -317,14 +312,14 @@ export default function Plants() {
               className="list-select form-control input-sm p-1 dropdown-item text-warning dropdown border border-warning"
               defaultValue="0"
               onChange={updateCurrentView}
-              name="s_soil"
+              name="soil_requirement_id"
             >
-              <option key="0" key2="0" className="dropdown-item  ">
+              <option key="0" className="dropdown-item  ">
                 Soil &#9968; &#8623;{" "}
               </option>
               {allSoil?.map((soil) => {
                 return (
-                  <option key={soil.id} key2={soil.id}>
+                  <option key={soil.id} id={soil.id}>
                     &#9178; {soil.soil_name}
                   </option>
                 );
