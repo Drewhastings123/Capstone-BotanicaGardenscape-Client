@@ -35,7 +35,7 @@ export default function Nav_Bar() {
         <div className="collapse navbar-collapse" id="navbarColor01">
           <ul className="navbar-nav mr-auto ">
             {!token && (
-              <ul>
+              <div>
                 <li className="nav-item ">
                   <NavLink to="/login" className="nav-link ">
                     Login{" "}
@@ -50,11 +50,11 @@ export default function Nav_Bar() {
                     Register{" "}
                   </NavLink>
                 </li>
-              </ul>
+              </div>
             )}
 
             {token && (
-              <ul className="navbar-nav mr-auto ">
+              <div>
                 <li className="nav-item">
                   <NavLink to="/garden" className="nav-link ">
                     My Garden{" "}
@@ -82,7 +82,7 @@ export default function Nav_Bar() {
                     Logout
                   </button>
                 </li>
-              </ul>
+              </div>
             )}
           </ul>
         </div>
