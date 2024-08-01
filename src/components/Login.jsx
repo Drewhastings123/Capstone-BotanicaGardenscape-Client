@@ -1,48 +1,33 @@
-import Nav_Bar from "./Nav_Bar";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../components_db/userSlice";
+import Loading_Bar from "./Loading_Bar";
 
 export default function Login() {
-  window.sessionStorage.setItem("active_item", "login");
-
   const navigate = useNavigate();
   const [form, setForm] = useState({});
   const [errM, setErrM] = useState(null);
   const [loginUser] = useLoginMutation();
 
+  console.log("Login() ");
+
   const submit = async (e) => {
     e.preventDefault();
     try {
       let success = false;
-
-      console.log("form", form);
       success = await loginUser(form).unwrap();
-      console.log(success);
 
-      if (!success) {
-        return (
-          <div className="row w100 top2">
-            <div className="col-12 ">
-              {" "}
-              Loading ...
-              <div className="progress bg-primary">
-                <div
-                  className="progress-bar progress-bar-striped progress-bar-animated bg-success "
-                  role="progressbar"
-                  aria-valuenow="75"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                ></div>
-              </div>
-            </div>
-          </div>
-        );
+      console.log("Login() SUCCESS: ", success);
+
+      if (!success?.token) {
+        return Loading_Bar("50");
       }
 
       if (success?.token) {
         window.sessionStorage.setItem("Token", success.token);
+
         navigate("/garden");
+        //navigate("/user");
       } else {
         setErrM(
           "Invalid Username or Password, Please check your input and try again."

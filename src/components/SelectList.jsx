@@ -5,6 +5,7 @@ export default function SelectList({
   theListName,
   theParentForm,
   onChangeFunction,
+  theCurrentValue,
   theFieldName,
   the2FieldName,
 }) {
@@ -21,17 +22,20 @@ export default function SelectList({
         {`${theListName}`}
       </label>*/}
       <select
-        className="form-select"
+        className="form-select select-reference"
         name={theListName}
         id={`${theListName}_${theParentForm}`}
         onChange={onChangeFunction || ConsoleTheSelected}
+        defaultValue={theCurrentValue}
       >
         {theList && theList.length > 0
           ? theList.map((opt) => {
               return (
                 // eslint-disable-next-line react/jsx-key
                 <option value={String(opt.id)} key={String(opt.id)}>
-                  {opt[theFieldName] + " (" + opt[the2FieldName] + ")"}
+                  {opt[theFieldName] +
+                    ((opt[the2FieldName] && " (" + opt[the2FieldName] + ")") ||
+                      " ")}
                 </option>
               );
             })

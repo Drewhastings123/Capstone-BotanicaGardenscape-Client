@@ -9,6 +9,14 @@ const referenceApi = api.injectEndpoints({
         method: "GET",
       }),
       providesTags: ["Reference"],
+      onQueryStarted: (arg, { _, queryFulfilled }) => {
+        console.log("Reference Query Start");
+        queryFulfilled
+          .then(({ data }) => {
+            console.log("Reference fulfilled", data);
+          })
+          .catch((err) => console.error("Reference Query failed", err));
+      },
     }),
   }),
 });
@@ -26,7 +34,6 @@ const setReference = (state, { payload }) => {
   state.waterRequirementList = payload.waterRequirementList;
   state.zoneList = payload.zoneList;
 };
-
 
 const referenceSlice = createSlice({
   name: "reference",

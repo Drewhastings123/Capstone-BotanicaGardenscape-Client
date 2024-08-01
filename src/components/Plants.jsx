@@ -1,6 +1,7 @@
-import Nav_Bar from "./Nav_Bar";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+
+import Loading_Bar from "./Loading_Bar";
 import loadReference from "./reference.js";
 import {
   setSun,
@@ -145,22 +146,7 @@ export default function Plants() {
   const dispatch = useDispatch();
 
   if (isLoading) {
-    return (
-      <div className="row w100 top2">
-        <div className="col-12 ">
-          Loading ...
-          <div className="progress bg-primary">
-            <div
-              className="progress-bar progress-bar-striped progress-bar-animated bg-success "
-              role="progressbar"
-              aria-valuenow="75"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            ></div>
-          </div>
-        </div>
-      </div>
-    );
+    return Loading_Bar();
   }
 
   if (allPlants?.length == 0) {

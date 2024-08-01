@@ -4,63 +4,78 @@ import { useNavigate } from "react-router-dom";
 import { useRegistrationMutation } from "../components_db/registrationSlice";
 import { useLoginMutation } from "../components_db/userSlice";
 
+import Loading_Bar from "./Loading_Bar";
+import LoadReference from "./reference";
 import SelectList from "./SelectList";
+import { useCreateGardenMutation } from "../components_db/gardenSlice";
 
 export default function Registration() {
-  window.sessionStorage.setItem("active_item", "registration");
+  // load the reference data
+  console.log("run reference from Registration");
+  LoadReference() ? LoadReference() : console.log("Still loading Reference");
+  //  test this call
+
   const navigate = useNavigate();
   const [form, setForm] = useState({});
   const [errM, setErrM] = useState(null);
 
   const [registerUser] = useRegistrationMutation();
-
+  const [createGarden] = useCreateGardenMutation();
   const [loginUser] = useLoginMutation();
+
+  const createDefaultGarden = ({ id, zone_id }) => {
+    return {
+      description: "default garden",
+      user_id: id,
+      zone_id: zone_id,
+      shape_id: "20f66411-157c-431f-8b25-2d23aac9ad6e",
+      water_requirement_id: "9b2ce2d0-7e2f-4404-a7aa-d3505d6b3079",
+      sun_requirement_id: "98d6ac5a-5a50-4bf6-9b43-a6d6866c4de8",
+      soil_requirement_id: "76327833-1121-4a07-8197-a0fc5c641b5a",
+    };
+  };
 
   const submit = async (e) => {
     e.preventDefault();
     console.log("submit");
 
     try {
-      let success = false;
-      let loginSuccess = false;
+      let success;
+      let loginSuccess;
+      let gardenSuccess;
 
-      // TO DO - correctly handle and zone_id
+      // TO DO - correctly handle user_role_id
       form.user_role_id = "e7a3bd11-2c6e-451d-beeb-e4ef9eeac9bf";
-      console.log("form", form);
+
+      console.log("registration FORM", form);
+
       success = await registerUser(form).unwrap();
+      console.log("registration success REGISTERUSER: ", success);
+
       loginSuccess = await loginUser(form).unwrap();
+      console.log("registration loginSuccess LOGINUSER:", loginSuccess);
 
-      console.log(success);
-      console.log(loginSuccess);
+      // TODO Handle failed registration better
+      // TODO Handle failed login better
+      // TODO Handle failed create garden better
+      // test if we got the token back from registration
 
-      if (!success) {
-        return (
-          <div className="row w100 top2">
-            <div className="col-12 ">
-              {" "}
-              Loading ...
-              <div className="progress bg-primary">
-                <div
-                  className="progress-bar progress-bar-striped progress-bar-animated bg-success "
-                  role="progressbar"
-                  aria-valuenow="25"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                ></div>
-              </div>
-            </div>
-          </div>
-        );
-      }
+      // NOTE- May figured out the timing problem here - Set the token because we have a timing issue
+      //window.sessionStorage.setItem("Token", loginSuccess.token);
+      const specifications = createDefaultGarden(loginSuccess.user);
 
-      if (success?.token) {
-        window.sessionStorage.setItem("Token", success.token);
+      gardenSuccess = await createGarden({ specifications }).unwrap();
+
+      console.log("registration gardenSuccess CREATEGARDEN:", gardenSuccess);
+
+      if (loginSuccess?.token) {
         navigate("/garden");
       } else {
         setErrM("There is a problem with your registration, please try again.");
       }
     } catch (err) {
       setErrM(err?.data?.message);
+      console.log(err);
     }
   };
 
@@ -74,8 +89,6 @@ export default function Registration() {
 
   const updateFormOnListChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    console.log(updateFormOnListChange);
-    console.log(form);
   };
 
   const zoneList = useSelector((state) => {
@@ -85,8 +98,6 @@ export default function Registration() {
 
   return (
     <>
-      {/* <Nav_Bar /> */}
-
       <div className="container top5">
         <div className="row w100">
           <div className="col"></div>
@@ -150,15 +161,6 @@ export default function Registration() {
                               onChange={updateForm}
                               required
                             />
-
-                            {/*<input
-                              type="text"
-                              className="form-control"
-                              name="zone_id"
-                              placeholder="Zone 3"
-                              onChange={updateFormOnListChange}
-                              required
-                            />*/}
 
                             <SelectList
                               theList={zoneList}

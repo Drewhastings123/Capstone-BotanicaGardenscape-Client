@@ -1,129 +1,114 @@
-// import Garden_Canvas from "./Garden_Canvas";
-import Nav_Bar from "./Nav_Bar";
 import Plants from "./Plants";
-
-// import Plants from "./Plants";
-import { useState } from "react";
-import { useGetUserQuery } from "../components_db/userSlice";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+// import Loading_Bar from "./Loading_Bar";
 
-export default function Garden({ shape, setShape }) {
-  window.sessionStorage.setItem("active_item", "garden");
+import LoadReference from "./reference.js";
+import LazyUserRefresh from "./lazyRefresh.js";
 
-  // const temp = useSelector((state) => state);
-  // console.log(temp);
+import SelectList from "./SelectList";
+import User from "./User";
+import { useGetMyGardenQuery } from "../components_db/gardenSlice";
+import MyGarden from "./MyGarden";
 
-  // function Loading_Bar() {
-  //   return (
-  //     <div className="row w100 top2">
-  //       <div className="col-12 ">
-  //         {" "}
-  //         Loading ...
-  //         <div className="progress bg-primary">
-  //           <div
-  //             className="progress-bar progress-bar-striped progress-bar-animated bg-success "
-  //             role="progressbar"
-  //             aria-valuenow="75"
-  //             aria-valuemin="0"
-  //             aria-valuemax="100"
-  //           ></div>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-  // }
+import { useGetRefreshQuery } from "../components_db/userSlice";
+import GardenPlants from "./GardenPlants";
+
+export default function Garden() {
+  // load the reference data
+  console.log("run reference from garden");
+  LoadReference() ? LoadReference() : console.log("Still loading Reference");
+  //  test this call
+
+  const navigate = useNavigate();
+  // get the current logged in user from state
+  let theUser = useSelector((state) => {
+    return state.user.user;
+  });
+
+  const myGarden = useSelector((state) => {
+    return state.garden;
+  });
+  if (!myGarden?.id) {
+    console.log("theUserID", theUser.id);
+    const { data, error } = useGetMyGardenQuery(theUser.id);
+    console.log("myGarden data", data);
+  }
+  console.log("myGarden", myGarden);
+
+  // just a note for now
+  if (!theUser.id && window.sessionStorage.getItem("Token")) {
+    console.log("Need LazyUserRefresh Call");
+  }
+  //reload the user with a refresh if it is needed
+  const newRefresh = LazyUserRefresh();
+  console.log("newRefresh: ", newRefresh);
+
+
+  // get the zonelist to display users zone
+  const zoneList = useSelector((state) => {
+    return state.reference.zoneList;
+  });
+
+  // get the shapeList to display users Shape
+  const shapeList = useSelector((state) => {
+    return state.reference.shapeList;
+  });
+
+  console.log("Garden SHAPELIST: ", shapeList);
+  console.log("Garden ZONELIST: ", zoneList);
+  console.log("Garden USER: ", theUser);
+
+
+  // // find the correct name for display based on id
+  const specificZoneName = zoneList
+    ? zoneList.filter((obj) => {
+        if (obj.id === theUser.zone_id) return obj;
+      })
+    : [{ zone_name: "no zone yet", temp_range: "the void" }];
+
+
+  const displayZoneName =
+    specificZoneName[0]?.zone_name +
+    " (" +
+    specificZoneName[0]?.temp_range +
+    ")";
+
+  // Temporary hard coded value
+  // Should be from user's garden or default
+  const [currentCanvas, setCurrentCanvas] = useState({
+
+    shape_id: "20f66411-157c-431f-8b25-2d23aac9ad6e",
+
+  });
+
+  const updateCanvasOnListChange = (e) => {
+    console.log(
+      `updateCanvasOnListChange: ooga booga ${e.target.name}: ${e.target.value}`
+    );
+    setCurrentCanvas((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+
+    console.log("updateCanvasOnListChange: ", currentCanvas);
+  };
 
   function Garden_Canvas() {
-    switch (shape) {
-      case "sq":
-        return (
-          <div className="  border-garden p-2 text-dark  square br ">
-            {shape}
-          </div>
-        );
-      case "rec":
-        return (
-          <div className="  border-garden p-2 text-dark  rectangle ">
-            {shape}
-          </div>
-        );
-      case "cir":
-        return (
-          <div className="  border-garden p-2 text-dark  circle ">{shape}</div>
-        );
-
-      default:
-        return (
-          <div className="  border-garden p-2 text-dark bg-light square">
-            {shape}
-          </div>
-        );
-    }
-  }
-
-  function Shape_Select() {
-    function updateShape(e) {
-      console.log("Shape Selected!!", e.target.value);
-      setShape(e.target.value);
-      console.log("shape luego de setearla", shape);
+    const specificShapeClass = shapeList?.filter((obj) => {
+      if (obj.id === currentCanvas.shape_id) return obj;
+    });
+    let canvasClasses = " garden border-garden p-2 text-dark ";
+    let canvasShape = "square";
+    if (typeof specificShapeClass != "undefined") {
+      canvasClasses += specificShapeClass[0]
+        ? specificShapeClass[0].css_class
+        : "square";
+      canvasShape = specificShapeClass[0].shape_name;
     }
 
-    switch (shape) {
-      case "sq":
-        return (
-          <select
-            className="custom-select form-control input-sm p-1"
-            onChange={updateShape}
-            defaultValue="sq"
-          >
-            <option>Shape</option>
-            <option value="sq">Square</option>
-            <option value="rec">Rectangle</option>
-            <option value="cir">Circle</option>
-          </select>
-        );
-      case "rec":
-        return (
-          <select
-            className="custom-select form-control input-sm p-1"
-            onChange={updateShape}
-            defaultValue="rec"
-          >
-            <option>Shape</option>
-            <option value="sq">Square</option>
-            <option value="rec">Rectangle</option>
-            <option value="cir">Circle</option>
-          </select>
-        );
-      case "cir":
-        return (
-          <select
-            className="custom-select form-control input-sm p-1"
-            onChange={updateShape}
-            defaultValue="sq"
-          >
-            <option>Shape</option>
-            <option value="sq">Square</option>
-            <option value="rec">Rectangle</option>
-            <option value="cir">Circle</option>
-          </select>
-        );
+    console.log("Garden_Canvas: ", canvasClasses);
+    console.log("Garden_Canvas: ", canvasShape);
 
-      default:
-        return (
-          <select
-            className="custom-select form-control input-sm p-1"
-            onChange={updateShape}
-            defaultValue="sq"
-          >
-            <option>Shape</option>
-            <option value="sq">Square</option>
-            <option value="rec">Rectangle</option>
-            <option value="cir">Circle</option>
-          </select>
-        );
-    }
+    return <div className={canvasClasses}>{canvasShape}</div>;
   }
 
   function GardenCard() {
@@ -132,14 +117,23 @@ export default function Garden({ shape, setShape }) {
         <div className="card-header ">My Garden</div>
         <div className="row  center   ">
           <div className="col-sm-6 mt-4 mb-3 ">
-            <Shape_Select />
+            {/* <Shape_Select /> */}
+            <SelectList
+              theList={shapeList}
+              theListName="shape_id"
+              theParentForm="Garden"
+              onChangeFunction={updateCanvasOnListChange}
+              theCurrentValue={currentCanvas}
+              theFieldName="shape_name"
+              /* the2FieldName="css_class" */
+            />
           </div>
         </div>{" "}
         <div className="row   center pt-2 ">
           <div className="col-sm-5 center ">
             <button
               type="button"
-              className="btn btn-outline-warning btn-sm boder border-warning"
+              className="btn btn-outline-warning btn-sm border border-warning"
             >
               Save Garden
             </button>
@@ -148,7 +142,7 @@ export default function Garden({ shape, setShape }) {
           <div className="col-sm-5 center ">
             <button
               type="button"
-              className="btn btn-outline-warning btn-sm boder border-warning"
+              className="btn btn-outline-warning btn-sm border border-warning"
             >
               Buy Garden
             </button>
@@ -169,115 +163,124 @@ export default function Garden({ shape, setShape }) {
   }
 
   function UserCard() {
-    const id = useSelector((state) => {
-      return state.user.id;
-    });
-
-    const name = useSelector((state) => {
-      return state.reference.zoneList;
-    });
-    console.log(name);
-    console.log(id);
-
-    const { data, error, isLoading } = useGetUserQuery(id);
-
-    console.log(data);
-
-    if (!isLoading) {
-      const specificName = name?.filter((obj) => {
-        if (obj.id === data.user?.zone_id) return obj.zone_name;
-      });
-      // console.log(specificName[0].zone_name);
-    }
-
-    if (isLoading) {
+    if (!theUser)
+      return <div>No User Found - Please logout and login again.</div>;
+    else
       return (
-        <div className="row w100 top2">
-          <div className="col-12 ">
-            {" "}
-            Loading ...
-            <div className="progress bg-primary">
-              <div
-                className="progress-bar progress-bar-striped progress-bar-animated bg-success "
-                role="progressbar"
-                aria-valuenow="75"
-                aria-valuemin="0"
-                aria-valuemax="100"
-              ></div>
+        <div className=" border-primary mt-1 card">
+          <div className="card-header card-email-header"> {theUser.email}</div>
+
+          <div className="grid center pt-2 pb-3 card-user">
+            <div className="center card-user">
+              {theUser.firstname} {theUser.lastname}
+            </div>
+            <div className="center card-user"> Zone: {displayZoneName} </div>
+
+            <div className="center pt-3 ">
+              <button
+                type="button"
+                className="btn btn-outline-warning btn-sm border border-warning"
+                onClick={() => navigate("/user")}
+              >
+                Update User
+              </button>
             </div>
           </div>
         </div>
       );
-    }
-
-    if (error) {
-      return <div>Error: {error.message}</div>;
-    }
-
-    if (!data) {
-      return <div>No user found.</div>;
-    }
-    const specificName = name?.filter((obj) => {
-      if (obj.id === data?.user?.zone_id) return obj.zone_name;
-    });
-    //console.log(specificName[0].zone_name);
-    return (
-      <div className=" border-primary   mt-5 card center  ">
-        <div className="card-header pl-5"> {data.user.email}</div>
-
-        <div className="row    pt-3 pb-1 center  m-1 ">
-          <div className="col-sm-12 center ">
-            {data.user.firstname}{" "}
-            <span className="pl-1"> {data.user.lastname}</span>
-          </div>
-        </div>
-
-        <div className="row   center pt-2  center  m-2 ">
-          <div className="col-sm-12 center ">
-            Zone <span className="pl-1">{specificName[0].zone_name}</span>
-          </div>
-        </div>
-
-        <div className="row   center pt-3 pb-5  ">
-          <div className="col-sm-12 center ">
-            {" "}
-            <Link to={`/user/${data.user.id}`}>
-              <button
-                type="button"
-                className="btn btn-outline-warning btn-sm boder border-warning"
-              >
-                Update User
-              </button>
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
   }
 
   return (
     <>
-      {/* <Nav_Bar /> */}
-      <div className="container-fluid  ">
-        {/* < Loading_Bar /> */}
+      <div className="row">
+        <div className="accordion container-fluid w95">
+          <div className="accordion-item row">
+            <div className="col-4 pt-3">
+              <h3 className="accordion-header">
+                <button
+                  className="accordion-button"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseOne"
+                  aria-expanded="true"
+                  aria-controls="collapseOne"
+                >
+                  User Info
+                </button>
+              </h3>
+              <div
+                id="collapseOne"
+                className="accordion-collapse collapse show"
+                aria-labelledby="headingOne"
+                data-bs-parent="#accordionExample"
+              >
+                <div className="accordion-body garden-card">
 
-        <div className="row p-0 ">
-          <div className="col-3  ">
-            <div className="garden-card">
-              <GardenCard />
+                  <UserCard />
+
+                </div>
+              </div>
+              <div className="accordion-item">
+                <h3 className="accordion-header">
+                  <button
+                    className="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseTwo"
+                    aria-expanded="false"
+                    aria-controls="collapseTwo"
+                  >
+                    Garden Info
+                  </button>
+                </h3>
+                <div
+                  id="collapseTwo"
+                  className="accordion-collapse collapse"
+                  aria-labelledby="headingTwo"
+                  data-bs-parent="#accordionExample"
+                >
+                  <div className="accordion body user-card">
+                    <GardenCard />
+                    <MyGarden />
+                  </div>
+                </div>
+              </div>
+              <div className="accordion-item">
+                <h3 className="accordion-header">
+                  <button
+                    className="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseThree"
+                    aria-expanded="false"
+                    aria-controls="collapseThree"
+                  >
+                    Plants in My Garden
+                  </button>
+                </h3>
+                <div
+                  id="collapseThree"
+                  className="accordion-collapse collapse"
+                  aria-labelledby="headingThree"
+                  data-bs-parent="#accordionExample"
+                >
+                  <div className="accordion body">
+                    This will be the plant list
+
+                    <GardenPlants />
+
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="user-card">
-              <UserCard />
+            <div className="col-5   ">
+              <div className=" garden-canvas ">
+                <Garden_Canvas />
+              </div>
             </div>
-          </div>
-          <div className="col-6   ">
-            <div className=" garden center ">
-              <Garden_Canvas />
+            <div className="col-3   ">
+              <Plants />
             </div>
-          </div>
-          <div className="col-3   ">
-            {/* <Plants_Filter /> */}
-            <Plants />
           </div>
         </div>
       </div>

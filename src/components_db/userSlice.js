@@ -26,7 +26,20 @@ const userApi = api.injectEndpoints({
       }),
       providesTags: ["User"],
     }),
-
+    getRefresh: builder.query({
+      query: () => ({
+        url: `/refresh`,
+        method: "GET",
+      }),
+      providesTags: ["User"],
+      onQueryStarted: (arg, {_, queryFulfilled}) => {
+        console.log("Refresh Query Start");                        
+        queryFulfilled.then(({data}) => {
+          console.log("Refresh fulfilled", data)
+        }).catch((err) => 
+          console.error("Refresh Query failed", err))
+      },
+    }),
     updateUser: builder.mutation({
       query: (user) => ({
         url: `/users/${user.id}`,
@@ -46,30 +59,43 @@ const userApi = api.injectEndpoints({
 });
 
 const storeUser = (state, { payload }) => {
-  console.log("payload", payload);
-  state.id = payload.user.id;
-  state.firstname = payload.user.firstname;
-  state.lastname = payload.user.lastname;
-  state.email = payload.user.email;
-  state.phone_number = payload.user.phone_number;
-  state.zone_id = payload.user.zone_id;
-  state.user_role_id = payload.user.user_role_id;
+  console.log("storeuser: payload", payload);
+
+  //TODO - modify this to
+  state.user = payload.user;
+
+  // state.id = payload.user.id;
+  // state.firstname = payload.user.firstname;
+  // state.lastname = payload.user.lastname;
+  // state.email = payload.user.email;
+  // state.phone_number = payload.user.phone_number;
+  // state.zone_id = payload.user.zone_id;
+  // state.user_role_id = payload.user.user_role_id;
+};
+
+const storeUpdateUser = (state, { payload }) => {
+  console.log("storeUpdateUser: payload", payload);
+
+  //TODO - modify this to
+  state.user = payload;
+
+  // state.id = payload.id;
+  // state.firstname = payload.firstname;
+  // state.lastname = payload.lastname;
+  // state.email = payload.email;
+  // state.phone_number = payload.phone_number;
+  // state.zone_id = payload.zone_id;
+  // state.user_role_id = payload.user_role_id;
 };
 
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    // id: "",
-    // firstname: "",
-    // lastname: "",
-    // email: "",
-    // phone_number: null,
-    // zone_id: "",
-    // user_role_id: "",
     user: {},
   },
   reducers: {
     setLoginToken: (state, { payload }) => {
+      console.log("storeLoginToken: payload", payload);
       window.sessionStorage.setItem("Token", payload.token);
       state.currentUserId = payload.user.id;
       state.user = payload.user;
@@ -78,11 +104,24 @@ const userSlice = createSlice({
     clearLoginToken: ({ state }) => {
       window.sessionStorage.removeItem("Token");
       state.currentUserId = null;
+      state.user = null;
     },
   },
   extraReducers: (builder) => {
-    builder.addMatcher(api.endpoints.login.matchFulfilled, setLoginToken);
-    builder.addMatcher(api.endpoints.login.matchFulfilled, storeUser);
+    builder.addMatcher(
+      api.endpoints.login.matchFulfilled,
+      (state, { payload }) => {
+        console.log("bob");
+        state.user = payload.user;
+        window.sessionStorage.setItem("Token", payload.token);
+      }
+    );
+    builder.addMatcher(api.endpoints.getUser.matchFulfilled, storeUser);
+    builder.addMatcher(api.endpoints.getRefresh.matchFulfilled, storeUser);
+    builder.addMatcher(
+      api.endpoints.updateUser.matchFulfilled,
+      storeUpdateUser
+    );
   },
 });
 
@@ -90,6 +129,9 @@ export const {
   useLoginMutation,
   useGetAllUsersQuery,
   useGetUserQuery,
+  useLazyGetUserQuery,
+  useGetRefreshQuery,
+  useLazyGetRefreshQuery,
   useUpdateUserMutation,
   useDeleteUserMutation,
 } = userApi;
