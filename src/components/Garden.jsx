@@ -11,6 +11,7 @@ import { useGetMyGardenQuery } from "../components_db/gardenSlice";
 import MyGarden from "./MyGarden";
 
 import { useGetRefreshQuery } from "../components_db/userSlice";
+import GardenPlants from "./GardenPlants";
 
 export default function Garden() {
   const navigate = useNavigate();
@@ -29,7 +30,6 @@ export default function Garden() {
   }
   console.log("myGarden", myGarden);
 
-
   // get the zonelist to display users zone
   const zoneList = useSelector((state) => {
     return state.reference.zoneList;
@@ -45,7 +45,7 @@ export default function Garden() {
   console.log("Garden USER: ", theUser);
 
   // find the correct name for display based on id
-  const specificZoneName = zoneList.filter((obj) => {
+  const specificZoneName = zoneList?.filter((obj) => {
     if (obj.id === theUser.zone_id) return obj;
   });
 
@@ -61,14 +61,15 @@ export default function Garden() {
 
   // Temporary hard coded value
   // Should be from user's garden or default
-  const [currentCanvas, setCurrentCanvas] = useState({ shape_id: shapeList[0].id });
+  const [currentCanvas, setCurrentCanvas] = useState({
+    shape_id: shapeList[0].id,
+  });
 
   const updateCanvasOnListChange = (e) => {
     console.log(
       `updateCanvasOnListChange: ooga booga ${e.target.name}: ${e.target.value}`
     );
-    setCurrentCanvas((prev) => ({...prev,  [e.target.name]: e.target.value }));
-     
+    setCurrentCanvas((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
     console.log("updateCanvasOnListChange: ", currentCanvas);
   };
@@ -191,7 +192,7 @@ export default function Garden() {
                 data-bs-parent="#accordionExample"
               >
                 <div className="accordion-body garden-card">
-                  <GardenCard />
+                  <MyGarden />
                 </div>
               </div>
               <div className="accordion-item">
@@ -239,7 +240,7 @@ export default function Garden() {
                 >
                   <div className="accordion body">
                     This will be the plant list
-                    <MyGarden />
+                    <GardenPlants />
                   </div>
                 </div>
               </div>

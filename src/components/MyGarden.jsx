@@ -44,7 +44,7 @@ export default function MyGarden() {
 
   const [updateGarden] = useUpdateGardenMutation();
 
-  const [form, setForm] = useState("");
+  const [form, setForm] = useState(garden?.garden?.[0]);
   const [errM, setErrM] = useState(null);
 
   console.log("function User() SETFORM currentUser: ", form);
@@ -109,7 +109,7 @@ export default function MyGarden() {
                           //   aria-describedby="emailHelp"
                           //   placeholder="default"
                           onChange={updateForm}
-                          value={form.description}
+                          value={form?.description}
                           //   disabled
                           required
                         />
@@ -119,7 +119,7 @@ export default function MyGarden() {
                           theListName="zone_id"
                           theParentForm="GardenUpdate"
                           onChangeFunction={updateFormOnListChange}
-                          theCurrentValue={form.zone_id}
+                          theCurrentValue={form?.zone_id}
                           theFieldName="zone_name"
                           the2FieldName="temp_range"
                         />
@@ -128,7 +128,7 @@ export default function MyGarden() {
                           theListName="shape_id"
                           theParentForm="GardenUpdate"
                           onChangeFunction={updateFormOnListChange}
-                          theCurrentValue={form.shape_id}
+                          theCurrentValue={form?.shape_id}
                           theFieldName="shape_name"
                           the2FieldName="description"
                         />
@@ -137,7 +137,7 @@ export default function MyGarden() {
                           theListName="water_requirement_id"
                           theParentForm="GardenUpdate"
                           onChangeFunction={updateFormOnListChange}
-                          theCurrentValue={form.water_requirement_id}
+                          theCurrentValue={form?.water_requirement_id}
                           theFieldName="water_name"
                           the2FieldName="description"
                         />
@@ -146,7 +146,7 @@ export default function MyGarden() {
                           theListName="sun_requirement_id"
                           theParentForm="GardenUpdate"
                           onChangeFunction={updateFormOnListChange}
-                          theCurrentValue={form.sun_requirement_id}
+                          theCurrentValue={form?.sun_requirement_id}
                           theFieldName="sun_name"
                           the2FieldName="description"
                         />
@@ -155,7 +155,7 @@ export default function MyGarden() {
                           theListName="soil_requirement_id"
                           theParentForm="GardenUpdate"
                           onChangeFunction={updateFormOnListChange}
-                          theCurrentValue={form.soil_requirement_id}
+                          theCurrentValue={form?.soil_requirement_id}
                           theFieldName="soil_name"
                           the2FieldName="description"
                         />
@@ -170,13 +170,6 @@ export default function MyGarden() {
                           className="btn btn-success form-control"
                         >
                           Submit
-                        </button>
-                        <button
-                          type="button"
-                          className="btn btn-success"
-                          onClick={() => navigate("/garden")}
-                        >
-                          Return
                         </button>
                       </div>
                       {errM && (
