@@ -1,15 +1,20 @@
 import Plants from "./Plants";
-import { useState } from "react";
-import { useGetUserQuery } from "../components_db/userSlice";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Loading_Bar from "./Loading_Bar";
-import LoadRefresh from "./loadCalls";
+// import Loading_Bar from "./Loading_Bar";
+
+import LoadReference from "./reference.js";
+import LazyUserRefresh from "./lazyRefresh.js";
+
 import SelectList from "./SelectList";
 
-import { useGetRefreshQuery } from "../components_db/userSlice";
-
 export default function Garden() {
+  // load the reference data
+  console.log("run reference from garden");
+  LoadReference() ? LoadReference() : console.log("Still loading Reference");
+  //  test this call
+
   const navigate = useNavigate();
 
   // get the current logged in user from state
@@ -17,12 +22,13 @@ export default function Garden() {
     return state.user.user;
   });
 
-  // console.log("Garden USER: TEST for REFRESH ", theUser);
-  // console.log("Garden USER: TEST for REFRESH ", window.sessionStorage.getItem("Token"));
-  // if (!theUser.id && window.sessionStorage.getItem("Token")) {
-  //   console.log("LoadRefresh Call");
-  //   LoadRefresh();
-  // }
+  // just a note for now
+  if (!theUser.id && window.sessionStorage.getItem("Token")) {
+    console.log("Need LazyUserRefresh Call");
+  }
+  //reload the user with a refresh if it is needed
+  const newRefresh = LazyUserRefresh();
+  console.log("newRefresh: ", newRefresh);
 
   // get the zonelist to display users zone
   const zoneList = useSelector((state) => {
@@ -38,15 +44,13 @@ export default function Garden() {
   console.log("Garden ZONELIST: ", zoneList);
   console.log("Garden USER: ", theUser);
 
-  // find the correct name for display based on id
-  const specificZoneName = zoneList.filter((obj) => {
-    if (obj.id === theUser.zone_id) return obj;
-  });
+  // // find the correct name for display based on id
+  const specificZoneName = zoneList
+    ? zoneList.filter((obj) => {
+        if (obj.id === theUser.zone_id) return obj;
+      })
+    : [{ zone_name: "no zone yet", temp_range: "the void" }];
 
-  console.log(
-    "Garden USERS ZONE: ",
-    specificZoneName[0] ? specificZoneName[0] : "no user zone yet"
-  );
   const displayZoneName =
     specificZoneName[0]?.zone_name +
     " (" +
@@ -55,14 +59,15 @@ export default function Garden() {
 
   // Temporary hard coded value
   // Should be from user's garden or default
-  const [currentCanvas, setCurrentCanvas] = useState({ shape_id: shapeList[0].id });
+  const [currentCanvas, setCurrentCanvas] = useState({
+    shape_id: "20f66411-157c-431f-8b25-2d23aac9ad6e",
+  });
 
   const updateCanvasOnListChange = (e) => {
     console.log(
       `updateCanvasOnListChange: ooga booga ${e.target.name}: ${e.target.value}`
     );
-    setCurrentCanvas((prev) => ({...prev,  [e.target.name]: e.target.value }));
-     
+    setCurrentCanvas((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
     console.log("updateCanvasOnListChange: ", currentCanvas);
   };
@@ -71,9 +76,14 @@ export default function Garden() {
     const specificShapeClass = shapeList?.filter((obj) => {
       if (obj.id === currentCanvas.shape_id) return obj;
     });
-    const canvasClasses =
-      " garden border-garden p-2 text-dark " + specificShapeClass[0].css_class;
-    const canvasShape = specificShapeClass[0].shape_name;
+    let canvasClasses = " garden border-garden p-2 text-dark ";
+    let canvasShape = "square";
+    if (typeof specificShapeClass != "undefined") {
+      canvasClasses += specificShapeClass[0]
+        ? specificShapeClass[0].css_class
+        : "square";
+      canvasShape = specificShapeClass[0].shape_name;
+    }
 
     console.log("Garden_Canvas: ", canvasClasses);
     console.log("Garden_Canvas: ", canvasShape);
@@ -112,7 +122,7 @@ export default function Garden() {
           <div className="col-sm-5 center ">
             <button
               type="button"
-              className="btn btn-outline-warning btn-sm boder border-warning"
+              className="btn btn-outline-warning btn-sm border border-warning"
             >
               Buy Garden
             </button>

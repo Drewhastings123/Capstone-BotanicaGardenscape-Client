@@ -2,11 +2,14 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../components_db/userSlice";
 import Loading_Bar from "./Loading_Bar";
+
 export default function Login() {
   const navigate = useNavigate();
   const [form, setForm] = useState({});
   const [errM, setErrM] = useState(null);
   const [loginUser] = useLoginMutation();
+
+  console.log("Login() ");
 
   const submit = async (e) => {
     e.preventDefault();
@@ -23,6 +26,7 @@ export default function Login() {
       if (success?.token) {
         window.sessionStorage.setItem("Token", success.token);
         navigate("/garden");
+        //navigate("/user");
       } else {
         setErrM(
           "Invalid Username or Password, Please check your input and try again."

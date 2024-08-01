@@ -5,9 +5,14 @@ import { useNavigate } from "react-router-dom";
 import SelectList from "./SelectList";
 import Loading_Bar from "./Loading_Bar";
 
+import LoadReference from "./reference";
+
 export default function User() {
   // setup the return button
   const navigate = useNavigate();
+
+  // console.log("user page load reference");
+  // LoadReference();
 
   // Get the current User
   const user = useSelector((state) => {
