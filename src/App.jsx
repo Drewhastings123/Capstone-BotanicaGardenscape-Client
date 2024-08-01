@@ -6,6 +6,7 @@ import Login from "./components/Login";
 import Registration from "./components/Registration";
 import Garden from "./components/Garden";
 import User from "./components/User";
+// import { useState } from "react";
 import Protected from "./components/Protected.jsx";
 import Nav_Bar from "./components/Nav_Bar.jsx";
 
@@ -16,8 +17,8 @@ function App() {
         <Nav_Bar />
 
         <Routes>
-          <Route path="/user" element={<Protected />}>
-            <Route path="/user" element={<User />}></Route>
+          <Route path="/user/" element={<Protected />}>
+            <Route path="/user/" element={<User />}></Route>
           </Route>
           <Route path="/garden" element={<Protected />}>
             <Route path="/garden" element={<Garden />}></Route>

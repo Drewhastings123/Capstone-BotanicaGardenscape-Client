@@ -1,11 +1,10 @@
 import mag3Url from "../assets/homePage/MagnoliaMulti.jpg";
 import solarGnome from "../assets/homePage/solarGnome.png";
 
-import loadReference from "./reference.js";
+import LoadReference from "./reference.js";
 
 export default function Home() {
-  loadReference();
-
+  //LoadReference();
   return (
     <>
       <div className="container gridHome">
@@ -95,7 +94,7 @@ export default function Home() {
               </tr>
               <tr className="table-success">
                 <td>
-                  <a href="https://extension.colostate.edu" target="_blank">
+                  <a href="https://extension.colostate.edu">
                     Colorado State University Extension
                   </a>
                 </td>
@@ -128,16 +127,4 @@ export default function Home() {
       </div>
     </>
   );
-
-  {
-    /* {
-              <SelectList
-                theList={zoneList}
-                theListName="Zone"
-                theParentForm="Home"
-                theFieldName="zone_name"
-                the2FieldName="temp_range"
-              />
-            } */
-  }
 }

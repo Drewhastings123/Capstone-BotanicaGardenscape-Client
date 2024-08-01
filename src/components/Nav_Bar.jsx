@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 export default function Nav_Bar() {
@@ -11,97 +11,79 @@ export default function Nav_Bar() {
     navigate("/login");
   }
 
-  // set up the links to show which is active
-  // TODO - get it to work...
-  // document.querySelectorAll(".nav-link").forEach((link) => {
-  //   if (link.href === window.location.href) {
-  //     link.classList.add("active");
-  //     link.setAttribute("aria-current", "page");
-  //     console.log("set active link");
-  //   } else {
-  //     link.classList.remove("active");
-  //     console.log("set inactive link");
-  //   }
-  // });
-
   return (
     <>
-      <nav className="navbar navbar-expand-md  bg-primary" data-bs-theme="dark">
-        <div className="container-fluid">
-          <span className="material-symbols-outlined">yard</span>
-          <a
-            className="navbar-brand active bg-success"
-            aria-current="page"
-            href="/"
-          >
-            Botanica Gardenscape
-          </a>
+      {" "}
+      <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+        <span className="material-symbols-outlined">yard</span>
+        <NavLink to="/" className="navbar-brand active bg-success">
+          Botanica Gardenscape
+        </NavLink>
+        <button
+          className="navbar-toggler collapsed"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarColor01"
+          aria-controls="navbarColor01"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
 
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarColor01"
-            aria-controls="navbarColor01"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarColor01">
-            <ul className="navbar-nav mr-auto ">
-              {!token && (
-                <div className="navalign">
-                  <li className="nav-item ">
-                    <Link to="/login" className="nav-link ">
-                      Login{" "}
-                    </Link>
-                  </li>{" "}
-                </div>
-              )}
-              {!token && (
-                <div className="navalign">
-                  <li className="nav-item">
-                    <Link to="/registration" className="nav-link ">
-                      Register{" "}
-                    </Link>
-                  </li>
-                </div>
-              )}
+        <div className="collapse navbar-collapse" id="navbarColor01">
+          <ul className="navbar-nav mr-auto ">
+            {!token && (
+              <div>
+                <li className="nav-item ">
+                  <NavLink to="/login" className="nav-link ">
+                    Login{" "}
+                  </NavLink>
+                </li>{" "}
+              </div>
+            )}
+            {!token && (
+              <div>
+                <li className="nav-item">
+                  <NavLink to="/registration" className="nav-link ">
+                    Register{" "}
+                  </NavLink>
+                </li>
+              </div>
+            )}
 
-              {token && (
-                <div className="navalign">
-                  <li className="nav-item">
-                    <Link to="/garden" className="nav-link ">
-                      My Garden{" "}
-                    </Link>
-                  </li>
-                </div>
-              )}
-              {token && (
-                <div className="navalign">
-                  <li className="nav-item">
-                    <Link to="/user" className="nav-link ">
-                      User Info
-                    </Link>
-                  </li>
-                </div>
-              )}
-              {token && (
-                <div className="navalign">
-                  <li className="nav-item logout ">
-                    <button
-                      type="button"
-                      className="btn btn-link text-white-50 pt1 "
-                      onClick={() => Logout()}
-                    >
-                      Logout
-                    </button>
-                  </li>
-                </div>
-              )}
-            </ul>
-          </div>
+            {token && (
+              <div>
+                <li className="nav-item">
+                  <NavLink to="/garden" className="nav-link ">
+                    My Garden{" "}
+                  </NavLink>
+                </li>
+              </div>
+            )}
+            {token && (
+              <div>
+                <li className="nav-item active bg-success">
+                  <NavLink to="/user" className="nav-link ">
+                    User Info
+                  </NavLink>
+                </li>
+              </div>
+            )}
+            {token && (
+              <div>
+                <li className="nav-item logout ">
+                  <button
+                    type="button"
+                    className="btn btn-link text-white-50 pt1 "
+                    onClick={() => Logout()}
+                  >
+                    Logout
+                  </button>
+                </li>
+              </div>
+            )}
+          </ul>
         </div>
       </nav>
     </>

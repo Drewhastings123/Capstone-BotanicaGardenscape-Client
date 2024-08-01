@@ -19,6 +19,7 @@ Garden Design Front End
 
 - add and edit .gitignore
 
-# note for navbar
+#cache behavior/reload behavior
 
-- https://getbootstrap.com/docs/5.0/components/navbar/#responsive-behaviors
+- https://redux-toolkit.js.org/rtk-query/usage/cache-behavior
+- https://developer.mozilla.org/en-US/docs/Web/API/PerformanceNavigationTiming

@@ -84,11 +84,30 @@ body {
   height: 100vh;
 }
 
-/* for nav_bar */
-.nav-link.active {
-  color: rgb(47, 174, 22);
+/* .active {
+  background-color: #5bee5b75;
+  color: whitesmoke;
+} */
+
+.navbar li > .active {
+  font-weight: bold;
+  background-color: green !important;
 }
 
-.navalign {
-  display: flex;
+.card-email-header {
+  display: inline-block;
+  /* font-size: calc(.75vw + .75vh); */
+  font-size: 0.95em;
+}
+
+.card-user {
+  display: inline-block;
+  /* font-size: calc(.75vw + .75vh); */
+  font-size: 0.9em;
+}
+.select-reference {
+  background-color: #3a8eaa !important;
+}
+.text_input {
+  background-color: #3a8eaa !important;
 }

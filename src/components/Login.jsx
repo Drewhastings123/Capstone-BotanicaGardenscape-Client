@@ -1,7 +1,7 @@
-import Loading_Bar from "./Loading_Bar";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../components_db/userSlice";
+import Loading_Bar from "./Loading_Bar";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -9,22 +9,25 @@ export default function Login() {
   const [errM, setErrM] = useState(null);
   const [loginUser] = useLoginMutation();
 
+  console.log("Login() ");
+
   const submit = async (e) => {
     e.preventDefault();
     try {
-      console.log("form", form);
-      const loggedInUser = await loginUser(form).unwrap();
+      let success = false;
+      success = await loginUser(form).unwrap();
 
-      console.log("login success: ", loggedInUser);
+      console.log("Login() SUCCESS: ", success);
 
-      if (!loggedInUser?.token) {
-        console.log("calling loading bar");
-        Loading_Bar();
+      if (!success?.token) {
+        return Loading_Bar("50");
       }
 
-      if (loggedInUser?.token) {
-        window.sessionStorage.setItem("Token", loggedInUser.token);
+      if (success?.token) {
+        window.sessionStorage.setItem("Token", success.token);
+
         navigate("/garden");
+        //navigate("/user");
       } else {
         setErrM(
           "Invalid Username or Password, Please check your input and try again."
