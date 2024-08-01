@@ -13,6 +13,7 @@ import { useGetMyGardenQuery } from "../components_db/gardenSlice";
 import MyGarden from "./MyGarden";
 
 import { useGetRefreshQuery } from "../components_db/userSlice";
+import GardenPlants from "./GardenPlants";
 
 export default function Garden() {
   // load the reference data
@@ -44,6 +45,7 @@ export default function Garden() {
   const newRefresh = LazyUserRefresh();
   console.log("newRefresh: ", newRefresh);
 
+
   // get the zonelist to display users zone
   const zoneList = useSelector((state) => {
     return state.reference.zoneList;
@@ -58,12 +60,14 @@ export default function Garden() {
   console.log("Garden ZONELIST: ", zoneList);
   console.log("Garden USER: ", theUser);
 
+
   // // find the correct name for display based on id
   const specificZoneName = zoneList
     ? zoneList.filter((obj) => {
         if (obj.id === theUser.zone_id) return obj;
       })
     : [{ zone_name: "no zone yet", temp_range: "the void" }];
+
 
   const displayZoneName =
     specificZoneName[0]?.zone_name +
@@ -74,7 +78,9 @@ export default function Garden() {
   // Temporary hard coded value
   // Should be from user's garden or default
   const [currentCanvas, setCurrentCanvas] = useState({
+
     shape_id: "20f66411-157c-431f-8b25-2d23aac9ad6e",
+
   });
 
   const updateCanvasOnListChange = (e) => {
@@ -209,7 +215,9 @@ export default function Garden() {
                 data-bs-parent="#accordionExample"
               >
                 <div className="accordion-body garden-card">
+
                   <UserCard />
+
                 </div>
               </div>
               <div className="accordion-item">
@@ -258,7 +266,9 @@ export default function Garden() {
                 >
                   <div className="accordion body">
                     This will be the plant list
-                    {/* TO DO - PLANT LIST HERE <MyGarden /> */}
+
+                    <GardenPlants />
+
                   </div>
                 </div>
               </div>

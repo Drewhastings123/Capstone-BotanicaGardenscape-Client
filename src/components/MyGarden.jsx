@@ -44,7 +44,7 @@ export default function MyGarden() {
 
   const [updateGarden] = useUpdateGardenMutation();
 
-  const [form, setForm] = useState("");
+  const [form, setForm] = useState(garden?.garden?.[0]);
   const [errM, setErrM] = useState(null);
 
   console.log("function User() SETFORM currentUser: ", form);
@@ -91,6 +91,7 @@ export default function MyGarden() {
 
   return (
     <>
+
       <div className="container top1 center">
         {/* <div className="row w100"> */}
         {/* <div className="col"></div> */}
@@ -176,6 +177,7 @@ export default function MyGarden() {
                 >
                   Return
                 </button>
+
               </div>
               {errM && (
                 <div className="row">
