@@ -32,7 +32,7 @@ export default function Registration() {
       // TO DO - correctly handle and zone_id
       form.user_role_id = "e7a3bd11-2c6e-451d-beeb-e4ef9eeac9bf";
       console.log("form", form);
-      
+
       const success = await registerUser(form).unwrap();
       console.log("first success", success);
 
@@ -51,40 +51,11 @@ export default function Registration() {
       // console.log(token);
       window.sessionStorage.setItem("Token", loginSuccess.token);
 
-      await createGarden({ specifications }).unwrap();
-
-      // console.log(success);
-      // console.log(loginSuccess);
-
-      // if (!success) {
-      //   return (
-      //     <div className="row w100 top2">
-      //       <div className="col-12 ">
-      //         {" "}
-      //         Loading ...
-      //         <div className="progress bg-primary">
-      //           <div
-      //             className="progress-bar progress-bar-striped progress-bar-animated bg-success "
-      //             role="progressbar"
-      //             aria-valuenow="25"
-      //             aria-valuemin="0"
-      //             aria-valuemax="100"
-      //           ></div>
-      //         </div>
-      //       </div>
-      //     </div>
-      //   );
-      // }
-
-//       // TODO Handle failed registration better
-//       //if we got the token back from registration
-//       if (success?.token) {
-//         loginSuccess = await loginUser(form).unwrap();
-//       }
+      const gardenSuccess = await createGarden({ specifications }).unwrap();
 
       console.log("Registration success: ", success);
       console.log("Registration loginSuccess: ", loginSuccess);
-
+      console.log(gardenSuccess);
       if (loginSuccess?.token) {
         window.sessionStorage.setItem("Token", success.token);
         navigate("/garden");
@@ -92,8 +63,9 @@ export default function Registration() {
         setErrM("There is a problem with your registration, please try again.");
       }
     } catch (err) {
-      errM;
-      // setErrM(err?.data?.message);
+      // errM;
+      setErrM(err?.data?.message);
+      console.log(err);
     }
   };
 
