@@ -1,10 +1,12 @@
 import Plants from "./Plants";
-import { useState } from "react";
-import { useGetUserQuery } from "../components_db/userSlice";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Loading_Bar from "./Loading_Bar";
-import LoadRefresh from "./loadCalls";
+// import Loading_Bar from "./Loading_Bar";
+
+import LoadReference from "./reference.js";
+import LazyUserRefresh from "./lazyRefresh.js";
+
 import SelectList from "./SelectList";
 import User from "./User";
 import { useGetMyGardenQuery } from "../components_db/gardenSlice";
@@ -13,6 +15,11 @@ import MyGarden from "./MyGarden";
 import { useGetRefreshQuery } from "../components_db/userSlice";
 
 export default function Garden() {
+  // load the reference data
+  console.log("run reference from garden");
+  LoadReference() ? LoadReference() : console.log("Still loading Reference");
+  //  test this call
+
   const navigate = useNavigate();
   // get the current logged in user from state
   let theUser = useSelector((state) => {
@@ -29,6 +36,13 @@ export default function Garden() {
   }
   console.log("myGarden", myGarden);
 
+  // just a note for now
+  if (!theUser.id && window.sessionStorage.getItem("Token")) {
+    console.log("Need LazyUserRefresh Call");
+  }
+  //reload the user with a refresh if it is needed
+  const newRefresh = LazyUserRefresh();
+  console.log("newRefresh: ", newRefresh);
 
   // get the zonelist to display users zone
   const zoneList = useSelector((state) => {
@@ -44,15 +58,13 @@ export default function Garden() {
   console.log("Garden ZONELIST: ", zoneList);
   console.log("Garden USER: ", theUser);
 
-  // find the correct name for display based on id
-  const specificZoneName = zoneList.filter((obj) => {
-    if (obj.id === theUser.zone_id) return obj;
-  });
+  // // find the correct name for display based on id
+  const specificZoneName = zoneList
+    ? zoneList.filter((obj) => {
+        if (obj.id === theUser.zone_id) return obj;
+      })
+    : [{ zone_name: "no zone yet", temp_range: "the void" }];
 
-  console.log(
-    "Garden USERS ZONE: ",
-    specificZoneName[0] ? specificZoneName[0] : "no user zone yet"
-  );
   const displayZoneName =
     specificZoneName[0]?.zone_name +
     " (" +
@@ -61,14 +73,15 @@ export default function Garden() {
 
   // Temporary hard coded value
   // Should be from user's garden or default
-  const [currentCanvas, setCurrentCanvas] = useState({ shape_id: shapeList[0].id });
+  const [currentCanvas, setCurrentCanvas] = useState({
+    shape_id: "20f66411-157c-431f-8b25-2d23aac9ad6e",
+  });
 
   const updateCanvasOnListChange = (e) => {
     console.log(
       `updateCanvasOnListChange: ooga booga ${e.target.name}: ${e.target.value}`
     );
-    setCurrentCanvas((prev) => ({...prev,  [e.target.name]: e.target.value }));
-     
+    setCurrentCanvas((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
     console.log("updateCanvasOnListChange: ", currentCanvas);
   };
@@ -77,9 +90,14 @@ export default function Garden() {
     const specificShapeClass = shapeList?.filter((obj) => {
       if (obj.id === currentCanvas.shape_id) return obj;
     });
-    const canvasClasses =
-      " garden border-garden p-2 text-dark " + specificShapeClass[0].css_class;
-    const canvasShape = specificShapeClass[0].shape_name;
+    let canvasClasses = " garden border-garden p-2 text-dark ";
+    let canvasShape = "square";
+    if (typeof specificShapeClass != "undefined") {
+      canvasClasses += specificShapeClass[0]
+        ? specificShapeClass[0].css_class
+        : "square";
+      canvasShape = specificShapeClass[0].shape_name;
+    }
 
     console.log("Garden_Canvas: ", canvasClasses);
     console.log("Garden_Canvas: ", canvasShape);
@@ -118,7 +136,7 @@ export default function Garden() {
           <div className="col-sm-5 center ">
             <button
               type="button"
-              className="btn btn-outline-warning btn-sm boder border-warning"
+              className="btn btn-outline-warning btn-sm border border-warning"
             >
               Buy Garden
             </button>
@@ -143,7 +161,7 @@ export default function Garden() {
       return <div>No User Found - Please logout and login again.</div>;
     else
       return (
-        <div className=" border-primary mt-5 card">
+        <div className=" border-primary mt-1 card">
           <div className="card-header card-email-header"> {theUser.email}</div>
 
           <div className="grid center pt-2 pb-3 card-user">
@@ -171,7 +189,7 @@ export default function Garden() {
       <div className="row">
         <div className="accordion container-fluid w95">
           <div className="accordion-item row">
-            <div className="col-3 pt-3">
+            <div className="col-4 pt-3">
               <h3 className="accordion-header">
                 <button
                   className="accordion-button"
@@ -181,7 +199,7 @@ export default function Garden() {
                   aria-expanded="true"
                   aria-controls="collapseOne"
                 >
-                  My Garden Info
+                  User Info
                 </button>
               </h3>
               <div
@@ -191,7 +209,7 @@ export default function Garden() {
                 data-bs-parent="#accordionExample"
               >
                 <div className="accordion-body garden-card">
-                  <GardenCard />
+                  <UserCard />
                 </div>
               </div>
               <div className="accordion-item">
@@ -204,7 +222,7 @@ export default function Garden() {
                     aria-expanded="false"
                     aria-controls="collapseTwo"
                   >
-                    User Info
+                    Garden Info
                   </button>
                 </h3>
                 <div
@@ -214,7 +232,8 @@ export default function Garden() {
                   data-bs-parent="#accordionExample"
                 >
                   <div className="accordion body user-card">
-                    <UserCard />
+                    <GardenCard />
+                    <MyGarden />
                   </div>
                 </div>
               </div>
@@ -239,7 +258,7 @@ export default function Garden() {
                 >
                   <div className="accordion body">
                     This will be the plant list
-                    <MyGarden />
+                    {/* TO DO - PLANT LIST HERE <MyGarden /> */}
                   </div>
                 </div>
               </div>
@@ -249,7 +268,7 @@ export default function Garden() {
                 <Garden_Canvas />
               </div>
             </div>
-            <div className="col-2   ">
+            <div className="col-3   ">
               <Plants />
             </div>
           </div>

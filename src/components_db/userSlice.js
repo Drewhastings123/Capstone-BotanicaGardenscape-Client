@@ -32,6 +32,13 @@ const userApi = api.injectEndpoints({
         method: "GET",
       }),
       providesTags: ["User"],
+      onQueryStarted: (arg, {_, queryFulfilled}) => {
+        console.log("Refresh Query Start");                        
+        queryFulfilled.then(({data}) => {
+          console.log("Refresh fulfilled", data)
+        }).catch((err) => 
+          console.error("Refresh Query failed", err))
+      },
     }),
     updateUser: builder.mutation({
       query: (user) => ({
@@ -122,7 +129,9 @@ export const {
   useLoginMutation,
   useGetAllUsersQuery,
   useGetUserQuery,
+  useLazyGetUserQuery,
   useGetRefreshQuery,
+  useLazyGetRefreshQuery,
   useUpdateUserMutation,
   useDeleteUserMutation,
 } = userApi;

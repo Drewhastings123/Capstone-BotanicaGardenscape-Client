@@ -4,8 +4,7 @@ import solarGnome from "../assets/homePage/solarGnome.png";
 import LoadReference from "./reference.js";
 
 export default function Home() {
-  LoadReference();
-
+  //LoadReference();
   return (
     <>
       <div className="container gridHome">

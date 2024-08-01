@@ -91,110 +91,108 @@ export default function MyGarden() {
 
   return (
     <>
-      <div className="container top5">
-        <div className="row w100">
-          <div className="col"></div>
+      <div className="container top1 center">
+        {/* <div className="row w100"> */}
+        {/* <div className="col"></div> */}
 
-          <div className="col-8">
-            <div className="card border-success ">
-              <div className="card-body">
-                <div className="card-text ">
-                  <form onSubmit={submit} name="formGardenUpdate">
-                    <div className="col-12">
-                      <div className="row">
-                        <input
-                          type="text"
-                          className="form-control"
-                          name="description"
-                          //   aria-describedby="emailHelp"
-                          //   placeholder="default"
-                          onChange={updateForm}
-                          value={form.description}
-                          //   disabled
-                          required
-                        />
+        <div className="col-8">
+          {/* <div className="card border-success "> */}
+          {/* <div className="card-body"> */}
+          {/* <div className="card-text "> */}
+          <form onSubmit={submit} name="formGardenUpdate">
+            <div className="col-12 center">
+              <div className="row">
+                <input
+                  type="text"
+                  className="form-control text_input"
+                  name="description"
+                  //   aria-describedby="emailHelp"
+                  //   placeholder="default"
+                  onChange={updateForm}
+                  value={form.description}
+                  //   disabled
+                  required
+                />
 
-                        <SelectList
-                          theList={zoneList}
-                          theListName="zone_id"
-                          theParentForm="GardenUpdate"
-                          onChangeFunction={updateFormOnListChange}
-                          theCurrentValue={form.zone_id}
-                          theFieldName="zone_name"
-                          the2FieldName="temp_range"
-                        />
-                        <SelectList
-                          theList={shapeList}
-                          theListName="shape_id"
-                          theParentForm="GardenUpdate"
-                          onChangeFunction={updateFormOnListChange}
-                          theCurrentValue={form.shape_id}
-                          theFieldName="shape_name"
-                          the2FieldName="description"
-                        />
-                        <SelectList
-                          theList={waterRequirementList}
-                          theListName="water_requirement_id"
-                          theParentForm="GardenUpdate"
-                          onChangeFunction={updateFormOnListChange}
-                          theCurrentValue={form.water_requirement_id}
-                          theFieldName="water_name"
-                          the2FieldName="description"
-                        />
-                        <SelectList
-                          theList={sunRequirementList}
-                          theListName="sun_requirement_id"
-                          theParentForm="GardenUpdate"
-                          onChangeFunction={updateFormOnListChange}
-                          theCurrentValue={form.sun_requirement_id}
-                          theFieldName="sun_name"
-                          the2FieldName="description"
-                        />
-                        <SelectList
-                          theList={soilRequirementList}
-                          theListName="soil_requirement_id"
-                          theParentForm="GardenUpdate"
-                          onChangeFunction={updateFormOnListChange}
-                          theCurrentValue={form.soil_requirement_id}
-                          theFieldName="soil_name"
-                          the2FieldName="description"
-                        />
-                      </div>{" "}
-                      {/*  //close row */}
-                    </div>{" "}
-                    {/*  //close col-12 */}
-                    <div className="row">
-                      <div className="col-12">
-                        <button
-                          type="submit"
-                          className="btn btn-success form-control"
-                        >
-                          Submit
-                        </button>
-                        <button
-                          type="button"
-                          className="btn btn-success"
-                          onClick={() => navigate("/garden")}
-                        >
-                          Return
-                        </button>
-                      </div>
-                      {errM && (
-                        <div className="row">
-                          <div className="col-12">
-                            <p className="text-warning">{errM}</p>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </form>
-                </div>
+                <SelectList
+                  theList={zoneList}
+                  theListName="zone_id"
+                  theParentForm="GardenUpdate"
+                  onChangeFunction={updateFormOnListChange}
+                  theCurrentValue={form.zone_id}
+                  theFieldName="zone_name"
+                  the2FieldName="temp_range"
+                />
+                <SelectList
+                  theList={shapeList}
+                  theListName="shape_id"
+                  theParentForm="GardenUpdate"
+                  onChangeFunction={updateFormOnListChange}
+                  theCurrentValue={form.shape_id}
+                  theFieldName="shape_name"
+                  the2FieldName="description"
+                />
+                <SelectList
+                  theList={waterRequirementList}
+                  theListName="water_requirement_id"
+                  theParentForm="GardenUpdate"
+                  onChangeFunction={updateFormOnListChange}
+                  theCurrentValue={form.water_requirement_id}
+                  theFieldName="water_name"
+                  the2FieldName="description"
+                />
+                <SelectList
+                  theList={sunRequirementList}
+                  theListName="sun_requirement_id"
+                  theParentForm="GardenUpdate"
+                  onChangeFunction={updateFormOnListChange}
+                  theCurrentValue={form.sun_requirement_id}
+                  theFieldName="sun_name"
+                  the2FieldName="description"
+                />
+                <SelectList
+                  theList={soilRequirementList}
+                  theListName="soil_requirement_id"
+                  theParentForm="GardenUpdate"
+                  onChangeFunction={updateFormOnListChange}
+                  theCurrentValue={form.soil_requirement_id}
+                  theFieldName="soil_name"
+                  the2FieldName="description"
+                />
+              </div>{" "}
+              {/*  //close row */}
+            </div>{" "}
+            {/*  //close col-12 */}
+            <div className="row">
+              <div className="col-12">
+                <button type="submit" className="btn btn-success form-control">
+                  Submit
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-success"
+                  onClick={() => navigate("/garden")}
+                  hidden
+                >
+                  Return
+                </button>
               </div>
+              {errM && (
+                <div className="row">
+                  <div className="col-12">
+                    <p className="text-warning">{errM}</p>
+                  </div>
+                </div>
+              )}
             </div>
-          </div>
+          </form>
+          {/* </div> */}
+          {/* </div> */}
+          {/* </div> */}
+        </div>
 
-          <div className="col"></div>
-        </div>{" "}
+        {/* <div className="col"></div> */}
+        {/* </div>{" "} */}
       </div>
     </>
   );
