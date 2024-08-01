@@ -161,7 +161,7 @@ export default function Garden() {
       return <div>No User Found - Please logout and login again.</div>;
     else
       return (
-        <div className=" border-primary mt-5 card">
+        <div className=" border-primary mt-1 card">
           <div className="card-header card-email-header"> {theUser.email}</div>
 
           <div className="grid center pt-2 pb-3 card-user">
@@ -189,7 +189,7 @@ export default function Garden() {
       <div className="row">
         <div className="accordion container-fluid w95">
           <div className="accordion-item row">
-            <div className="col-3 pt-3">
+            <div className="col-4 pt-3">
               <h3 className="accordion-header">
                 <button
                   className="accordion-button"
@@ -199,7 +199,7 @@ export default function Garden() {
                   aria-expanded="true"
                   aria-controls="collapseOne"
                 >
-                  My Garden Info
+                  User Info
                 </button>
               </h3>
               <div
@@ -209,7 +209,7 @@ export default function Garden() {
                 data-bs-parent="#accordionExample"
               >
                 <div className="accordion-body garden-card">
-                  <GardenCard />
+                  <UserCard />
                 </div>
               </div>
               <div className="accordion-item">
@@ -222,7 +222,7 @@ export default function Garden() {
                     aria-expanded="false"
                     aria-controls="collapseTwo"
                   >
-                    User Info
+                    Garden Info
                   </button>
                 </h3>
                 <div
@@ -232,7 +232,8 @@ export default function Garden() {
                   data-bs-parent="#accordionExample"
                 >
                   <div className="accordion body user-card">
-                    <UserCard />
+                    <GardenCard />
+                    <MyGarden />
                   </div>
                 </div>
               </div>
@@ -257,7 +258,7 @@ export default function Garden() {
                 >
                   <div className="accordion body">
                     This will be the plant list
-                    <MyGarden />
+                    {/* TO DO - PLANT LIST HERE <MyGarden /> */}
                   </div>
                 </div>
               </div>
@@ -267,7 +268,7 @@ export default function Garden() {
                 <Garden_Canvas />
               </div>
             </div>
-            <div className="col-2   ">
+            <div className="col-3   ">
               <Plants />
             </div>
           </div>

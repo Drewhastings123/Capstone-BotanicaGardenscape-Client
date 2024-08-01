@@ -5,10 +5,16 @@ import { useRegistrationMutation } from "../components_db/registrationSlice";
 import { useLoginMutation } from "../components_db/userSlice";
 
 import Loading_Bar from "./Loading_Bar";
+import LoadReference from "./reference";
 import SelectList from "./SelectList";
 import { useCreateGardenMutation } from "../components_db/gardenSlice";
 
 export default function Registration() {
+  // load the reference data
+  console.log("run reference from Registration");
+  LoadReference() ? LoadReference() : console.log("Still loading Reference");
+  //  test this call
+
   const navigate = useNavigate();
   const [form, setForm] = useState({});
   const [errM, setErrM] = useState(null);
@@ -55,13 +61,12 @@ export default function Registration() {
       // test if we got the token back from registration
 
       // NOTE- May figured out the timing problem here - Set the token because we have a timing issue
-                    //window.sessionStorage.setItem("Token", loginSuccess.token);
+      //window.sessionStorage.setItem("Token", loginSuccess.token);
       const specifications = createDefaultGarden(loginSuccess.user);
 
       gardenSuccess = await createGarden({ specifications }).unwrap();
 
       console.log("registration gardenSuccess CREATEGARDEN:", gardenSuccess);
-
 
       if (loginSuccess?.token) {
         navigate("/garden");
@@ -69,10 +74,8 @@ export default function Registration() {
         setErrM("There is a problem with your registration, please try again.");
       }
     } catch (err) {
-
       setErrM(err?.data?.message);
       console.log(err);
-
     }
   };
 
