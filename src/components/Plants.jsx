@@ -13,7 +13,7 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 
 export default function Plants() {
-  const allPlantsBurnt = [
+  const allPlantsBurnt_Hold = [
     {
       id: 0,
       plant_name: "Netleaf willow",
@@ -134,6 +134,8 @@ export default function Plants() {
   const allSuns = allRef.sunRequirementList;
   const allH2O = allRef.waterRequirementList;
   const allSoil = allRef.soilRequirementList;
+
+  const allPlantsBurnt = allRef.plantList;
 
   let newCV = [];
 
