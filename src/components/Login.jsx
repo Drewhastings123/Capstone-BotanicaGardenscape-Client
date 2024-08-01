@@ -25,6 +25,7 @@ export default function Login() {
 
       if (success?.token) {
         window.sessionStorage.setItem("Token", success.token);
+
         navigate("/garden");
         //navigate("/user");
       } else {

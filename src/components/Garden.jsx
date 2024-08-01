@@ -8,6 +8,11 @@ import LoadReference from "./reference.js";
 import LazyUserRefresh from "./lazyRefresh.js";
 
 import SelectList from "./SelectList";
+import User from "./User";
+import { useGetMyGardenQuery } from "../components_db/gardenSlice";
+import MyGarden from "./MyGarden";
+
+import { useGetRefreshQuery } from "../components_db/userSlice";
 
 export default function Garden() {
   // load the reference data
@@ -16,11 +21,20 @@ export default function Garden() {
   //  test this call
 
   const navigate = useNavigate();
-
   // get the current logged in user from state
   let theUser = useSelector((state) => {
     return state.user.user;
   });
+
+  const myGarden = useSelector((state) => {
+    return state.garden;
+  });
+  if (!myGarden?.id) {
+    console.log("theUserID", theUser.id);
+    const { data, error } = useGetMyGardenQuery(theUser.id);
+    console.log("myGarden data", data);
+  }
+  console.log("myGarden", myGarden);
 
   // just a note for now
   if (!theUser.id && window.sessionStorage.getItem("Token")) {
@@ -172,23 +186,90 @@ export default function Garden() {
 
   return (
     <>
-      <div className="container-fluid w95">
-        <div className="row ">
-          <div className="col-3">
-            <div className="garden-card">
-              <GardenCard />
+      <div className="row">
+        <div className="accordion container-fluid w95">
+          <div className="accordion-item row">
+            <div className="col-3 pt-3">
+              <h3 className="accordion-header">
+                <button
+                  className="accordion-button"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseOne"
+                  aria-expanded="true"
+                  aria-controls="collapseOne"
+                >
+                  My Garden Info
+                </button>
+              </h3>
+              <div
+                id="collapseOne"
+                className="accordion-collapse collapse show"
+                aria-labelledby="headingOne"
+                data-bs-parent="#accordionExample"
+              >
+                <div className="accordion-body garden-card">
+                  <GardenCard />
+                </div>
+              </div>
+              <div className="accordion-item">
+                <h3 className="accordion-header">
+                  <button
+                    className="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseTwo"
+                    aria-expanded="false"
+                    aria-controls="collapseTwo"
+                  >
+                    User Info
+                  </button>
+                </h3>
+                <div
+                  id="collapseTwo"
+                  className="accordion-collapse collapse"
+                  aria-labelledby="headingTwo"
+                  data-bs-parent="#accordionExample"
+                >
+                  <div className="accordion body user-card">
+                    <UserCard />
+                  </div>
+                </div>
+              </div>
+              <div className="accordion-item">
+                <h3 className="accordion-header">
+                  <button
+                    className="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseThree"
+                    aria-expanded="false"
+                    aria-controls="collapseThree"
+                  >
+                    Plants in My Garden
+                  </button>
+                </h3>
+                <div
+                  id="collapseThree"
+                  className="accordion-collapse collapse"
+                  aria-labelledby="headingThree"
+                  data-bs-parent="#accordionExample"
+                >
+                  <div className="accordion body">
+                    This will be the plant list
+                    <MyGarden />
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="user-card">
-              <UserCard />
+            <div className="col-5   ">
+              <div className=" garden-canvas ">
+                <Garden_Canvas />
+              </div>
             </div>
-          </div>
-          <div className="col-5   ">
-            <div className=" garden-canvas ">
-              <Garden_Canvas />
+            <div className="col-2   ">
+              <Plants />
             </div>
-          </div>
-          <div className="col-2   ">
-            <Plants />
           </div>
         </div>
       </div>
