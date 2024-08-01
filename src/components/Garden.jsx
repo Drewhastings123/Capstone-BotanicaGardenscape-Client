@@ -148,8 +148,8 @@ export default function Garden() {
             </button>
           </div>
         </div>
-        <div className="row   center p-2 ">
-          <div className="col-sm-10 center  ">
+        <div className="row   center pb-3 ">
+          <div className="col-sm-10 center p-2 ">
             <button
               type="button"
               className="btn btn-link btn-sm text-secondary "

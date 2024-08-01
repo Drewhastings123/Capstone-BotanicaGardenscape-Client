@@ -114,7 +114,7 @@ export default function Registration() {
                     <div className="row">
                       <div className="col-12">
                         <div className="row">
-                          <div className="col-6">
+                          <div className="col-6 ">
                             <input
                               type="email"
                               className="form-control"
@@ -143,7 +143,7 @@ export default function Registration() {
                             />
                           </div>
 
-                          <div className="col-6">
+                          <div className="col-6 ">
                             <input
                               type="password"
                               className="form-control"
