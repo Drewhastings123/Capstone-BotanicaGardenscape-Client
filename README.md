@@ -18,3 +18,5 @@ Garden Design Front End
 
 * add and edit .gitignore
 
+#cache behavior
+* https://redux-toolkit.js.org/rtk-query/usage/cache-behavior

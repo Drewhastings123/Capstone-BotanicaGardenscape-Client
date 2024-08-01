@@ -11,7 +11,7 @@ export default function User() {
 
   // Get the current User
   const user = useSelector((state) => {
-    return state.user;
+    return state.user.user;
   });
   console.log(`(useSelector(state) - function User() USER: ${{ user }}`);
 

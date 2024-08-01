@@ -1,10 +1,10 @@
 import mag3Url from "../assets/homePage/MagnoliaMulti.jpg";
 import solarGnome from "../assets/homePage/solarGnome.png";
 
-import loadReference from "./reference.js";
+import LoadReference from "./reference.js";
 
 export default function Home() {
-  loadReference();
+  LoadReference();
 
   return (
     <>

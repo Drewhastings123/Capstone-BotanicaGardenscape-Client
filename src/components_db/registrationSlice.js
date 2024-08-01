@@ -28,7 +28,13 @@ const registrationSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addMatcher(api.endpoints.registration.matchFulfilled, setToken);
+    builder.addMatcher(
+      api.endpoints.registration.matchFulfilled,
+      (state, { payload }) => {
+        console.log("registration bob");
+        window.sessionStorage.setItem("Token", payload.token);
+      }
+    );
   },
 });
 

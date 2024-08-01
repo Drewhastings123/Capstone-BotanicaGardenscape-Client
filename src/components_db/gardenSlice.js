@@ -8,7 +8,6 @@ const gardenApi = api.injectEndpoints({
         url: "/garden",
         method: "POST",
         body: specifications,
-        // headers: { authorization: `Bearer ${token}` },
       }),
       invalidatesTags: ["Garden"],
     }),

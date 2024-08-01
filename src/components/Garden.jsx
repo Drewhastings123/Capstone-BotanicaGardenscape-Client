@@ -1,20 +1,22 @@
-// import Garden_Canvas from "./Garden_Canvas";
 import Plants from "./Plants";
 import { useState } from "react";
 import { useGetUserQuery } from "../components_db/userSlice";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Loading_Bar from "./Loading_Bar";
+import LoadRefresh from "./loadCalls";
 import SelectList from "./SelectList";
 import User from "./User";
 import { useGetMyGardenQuery } from "../components_db/gardenSlice";
 import MyGarden from "./MyGarden";
 
+import { useGetRefreshQuery } from "../components_db/userSlice";
+
 export default function Garden() {
   const navigate = useNavigate();
   // get the current logged in user from state
-  const theUser = useSelector((state) => {
-    return state.user;
+  let theUser = useSelector((state) => {
+    return state.user.user;
   });
 
   const myGarden = useSelector((state) => {
@@ -26,6 +28,7 @@ export default function Garden() {
     console.log("myGarden data", data);
   }
   console.log("myGarden", myGarden);
+
 
   // get the zonelist to display users zone
   const zoneList = useSelector((state) => {
@@ -42,49 +45,47 @@ export default function Garden() {
   console.log("Garden USER: ", theUser);
 
   // find the correct name for display based on id
-  const specificZoneName = zoneList?.filter((obj) => {
+  const specificZoneName = zoneList.filter((obj) => {
     if (obj.id === theUser.zone_id) return obj;
   });
-  console.log("Garden USERS ZONE: ", specificZoneName[0]);
+
+  console.log(
+    "Garden USERS ZONE: ",
+    specificZoneName[0] ? specificZoneName[0] : "no user zone yet"
+  );
   const displayZoneName =
-    specificZoneName[0].zone_name + " (" + specificZoneName[0].temp_range + ")";
+    specificZoneName[0]?.zone_name +
+    " (" +
+    specificZoneName[0]?.temp_range +
+    ")";
 
   // Temporary hard coded value
   // Should be from user's garden or default
-  const [currentCanvas, setCurrentCanvas] = useState(shapeList[0].id);
+  const [currentCanvas, setCurrentCanvas] = useState({ shape_id: shapeList[0].id });
 
   const updateCanvasOnListChange = (e) => {
     console.log(
-      `updateCanvasOnListChange: ${e.target.name}: ${e.target.value}`
+      `updateCanvasOnListChange: ooga booga ${e.target.name}: ${e.target.value}`
     );
-    setCurrentCanvas((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setCurrentCanvas((prev) => ({...prev,  [e.target.name]: e.target.value }));
+     
+
     console.log("updateCanvasOnListChange: ", currentCanvas);
   };
 
   function Garden_Canvas() {
     const specificShapeClass = shapeList?.filter((obj) => {
-      if (obj.id === currentCanvas) return obj;
+      if (obj.id === currentCanvas.shape_id) return obj;
     });
     const canvasClasses =
-      "  border-garden p-2 text-dark " + specificShapeClass[0].css_class;
+      " garden border-garden p-2 text-dark " + specificShapeClass[0].css_class;
+    const canvasShape = specificShapeClass[0].shape_name;
 
     console.log("Garden_Canvas: ", canvasClasses);
+    console.log("Garden_Canvas: ", canvasShape);
 
-    return <div className={canvasClasses}></div>;
+    return <div className={canvasClasses}>{canvasShape}</div>;
   }
-
-  // function Shape_Select() {
-  //   // TODO - USE THE GARDEN's Shape list
-  //   <SelectList
-  //     theList={shapeList}
-  //     theListName="id"
-  //     theParentForm="Garden"
-  //     onChangeFunction={updateCanvasOnListChange}
-  //     theCurrentValue={shapeList[0].id}
-  //     theFieldName="shape_name"
-  //     /* the2FieldName="css_class" */
-  //   />;
-  // }
 
   function GardenCard() {
     return (
@@ -95,10 +96,10 @@ export default function Garden() {
             {/* <Shape_Select /> */}
             <SelectList
               theList={shapeList}
-              theListName="id"
+              theListName="shape_id"
               theParentForm="Garden"
               onChangeFunction={updateCanvasOnListChange}
-              theCurrentValue={shapeList[0].id}
+              theCurrentValue={currentCanvas}
               theFieldName="shape_name"
               /* the2FieldName="css_class" */
             />
@@ -108,7 +109,7 @@ export default function Garden() {
           <div className="col-sm-5 center ">
             <button
               type="button"
-              className="btn btn-outline-warning btn-sm boder border-warning"
+              className="btn btn-outline-warning btn-sm border border-warning"
             >
               Save Garden
             </button>
