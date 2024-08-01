@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../components_db/userSlice";
 import Loading_Bar from "./Loading_Bar";
+
 export default function Login() {
   const navigate = useNavigate();
   const [form, setForm] = useState({});
@@ -22,6 +23,7 @@ export default function Login() {
 
       if (success?.token) {
         window.sessionStorage.setItem("Token", success.token);
+
         navigate("/garden");
       } else {
         setErrM(

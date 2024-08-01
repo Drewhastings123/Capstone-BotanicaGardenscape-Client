@@ -40,6 +40,7 @@ export default function Registration() {
 
       // TO DO - correctly handle user_role_id
       form.user_role_id = "e7a3bd11-2c6e-451d-beeb-e4ef9eeac9bf";
+
       console.log("registration FORM", form);
 
       success = await registerUser(form).unwrap();
@@ -61,13 +62,17 @@ export default function Registration() {
 
       console.log("registration gardenSuccess CREATEGARDEN:", gardenSuccess);
 
+
       if (loginSuccess?.token) {
         navigate("/garden");
       } else {
         setErrM("There is a problem with your registration, please try again.");
       }
     } catch (err) {
+
       setErrM(err?.data?.message);
+      console.log(err);
+
     }
   };
 
