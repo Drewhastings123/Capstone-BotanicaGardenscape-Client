@@ -31,12 +31,22 @@ function App() {
     "X",
     "Y",
   ];
+
+  const plants = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
   const [parent, setParent] = useState(null);
+
   const draggableMarkup = (
     <Draggable id="draggable">
       <img src="./src/assets/7.png" />{" "}
     </Draggable>
   );
+
+  // const path1 = `./src/assets/1.png`;
+  // const path2 = `./src/assets/2.png`;
+  // const path3 = `./src/assets/3.png`;
+  // const path4 = `./src/assets/4.png`;
+  // const path5 = `./src/assets/5.png`;
 
   return (
     <div>
@@ -62,6 +72,16 @@ function App() {
 
           <div className="col-3  right ">
             {parent === null ? draggableMarkup : null}
+            {plants.map((plant) => {
+              const path = `./src/assets/${plant}.png`;
+              return (
+                <Draggable id={plant} key={plant}>
+                  <img src={path} />
+                </Draggable>
+              );
+            })}
+
+         
           </div>
         </div>
       </DndContext>
