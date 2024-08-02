@@ -1,10 +1,10 @@
 import mag3Url from "../assets/homePage/MagnoliaMulti.jpg";
 import solarGnome from "../assets/homePage/solarGnome.png";
 
-import LoadReference from "./reference.js";
+
 
 export default function Home() {
-  //LoadReference();
+
   return (
     <>
       <div className="container gridHome">

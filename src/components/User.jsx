@@ -18,21 +18,17 @@ export default function User() {
   const user = useSelector((state) => {
     return state.user.user;
   });
-  console.log(`(useSelector(state) - function User() USER: ${{ user }}`);
-
+ 
   // Get the reference list for Zone
   const zoneList = useSelector((state) => {
     return state.reference.zoneList;
   });
-  console.log(`(useSelector(state) - function User() ZONELIST: ${zoneList}`);
-
+ 
   // set up the relationship to the user mutation
   const [updateUser] = useUpdateUserMutation();
 
   const [form, setForm] = useState(user);
   const [errM, setErrM] = useState(null);
-
-  console.log("function User() SETFORM currentUser: ", form);
 
   //  What to do when the submit button is clicked
   const submit = async (e) => {

@@ -1,8 +1,4 @@
-import {
-  useLazyGetRefreshQuery,
-  useGetRefreshQuery,
-} from "../components_db/userSlice";
-import { useState, useEffect } from "react";
+import { useGetRefreshQuery } from "../components_db/userSlice";
 
 //
 const LazyUserRefresh = () => {
@@ -29,13 +25,6 @@ const LazyUserRefresh = () => {
   // FROM THIS
   const { status, data, isSuccess, isLoading, isError, error } =
     useGetRefreshQuery();
-
-  console.log("useLazyGetRefreshQuery status", status);
-  console.log("useLazyGetRefreshQuery data", data);
-  console.log("useLazyGetRefreshQuery isLoading", isLoading);
-  console.log("useLazyGetRefreshQuery isSuccess", isSuccess);
-  console.log("useLazyGetRefreshQuery isError", isError);
-  console.log("useLazyGetRefreshQuery error", error);
 
   if (isSuccess) {
     console.log("Lazy Refresh ", data);
