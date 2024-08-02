@@ -1,40 +1,43 @@
 import Plants from "./Plants";
-import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useState } from "react";
+import { useSelector, useStore } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // import Loading_Bar from "./Loading_Bar";
 
 import LoadReference from "./reference.js";
 import LazyUserRefresh from "./lazyRefresh.js";
 
-import SelectList from "./SelectList";
-import User from "./User";
 import { useGetMyGardenQuery } from "../components_db/gardenSlice";
 import MyGarden from "./MyGarden";
 
-import { useGetRefreshQuery } from "../components_db/userSlice";
 import GardenPlants from "./GardenPlants";
 
 export default function Garden() {
   // load the reference data
   console.log("run reference from garden");
   LoadReference() ? LoadReference() : console.log("Still loading Reference");
-  //  test this call
 
+  // Set up for navigation and the store
   const navigate = useNavigate();
+  const store = useStore();
+
   // get the current logged in user from state
   let theUser = useSelector((state) => {
     return state.user.user;
   });
 
+  // get the current logged in user's garden
   const myGarden = useSelector((state) => {
     return state.garden;
   });
-  if (!myGarden?.id) {
-    console.log("theUserID", theUser.id);
-    const { data, error } = useGetMyGardenQuery(theUser.id);
-    console.log("myGarden data", data);
-  }
+
+  //if the garden isn't there yet, do the query
+  //if (!myGarden?.id) {
+  // **************** getting a complaint about the conditional **************//
+  console.log("theUserID", theUser.id);
+  const { data, error } = useGetMyGardenQuery(theUser.id);
+  console.log("myGarden data", data);
+  //}
   console.log("myGarden", myGarden);
 
   // just a note for now
@@ -58,8 +61,11 @@ export default function Garden() {
   console.log("Garden SHAPELIST: ", shapeList);
   console.log("Garden ZONELIST: ", zoneList);
   console.log("Garden USER: ", theUser);
+  console.log("Garden MYGARDEN: ", myGarden);
 
-  // // find the correct name for display based on id
+
+  // // find the correct name for display based on id for zone
+
   const specificZoneName = zoneList
     ? zoneList.filter((obj) => {
         if (obj.id === theUser.zone_id) return obj;
@@ -72,89 +78,46 @@ export default function Garden() {
     specificZoneName[0]?.temp_range +
     ")";
 
-  // Temporary hard coded value
-  // Should be from user's garden or default
-  const [currentCanvas, setCurrentCanvas] = useState({
-    shape_id: "20f66411-157c-431f-8b25-2d23aac9ad6e",
-  });
 
-  const updateCanvasOnListChange = (e) => {
-    console.log(
-      `updateCanvasOnListChange: ooga booga ${e.target.name}: ${e.target.value}`
-    );
-    setCurrentCanvas((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-
-    console.log("updateCanvasOnListChange: ", currentCanvas);
-  };
-
+  // display the gardens shape
   function Garden_Canvas() {
-    const specificShapeClass = shapeList?.filter((obj) => {
-      if (obj.id === currentCanvas.shape_id) return obj;
+    store.subscribe(() => {
+      store.getState().garden.currentGardenCanvas;
     });
+
+    const [userGardenCanvas, setUserGardenCanvas] = useState(
+      useSelector((state) => {
+        return state.garden.currentGardenCanvas;
+      })
+    );
+
+
+    console.log(
+      "Garden_Canvas userGardenCanvas (From State): ",
+      userGardenCanvas
+    );
+
+    const specificShapeClass = shapeList?.filter((obj) => {
+      if (obj.id === userGardenCanvas) return obj;
+    });
+
+    // set-up defaults
     let canvasClasses = " garden border-garden p-2 text-dark ";
     let canvasShape = "square";
+
     if (typeof specificShapeClass != "undefined") {
       canvasClasses += specificShapeClass[0]
         ? specificShapeClass[0].css_class
         : "square";
-      canvasShape = specificShapeClass[0].shape_name;
+      canvasShape = specificShapeClass[0]?.shape_name
+        ? specificShapeClass[0].shape_name
+        : "Square";
     }
 
-    console.log("Garden_Canvas: ", canvasClasses);
-    console.log("Garden_Canvas: ", canvasShape);
+    console.log("Garden_Canvas - CanvasClasses: ", canvasClasses);
+    console.log("Garden_Canvas- CanvasShape: ", canvasShape);
 
     return <div className={canvasClasses}>{canvasShape}</div>;
-  }
-
-  function GardenCard() {
-    return (
-      <div className="border-primary mb-3   card">
-        <div className="card-header ">My Garden</div>
-        <div className="row  center   ">
-          <div className="col-sm-6 mt-4 mb-3 ">
-            {/* <Shape_Select /> */}
-            <SelectList
-              theList={shapeList}
-              theListName="shape_id"
-              theParentForm="Garden"
-              onChangeFunction={updateCanvasOnListChange}
-              theCurrentValue={currentCanvas}
-              theFieldName="shape_name"
-              /* the2FieldName="css_class" */
-            />
-          </div>
-        </div>{" "}
-        <div className="row   center pt-2 ">
-          <div className="col-sm-5 center ">
-            <button
-              type="button"
-              className="btn btn-outline-warning btn-sm border border-warning"
-            >
-              Save Garden
-            </button>
-          </div>
-
-          <div className="col-sm-5 center ">
-            <button
-              type="button"
-              className="btn btn-outline-warning btn-sm border border-warning"
-            >
-              Buy Garden
-            </button>
-          </div>
-        </div>
-        <div className="row   center pb-3 ">
-          <div className="col-sm-10 center p-2 ">
-            <button
-              type="button"
-              className="btn btn-link btn-sm text-secondary "
-            >
-              Delete Garden
-            </button>{" "}
-          </div>
-        </div>{" "}
-      </div>
-    );
   }
 
   function UserCard() {
@@ -234,7 +197,6 @@ export default function Garden() {
                   data-bs-parent="#accordionExample"
                 >
                   <div className="accordion body user-card">
-                    <GardenCard />
                     <MyGarden />
                   </div>
                 </div>

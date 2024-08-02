@@ -81,7 +81,11 @@ const storeUpdatedGarden = (state, { payload }) => {
 const gardenSlice = createSlice({
   name: "garden",
   initialState: {},
-  reducers: {},
+  reducers: {
+    setCurrentGardenCanvas: (state, { payload }) => {
+      state.currentGardenCanvas = payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addMatcher(api.endpoints.createGarden.matchFulfilled, storeGarden);
     builder.addMatcher(api.endpoints.getMyGarden.matchFulfilled, storeGarden);
@@ -101,5 +105,7 @@ export const {
   useDeleteGardenPlantMutation,
   useUpdateGardenPlantMutation,
 } = gardenApi;
+
+export const { setCurrentGardenCanvas } = gardenSlice.actions;
 
 export default gardenSlice.reducer;

@@ -5,7 +5,7 @@ import { useEffect } from "react";
 // TODO - should add a pop up if it fails
 const LoadReference = () => {
   
-  console.log("loadReference");
+  console.log("LoadReference");
 
   useEffect(() => {
     console.log("LOAD mounted");
@@ -13,11 +13,7 @@ const LoadReference = () => {
 
   // const [errM, setErrM] = useState(null);
   const { data, isSuccess, isLoading, isError, error } = useGetReferenceQuery();
-  console.log("data", data);
-  console.log("isLoading", isLoading);
-  console.log("isSuccess", isSuccess);
-  console.log("isError", isError);
-  console.log("error", error);
+  
   if (isSuccess) {
     console.log("all the lists: ", data);
   }
