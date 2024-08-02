@@ -102,3 +102,11 @@ cuando hago drop que no jale la de la lista de la derecha (ponerle a la q esta e
 ver como eliminar las plantas (talvez un boton , que haria el current cont null)
 
 
+// Example of using map()
+const numbers = [1, 2, 3, 4, 5];
+const doubledNumbers = numbers.map((number) => number * 2);
+
+// Example of using forEach()
+numbers.forEach((number) => console.log(number));
+
+

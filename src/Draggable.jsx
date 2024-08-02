@@ -3,6 +3,7 @@ import { useDraggable } from "@dnd-kit/core";
 
 export function Draggable(props) {
   const oc = props.old_cont;
+
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     //id: "draggable",
     id: props.id,
@@ -25,7 +26,7 @@ export function Draggable(props) {
       style={style}
       {...listeners}
       {...attributes}
-      className="p-1"
+      
     >
       {props.children}
     </div>

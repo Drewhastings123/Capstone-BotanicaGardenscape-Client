@@ -6,7 +6,7 @@ export function Droppable(props) {
     // id: "droppable",
     id: props.id,
     data: {
-    old_cont_id: props.id,
+      old_cont_id: props.id,
     },
   });
 
@@ -14,9 +14,17 @@ export function Droppable(props) {
     color: isOver ? "green" : undefined,
   };
 
-  return (
-    <div ref={setNodeRef} style={style} className="drop_position">
-      {props.children}
-    </div>
-  );
+  if (props.id === 50) {
+    return (
+      <div ref={setNodeRef} style={style}>
+        {props.children}
+      </div>
+    );
+  } else {
+    return (
+      <div ref={setNodeRef} style={style} className="drop_position">
+        {props.children}
+      </div>
+    );
+  }
 }

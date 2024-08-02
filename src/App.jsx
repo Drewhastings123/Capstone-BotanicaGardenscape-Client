@@ -66,6 +66,97 @@ function App() {
       plant_pic: null,
       occupied: false,
     },
+    {
+      id: 11,
+      plant_id: null,
+      plant_pic: null,
+      occupied: false,
+    },
+    {
+      id: 12,
+      plant_id: null,
+      plant_pic: null,
+      occupied: false,
+    },
+    {
+      id: 13,
+      plant_id: null,
+      plant_pic: null,
+      occupied: false,
+    },
+    {
+      id: 14,
+      plant_id: null,
+      plant_pic: null,
+      occupied: false,
+    },
+    {
+      id: 15,
+      plant_id: null,
+      plant_pic: null,
+      occupied: false,
+    },
+    {
+      id: 16,
+      plant_id: null,
+      plant_pic: null,
+      occupied: false,
+    },
+    {
+      id: 17,
+      plant_id: null,
+      plant_pic: null,
+      occupied: false,
+    },
+    {
+      id: 18,
+      plant_id: null,
+      plant_pic: null,
+      occupied: false,
+    },
+    {
+      id: 19,
+      plant_id: null,
+      plant_pic: null,
+      occupied: false,
+    },
+
+    {
+      id: 20,
+      plant_id: null,
+      plant_pic: null,
+      occupied: false,
+    },
+    {
+      id: 21,
+      plant_id: null,
+      plant_pic: null,
+      occupied: false,
+    },
+    {
+      id: 22,
+      plant_id: null,
+      plant_pic: null,
+      occupied: false,
+    },
+    {
+      id: 23,
+      plant_id: null,
+      plant_pic: null,
+      occupied: false,
+    },
+    {
+      id: 24,
+      plant_id: null,
+      plant_pic: null,
+      occupied: false,
+    },
+    {
+      id: 25,
+      plant_id: null,
+      plant_pic: null,
+      occupied: false,
+    },
   ];
 
   const originalPlants = [
@@ -132,10 +223,58 @@ function App() {
       in_garden: false,
     },
   ];
-  const [parent, setParent] = useState(null);
+
   const [allPlants, setAllPlants] = useState(originalPlants);
   const [allContainers, setAllContainers] = useState(originalContainers);
-  const [oldCont, setOldCont] = useState(null);
+  const [plantsLeftC, setPlantsLeftC] = useState([]);
+
+  function DraggableMarkup({ pic, plant_id, old_cont }) {
+    const path = "./src/assets/" + pic + ".png";
+    return (
+      <Draggable id={plant_id} old_cont={old_cont}>
+        <img src={path} />{" "}
+      </Draggable>
+    );
+  }
+
+  function GetDroppable({ container }) {
+    // console.log(container.id + container.pic + container.occupied);
+    if (container.occupied) {
+      //filter
+      const result = allPlants.filter(
+        (plant) => plant.id == container.plant_id
+      );
+
+      //in_garden={false}
+      return (
+        <Droppable key={container.id} id={container.id}>
+          {" "}
+          <DraggableMarkup
+            key={container.plant_id}
+            pic={container.plant_pic}
+            plant_id={container.plant_id}
+            old_cont={container.id}
+          />{" "}
+        </Droppable>
+      );
+    }
+    return (
+      <Droppable key={container.id} id={container.id}>
+        {" "}
+        <div className="white-soft"></div>
+      </Droppable>
+    );
+  }
+
+  function Left_List() {
+    const leftCoulumnPlants = [];
+    allContainers.forEach((cont) => {
+      if (cont.occupied) {
+        leftCoulumnPlants.push(cont.plant_id);
+      }
+    });
+    console.log("Left New List: " + leftCoulumnPlants);
+  }
 
   function handleDragEnd(event) {
     const plant_id = event.active.id;
@@ -143,10 +282,7 @@ function App() {
     const new_all_containers = [...allContainers];
     const new_all_plants = [...allPlants];
     const old_cont_id = event.active.data.current.old_cont;
-    // console.log("BEFORE");
-    // new_all_containers.forEach((cont) =>
-    //   console.log("todos en orden" + cont.id + cont.occupied)
-    // );
+    const was_garden = event.active.data.current.in_garden;
 
     const new_cont_obj = {
       id: new_cont_id,
@@ -172,60 +308,39 @@ function App() {
 
     setAllContainers(new_all_containers);
 
-    const objPlantIndex = new_all_plants.findIndex((obj) => obj.id == plant_id);
+    // if (was_garden) {
+    if (old_cont_id != 50) {
+      const updatedPlants2 = allPlants.map((plant) => {
+        if (plant.id == plant_id) {
+          return { ...plant, in_garden: false };
+        } else {
+          return plant;
+        }
+      });
+      setAllPlants(updatedPlants2);
+    } else {
+      const updatedPlants = allPlants.map((plant) => {
+        if (plant.id == plant_id) {
+          return { ...plant, in_garden: true };
+        } else {
+          return plant;
+        }
+      });
 
-    const updatedPlants = new_all_plants.map((plant) => {
-      if (plant.id == plant_id) {
-        return { ...plant, in_garden: true };
-      } else {
-        return plant;
-      }
-    });
-
-    setAllPlants(updatedPlants);
-    // console.log("affter");
-    // allContainers.forEach((cont) =>
-    //   console.log("despues" + cont.id + cont.occupied)
-    // );
-  }
-
-  function DraggableMarkup({ pic, plant_id, old_cont }) {
-    const path = "./src/assets/" + pic + ".png";
-    return (
-      <Draggable id={plant_id} old_cont={old_cont}>
-        <img src={path} />{" "}
-      </Draggable>
-    );
-  }
-
-  function GetDroppable({ container }) {
-    // console.log(container.id + container.pic + container.occupied);
-    if (container.occupied) {
-      return (
-        <Droppable key={container.id} id={container.id}>
-          {" "}
-          <DraggableMarkup
-            key={container.plant_id}
-            pic={container.plant_pic}
-            plant_id={container.plant_id}
-            old_cont={container.id}
-          />{" "}
-        </Droppable>
-      );
+      setAllPlants(updatedPlants);
     }
-    return (
-      <Droppable key={container.id} id={container.id}>
-        {" "}
-        <div>&#9734;</div>
-      </Droppable>
-    );
   }
 
   return (
     <div>
       <DndContext onDragEnd={handleDragEnd}>
         <div className="row p-5 ">
-          <div className="col-3 left  ">Left</div>
+          <div className="col-3 left  ">
+            {/* <Left_List /> */}
+            <Droppable key={25} id={25}>
+              <div>&#9734;</div>
+            </Droppable>
+          </div>
 
           <div className="col-6  center ">
             {/* <div className="  p-2 text-light  shape rounded-circle "> */}
@@ -241,22 +356,26 @@ function App() {
             </div>
           </div>
 
-          <div className="col-3  right ">
-            {/* {parent === null ? <DraggableMarkup pic={1} /> : null} */}
-            {allPlants.map((plant) => {
-              const path = `./src/assets/${plant.pic}.png`;
-              if (plant.in_garden == false) {
-                return (
-                  <Draggable id={plant.id} key={plant.id} old_cont={25}>
-                    <img src={path} />
-                  </Draggable>
-                );
-              }
-            })}
+          <div className="col-3  center border border-dark ">
+            {/* {console.log();} */}
+            <div className="right">
+            <Droppable id={50}>
+              {allPlants.map((plant) => {
+                const path = `./src/assets/${plant.pic}.png`;
+                if (plant.in_garden == false) {
+                  return (
+                    <Draggable id={plant.id} key={plant.id} old_cont={50}>
+                      <img src={path} />
+                    </Draggable>
+                  );
+                }
+              })}
+            </Droppable></div>
           </div>
         </div>
       </DndContext>
     </div>
   );
 }
+
 export default App;
