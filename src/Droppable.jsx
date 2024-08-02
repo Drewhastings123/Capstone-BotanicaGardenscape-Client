@@ -5,7 +5,11 @@ export function Droppable(props) {
   const { isOver, setNodeRef } = useDroppable({
     // id: "droppable",
     id: props.id,
+    data: {
+    old_cont_id: props.id,
+    },
   });
+
   const style = {
     color: isOver ? "green" : undefined,
   };

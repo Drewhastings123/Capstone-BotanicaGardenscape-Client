@@ -2,9 +2,13 @@ import React from "react";
 import { useDraggable } from "@dnd-kit/core";
 
 export function Draggable(props) {
+  const oc = props.old_cont;
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     //id: "draggable",
     id: props.id,
+    data: {
+      old_cont: oc,
+    },
   });
   const style = transform
     ? {
