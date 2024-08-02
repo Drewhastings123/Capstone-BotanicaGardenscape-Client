@@ -18,21 +18,18 @@ export default function User() {
   const user = useSelector((state) => {
     return state.user.user;
   });
-  console.log(`(useSelector(state) - function User() USER: ${{ user }}`);
-
+ 
   // Get the reference list for Zone
   const zoneList = useSelector((state) => {
     return state.reference.zoneList;
   });
-  console.log(`(useSelector(state) - function User() ZONELIST: ${zoneList}`);
-
+ 
   // set up the relationship to the user mutation
   const [updateUser] = useUpdateUserMutation();
 
   const [form, setForm] = useState(user);
   const [errM, setErrM] = useState(null);
-
-  console.log("function User() SETFORM currentUser: ", form);
+  const [successM, setSuccessM] = useState(null);
 
   //  What to do when the submit button is clicked
   const submit = async (e) => {
@@ -48,6 +45,8 @@ export default function User() {
 
       if (!updateSuccess) {
         return Loading_Bar("30");
+      } else if (updateSuccess) {
+        return setSuccessM("User updated successfully!");
       }
     } catch (err) {
       setErrM(err?.data?.message);
@@ -85,7 +84,7 @@ export default function User() {
                 <div className="card-text ">
                   <form onSubmit={submit} name="formUserUpdate">
                     <div className="col-12">
-                      <div className="row">
+                      <div className="row gap-3">
                         <input
                           type="email"
                           className="form-control"
@@ -140,22 +139,29 @@ export default function User() {
                       {/*  //close row */}
                     </div>{" "}
                     {/*  //close col-12 */}
-                    <div className="row">
+                    <div className="row ">
                       <div className="col-12">
                         <button
                           type="submit"
-                          className="btn btn-success form-control"
+                          className="btn btn-success form-control mt-3"
                         >
                           Submit
                         </button>
                         <button
                           type="button"
-                          className="btn btn-success"
+                          className="btn btn-success mt-3"
                           onClick={() => navigate("/garden")}
                         >
                           Return
                         </button>
                       </div>
+                      {successM && (
+                        <div className="row">
+                          <div className="col-12">
+                            <p className="text-warning">{successM}</p>
+                          </div>
+                        </div>
+                      )}
                       {errM && (
                         <div className="row">
                           <div className="col-12">

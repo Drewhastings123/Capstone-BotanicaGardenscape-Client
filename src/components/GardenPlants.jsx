@@ -33,17 +33,25 @@ export default function GardenPlants() {
   if (!data) {
     return <div>No plants found.</div>;
   }
+  const gardenPlantName = plantList
+    ? plantList.filter((obj) => {
+        if (obj.id === data.plantInfo?.[0].plant_id) return obj;
+      })
+    : [{ plant_name: "no name yet" }];
+
+  const displayPlantName = gardenPlantName[0]?.plant_name;
 
   function Plant_List() {
     return (
       <table className="table table-hover">
         <tbody>
           {data?.plantInfo?.map((plant) => {
-            let img = "../src/pictures/" + plant.pic + ".png";
+            const random_number = Math.floor(Math.random() * 10);
+            let img = "../src/assets/pictures/" + random_number + ".png";
             return (
               <tr className=" table-dark" key={plant.id}>
                 <td scope="row" className="w30">
-                  {plant.plant_name}
+                  {displayPlantName}
                 </td>
                 <td className="w70">
                   <img src={img} />

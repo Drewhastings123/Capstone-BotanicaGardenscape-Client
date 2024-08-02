@@ -1,13 +1,13 @@
 import { useUpdateGardenMutation } from "../components_db/gardenSlice";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import SelectList from "./SelectList";
 import Loading_Bar from "./Loading_Bar";
+import { setCurrentGardenCanvas } from "../components_db/gardenSlice.js";
 
 export default function MyGarden() {
-  // setup the return button
-  const navigate = useNavigate();
+  // setup the dispatch for the subscribe on canvase
+  const dispatch = useDispatch();
 
   // Get the current User id
   const id = useSelector((state) => {
@@ -38,14 +38,13 @@ export default function MyGarden() {
   const soilRequirementList = useSelector((state) => {
     return state.reference.soilRequirementList;
   });
-  console.log(`(useSelector(state) - function User() ZONELIST: ${zoneList}`);
 
   // set up the relationship to the garden mutation
-
   const [updateGarden] = useUpdateGardenMutation();
 
   const [form, setForm] = useState(garden?.garden?.[0]);
   const [errM, setErrM] = useState(null);
+  const [successM, setSuccessM] = useState(null);
 
   console.log("function User() SETFORM currentUser: ", form);
 
@@ -67,6 +66,8 @@ export default function MyGarden() {
 
       if (!updateGardenSuccess) {
         return Loading_Bar("30");
+      } else if (updateGardenSuccess) {
+        return setSuccessM("Garden information updated successfully!");
       }
     } catch (err) {
       //   setErrM(err?.data?.message);
@@ -89,6 +90,21 @@ export default function MyGarden() {
     console.log(form);
   };
 
+  // FROM currentGardenCanvas
+  // get the current garden shape stored in the state
+  // variable from  currentGardenCanvas
+  const updateCanvasOnListChange = (e) => {
+    // set the variable in the store
+    dispatch(setCurrentGardenCanvas(e.target.value));
+
+    // set the variable for my garden
+    setForm((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+  //TO currentGardenCanvas
+
   return (
     <>
       <div className="container top1 center">
@@ -101,7 +117,7 @@ export default function MyGarden() {
           {/* <div className="card-text "> */}
           <form onSubmit={submit} name="formGardenUpdate">
             <div className="col-12 center">
-              <div className="row">
+              <div className="row gap-2">
                 <input
                   type="text"
                   className="form-control text_input"
@@ -127,7 +143,7 @@ export default function MyGarden() {
                   theList={shapeList}
                   theListName="shape_id"
                   theParentForm="GardenUpdate"
-                  onChangeFunction={updateFormOnListChange}
+                  onChangeFunction={updateCanvasOnListChange}
                   theCurrentValue={form?.shape_id}
                   theFieldName="shape_name"
                   the2FieldName="description"
@@ -165,10 +181,22 @@ export default function MyGarden() {
             {/*  //close col-12 */}
             <div className="row">
               <div className="col-12">
-                <button type="submit" className="btn btn-success form-control">
-                  Submit
+                <button
+                  type="submit"
+
+                  className="btn form-control btn btn-outline-warning btn-sm border border-warning"
+                >
+                  Save Garden
+
                 </button>
               </div>
+              {successM && (
+                <div className="row">
+                  <div className="col-12">
+                    <p className="text-warning">{successM}</p>
+                  </div>
+                </div>
+              )}
               {errM && (
                 <div className="row">
                   <div className="col-12">

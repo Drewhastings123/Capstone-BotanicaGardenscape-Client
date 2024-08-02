@@ -9,8 +9,6 @@ export default function Login() {
   const [errM, setErrM] = useState(null);
   const [loginUser] = useLoginMutation();
 
-  console.log("Login() ");
-
   const submit = async (e) => {
     e.preventDefault();
     try {
@@ -27,7 +25,6 @@ export default function Login() {
         window.sessionStorage.setItem("Token", success.token);
 
         navigate("/garden");
-        //navigate("/user");
       } else {
         setErrM(
           "Invalid Username or Password, Please check your input and try again."

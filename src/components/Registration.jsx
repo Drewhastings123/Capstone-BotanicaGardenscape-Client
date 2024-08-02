@@ -47,8 +47,6 @@ export default function Registration() {
       // TO DO - correctly handle user_role_id
       form.user_role_id = "e7a3bd11-2c6e-451d-beeb-e4ef9eeac9bf";
 
-      console.log("registration FORM", form);
-
       success = await registerUser(form).unwrap();
       console.log("registration success REGISTERUSER: ", success);
 
@@ -94,7 +92,6 @@ export default function Registration() {
   const zoneList = useSelector((state) => {
     return state.reference.zoneList;
   });
-  console.log("Registration zoneList: ", zoneList);
 
   return (
     <>

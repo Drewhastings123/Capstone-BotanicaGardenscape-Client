@@ -134,6 +134,7 @@ export default function Plants() {
   const allSuns = allRef.sunRequirementList;
   const allH2O = allRef.waterRequirementList;
   const allSoil = allRef.soilRequirementList;
+  const lifeCycleList = allRef.lifeCycleList;
 
   const allPlantsBurnt = allRef.plantList;
 
@@ -401,11 +402,21 @@ export default function Plants() {
           {newCV?.map((plant) => {
             const random_number = Math.floor(Math.random() * 10);
             const img = "../src/assets/pictures/" + random_number + ".png";
+            console.log("allPlantsBurnt", allPlantsBurnt);
+            const lifeCycleName = lifeCycleList
+              ? lifeCycleList.filter((obj) => {
+                  if (obj.id === plant.life_cycle_id) return obj;
+                })
+              : [{ life_cycle_name: "no name yet" }];
+            console.log("lifeCycleName", lifeCycleName);
+            const displayLifeCycleName = lifeCycleName[0]?.life_cycle_name;
+            console.log("life cycle", displayLifeCycleName);
 
             return (
               <tr className=" table-dark" key={plant.id}>
                 <td scope="row" className="w30">
-                  {plant.plant_name}
+                  <strong>{plant.plant_name}</strong> {displayLifeCycleName}-
+                  {plant.max_height}x{plant.max_width}
                 </td>
                 <td className="w70">
                   <img src={img} />
