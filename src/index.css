@@ -324,3 +324,7 @@ input,
 .border-dashed{
   border-style: dashed !important;
 }
+
+.rc > img {
+  width:40% !important;
+}

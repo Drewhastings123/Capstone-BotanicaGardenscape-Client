@@ -33,6 +33,7 @@ export default function Plants_fixed() {
   const allPlantsExtended = allPlantsBurnt?.map((plant) => ({
     ...plant,
     in_garden: false,
+    pic: Math.floor(Math.random() * 10),
   }));
 
   console.log("allPlantsExtended " + allPlantsExtended);
@@ -268,9 +269,9 @@ export default function Plants_fixed() {
       <div>
         <Droppable id={50}>
           {newCV?.map((plant) => {
-            const random_number = Math.floor(Math.random() * 10);
-            const img = "../src/assets/pictures/" + random_number + ".png";
-            const path = `./src/assets/${plant.pic}.png`;
+            // const img = "../src/assets/pictures/" + random_number + ".png";
+            const path = `./src/assets/pictures/${plant.pic}.png`;
+
             const lifeCycleName = lifeCycleList
               ? lifeCycleList.filter((obj) => {
                   if (obj.id === plant.life_cycle_id) return obj;
@@ -284,13 +285,13 @@ export default function Plants_fixed() {
                 <Draggable id={plant.id} key={plant.id} old_cont={50}>
                   <div
                     key={plant.id}
-                    className="m-0 border border-success bg-primary p-1 border-dashed"
+                    className="m-0 border border-success bg-primary p-2 border-dashed"
                   >
                     <div>
                       <strong>{plant.plant_name}</strong> {displayLifeCycleName}
                       -{plant.max_height}x{plant.max_width}
                     </div>
-                    <div>
+                    <div className="rc">
                       {" "}
                       <img src={path} />
                     </div>
@@ -312,13 +313,13 @@ export default function Plants_fixed() {
         <div className=" row   m-1  mt-3 ">
           <div className="col-sm-6  space-around ">
             <select
-              className="list-select form-control input-sm  dropdown-item text-warning dropdown border border-warning  "
+              className="list-select form-control input  dropdown-item text-warning dropdown border border-warning  "
               defaultValue="0"
               onChange={updateCurrentView}
               name="s_zone"
             >
               <option key="0" className="dropdown-item" value="0" key2="0">
-                Zone &#x1F321; &#8623;
+              &#x1F321; Zone 
               </option>
 
               {allZones?.map((zone) => {
@@ -329,8 +330,8 @@ export default function Plants_fixed() {
                     value={zone.id}
                     key2={zone.id}
                   >
-                    {zone.zone_name}
-                    &#x1F321; {zone.temp_range}
+                     &#x1F321;{zone.zone_name}
+                    {zone.temp_range}
                     {/* &#127811; */}
                   </option>
                 );
@@ -341,13 +342,13 @@ export default function Plants_fixed() {
           <div className="col-sm-6 center">
             {/* <label htmlFor="s_water"> Water</label> */}
             <select
-              className="list-select form-control input-sm p-1  dropdown-item text-warning dropdown border border-warning"
+              className="list-select form-control input p-1  dropdown-item text-warning dropdown border border-warning"
               defaultValue="0"
               onChange={updateCurrentView}
               name="s_water"
             >
               <option key="0" className="dropdown-item" key2="0">
-                Water &#x1F4A7; &#8623;
+              &#x1F4A7; Water 
               </option>
               {allH2O?.map((h2o) => {
                 return (
@@ -364,13 +365,13 @@ export default function Plants_fixed() {
         <div className="row   center   m-1  mb-3 mt-2 ">
           <div className="col-sm-6 nav-item dropdown center ">
             <select
-              className=" form-control input-sm p-1 dropdown-item text-warning dropdown border border-warning"
+              className=" form-control input p-1 dropdown-item text-warning dropdown border border-warning"
               defaultValue="0"
               onChange={updateCurrentView}
               name="s_sun"
             >
               <option key="0" className="dropdown-item" key2="0">
-                Sun &#9728; &#8623;{" "}
+              &#9728; Sun {" "}
               </option>
               {allSuns?.map((sun) => {
                 return (
@@ -384,18 +385,18 @@ export default function Plants_fixed() {
 
           <div className="col-sm-6 center ">
             <select
-              className="list-select form-control input-sm p-1 dropdown-item text-warning dropdown border border-warning"
+              className="list-select form-control  p-1 dropdown-item text-warning dropdown border border-warning"
               defaultValue="0"
               onChange={updateCurrentView}
               name="s_soil"
             >
               <option key="0" key2="0" className="dropdown-item  ">
-                Soil &#9968; &#8623;{" "}
+              &#9968; Soil {" "}
               </option>
               {allSoil?.map((soil) => {
                 return (
                   <option key={soil.id} key2={soil.id}>
-                    &#9178; {soil.soil_name}
+                    &#9968; {soil.soil_name}
                   </option>
                 );
               })}
