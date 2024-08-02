@@ -17,6 +17,10 @@ Garden Design Front End
 - npm i bootswatch
 - npm i react react-dom react-redux react-router react-router-dom
 
+- npm install @dnd-kit/core
+- npm install @dnd-kit/modifiers
+- npm install @dnd-kit/sortable
+
 - add and edit .gitignore
 
 #cache behavior/reload behavior

@@ -156,9 +156,9 @@ small {
   background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png") !important;
 }
 .square {
-  
-  width: 100%;
+  width: 50vh;
   height: 50vh;
+  max-width: 100%;
 }
 
 .rectangle {
@@ -167,6 +167,12 @@ small {
 }
 
 .circle {
+  width: 85%;
+  height: 50vh;
+  border-radius: 50%;
+}
+
+.rounded-circle {
   width: 85%;
   height: 50vh;
   border-radius: 50%;
