@@ -63,7 +63,6 @@ export default function Garden() {
   console.log("Garden USER: ", theUser);
   console.log("Garden MYGARDEN: ", myGarden);
 
-
   // // find the correct name for display based on id for zone
 
   const specificZoneName = zoneList
@@ -78,7 +77,6 @@ export default function Garden() {
     specificZoneName[0]?.temp_range +
     ")";
 
-
   // display the gardens shape
   function Garden_Canvas() {
     store.subscribe(() => {
@@ -90,7 +88,6 @@ export default function Garden() {
         return state.garden.currentGardenCanvas;
       })
     );
-
 
     console.log(
       "Garden_Canvas userGardenCanvas (From State): ",
@@ -153,28 +150,30 @@ export default function Garden() {
     <>
       <div className="row">
         <div className="accordion container-fluid w95">
-          <div className="accordion-item row">
+          <div className="row">
             <div className="col-4 pt-3">
-              <h3 className="accordion-header">
-                <button
-                  className="accordion-button"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#collapseOne"
-                  aria-expanded="true"
-                  aria-controls="collapseOne"
+              <div className="accordion-item">
+                <h3 className="accordion-header">
+                  <button
+                    className="accordion-button"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseOne"
+                    aria-expanded="true"
+                    aria-controls="collapseOne"
+                  >
+                    User Info
+                  </button>
+                </h3>
+                <div
+                  id="collapseOne"
+                  className="accordion-collapse collapse show"
+                  aria-labelledby="headingOne"
+                  data-bs-parent="#accordionExample"
                 >
-                  User Info
-                </button>
-              </h3>
-              <div
-                id="collapseOne"
-                className="accordion-collapse collapse show"
-                aria-labelledby="headingOne"
-                data-bs-parent="#accordionExample"
-              >
-                <div className="accordion-body garden-card">
-                  <UserCard />
+                  <div className="accordion-body garden-card">
+                    <UserCard />
+                  </div>
                 </div>
               </div>
               <div className="accordion-item">
@@ -221,7 +220,6 @@ export default function Garden() {
                   data-bs-parent="#accordionExample"
                 >
                   <div className="accordion body">
-                    This will be the plant list
                     <GardenPlants />
                   </div>
                 </div>

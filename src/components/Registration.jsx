@@ -23,15 +23,31 @@ export default function Registration() {
   const [createGarden] = useCreateGardenMutation();
   const [loginUser] = useLoginMutation();
 
+  const zoneList = useSelector((state) => {
+    return state.reference.zoneList;
+  });
+  const shapeList = useSelector((state) => {
+    return state.reference.shapeList;
+  });
+  const waterRequirementList = useSelector((state) => {
+    return state.reference.waterRequirementList;
+  });
+  const sunRequirementList = useSelector((state) => {
+    return state.reference.sunRequirementList;
+  });
+  const soilRequirementList = useSelector((state) => {
+    return state.reference.soilRequirementList;
+  });
+
   const createDefaultGarden = ({ id, zone_id }) => {
     return {
       description: "default garden",
       user_id: id,
       zone_id: zone_id,
-      shape_id: "20f66411-157c-431f-8b25-2d23aac9ad6e",
-      water_requirement_id: "9b2ce2d0-7e2f-4404-a7aa-d3505d6b3079",
-      sun_requirement_id: "98d6ac5a-5a50-4bf6-9b43-a6d6866c4de8",
-      soil_requirement_id: "76327833-1121-4a07-8197-a0fc5c641b5a",
+      shape_id: shapeList[0].id,
+      water_requirement_id: waterRequirementList[0].id,
+      sun_requirement_id: sunRequirementList[0].id,
+      soil_requirement_id: soilRequirementList[0].id,
     };
   };
 
@@ -45,7 +61,7 @@ export default function Registration() {
       let gardenSuccess;
 
       // TO DO - correctly handle user_role_id
-      form.user_role_id = "e7a3bd11-2c6e-451d-beeb-e4ef9eeac9bf";
+      form.user_role_id = "8b8329b7-943a-4f12-9803-dcba09ec1ede";
 
       success = await registerUser(form).unwrap();
       console.log("registration success REGISTERUSER: ", success);
@@ -88,10 +104,6 @@ export default function Registration() {
   const updateFormOnListChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
-
-  const zoneList = useSelector((state) => {
-    return state.reference.zoneList;
-  });
 
   return (
     <>
