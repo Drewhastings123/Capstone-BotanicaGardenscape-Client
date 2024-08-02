@@ -9,6 +9,9 @@
 .w85 {
   width: 85% !important;
 }
+.w75 {
+  width: 75% !important;
+}
 .w95 {
   width: 85% !important;
 }
@@ -52,7 +55,8 @@
 .card-header {
   display: flex;
   justify-content: center;
-  padding: 0.7em 0em !important;
+  flex-direction: column;
+  padding: 1em 0em !important;
 }
 
 .material-symbols-outlined {
@@ -75,10 +79,6 @@
   padding-top: 0.5em !important;
 }
 
-.form-control-login {
-  margin: 0.8em 0em !important;
-}
-
 .card-body .row .col-12 {
   display: flex;
   justify-content: center !important;
@@ -98,7 +98,7 @@
 }
 
 .btn-success {
-  width: 88% !important;
+  width: 80% !important;
 }
 small {
   padding-top: 1em;
@@ -156,7 +156,6 @@ small {
   background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png") !important;
 }
 .square {
-  
   width: 100%;
   height: 50vh;
 }
@@ -197,7 +196,7 @@ img {
 }
 
 .input-sm {
-  width: 100%;
+  width: 80% !important;
   text-align: center;
 }
 
@@ -224,6 +223,11 @@ td {
   width: 30% !important;
   text-align: left !important;
   padding-left: 2em !important;
+}
+.w50 {
+  width: 50% !important;
+  /* text-align: left !important;
+  padding-left: 2em !important; */
 }
 .w70 {
   width: 70% !important;
@@ -273,4 +277,9 @@ td {
 
 .dropdown {
   border-radius: 0.4em !important;
+}
+
+input,
+button {
+  margin: 0.8em 0em !important;
 }
