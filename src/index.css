@@ -280,6 +280,6 @@ td {
 }
 
 input,
-button {
+.loginForm button {
   margin: 0.8em 0em !important;
 }
