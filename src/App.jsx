@@ -157,6 +157,66 @@ function App() {
       plant_pic: null,
       occupied: false,
     },
+    {
+      id: 26,
+      plant_id: null,
+      plant_pic: null,
+      occupied: false,
+    },
+    {
+      id: 27,
+      plant_id: null,
+      plant_pic: null,
+      occupied: false,
+    },
+    {
+      id: 28,
+      plant_id: null,
+      plant_pic: null,
+      occupied: false,
+    },
+    {
+      id: 29,
+      plant_id: null,
+      plant_pic: null,
+      occupied: false,
+    },
+    {
+      id: 30,
+      plant_id: null,
+      plant_pic: null,
+      occupied: false,
+    },
+    {
+      id: 31,
+      plant_id: null,
+      plant_pic: null,
+      occupied: false,
+    },
+    {
+      id: 32,
+      plant_id: null,
+      plant_pic: null,
+      occupied: false,
+    },
+    {
+      id: 33,
+      plant_id: null,
+      plant_pic: null,
+      occupied: false,
+    },
+    {
+      id: 34,
+      plant_id: null,
+      plant_pic: null,
+      occupied: false,
+    },
+    {
+      id: 35,
+      plant_id: null,
+      plant_pic: null,
+      occupied: false,
+    },
   ];
 
   const originalPlants = [
@@ -344,7 +404,7 @@ function App() {
 
           <div className="col-6  center ">
             {/* <div className="  p-2 text-light  shape rounded-circle "> */}
-            <div className="  p-2 text-light  shape ">
+            <div className="  p-2 text-light  shape  ">
               {" "}
               <div className="mainContainer">
                 {allContainers.map((container) => (
@@ -356,21 +416,22 @@ function App() {
             </div>
           </div>
 
-          <div className="col-3  center border border-dark ">
+          <div className="col-3   border border-dark  ">
             {/* {console.log();} */}
-            <div className="right">
-            <Droppable id={50}>
-              {allPlants.map((plant) => {
-                const path = `./src/assets/${plant.pic}.png`;
-                if (plant.in_garden == false) {
-                  return (
-                    <Draggable id={plant.id} key={plant.id} old_cont={50}>
-                      <img src={path} />
-                    </Draggable>
-                  );
-                }
-              })}
-            </Droppable></div>
+            <div className="right" data-spy="scroll">
+              <Droppable id={50}>
+                {allPlants.map((plant) => {
+                  const path = `./src/assets/${plant.pic}.png`;
+                  if (plant.in_garden == false) {
+                    return (
+                      <Draggable id={plant.id} key={plant.id} old_cont={50}>
+                        <img src={path} />
+                      </Draggable>
+                    );
+                  }
+                })}
+              </Droppable>
+            </div>
           </div>
         </div>
       </DndContext>
