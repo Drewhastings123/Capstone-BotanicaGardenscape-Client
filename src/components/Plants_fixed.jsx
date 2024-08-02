@@ -10,6 +10,9 @@ import {
   setZone,
 } from "../components_db/currentViewSlice.js";
 
+import { Droppable } from "./Droppable";
+import { Draggable } from "./Draggable";
+
 import { useSelector, useDispatch } from "react-redux";
 
 export default function Plants_fixed() {
@@ -25,7 +28,14 @@ export default function Plants_fixed() {
   const allSoil = allRef.soilRequirementList;
   const lifeCycleList = allRef.lifeCycleList;
 
+  // map allPlants and add a field to each obj
   const allPlantsBurnt = allRef.plantList;
+  const allPlantsExtended = allPlantsBurnt?.map((plant) => ({
+    ...plant,
+    in_garden: false,
+  }));
+
+  console.log("allPlantsExtended " + allPlantsExtended);
 
   let newCV = [];
 
@@ -90,11 +100,11 @@ export default function Plants_fixed() {
 
     switch (filters.length) {
       case 0: // 0 filters
-        newCV = allPlantsBurnt;
+        newCV = allPlantsExtended;
         break;
 
       case 1: // 1 filter
-        allPlantsBurnt?.forEach((plant) => {
+        allPlantsExtended?.forEach((plant) => {
           if (cv.zone != 0) {
             if (cv.zone == plant.zone_id) {
               newCV.push(plant);
@@ -119,7 +129,7 @@ export default function Plants_fixed() {
         break;
 
       case 2: // 2 filters
-        allPlantsBurnt?.forEach((plant) => {
+        allPlantsExtended?.forEach((plant) => {
           if (cv.zone != 0 && cv.water != 0) {
             //zone & waterq
             if (
@@ -183,7 +193,7 @@ export default function Plants_fixed() {
         break;
 
       case 3: // 3 filters
-        allPlantsBurnt?.forEach((plant) => {
+        allPlantsExtended?.forEach((plant) => {
           if (cv.zone == 0) {
             // selected are soil, h20, sun
             if (
@@ -228,7 +238,7 @@ export default function Plants_fixed() {
         break;
 
       case 4:
-        allPlantsBurnt?.forEach((plant) => {
+        allPlantsExtended?.forEach((plant) => {
           if (
             cv.zone == plant.zone_id &&
             cv.soil == plant.soil_requirement_id &&
@@ -255,35 +265,42 @@ export default function Plants_fixed() {
     console.log("CURRENT VIEW " + newCV);
 
     return (
-      <table className="table table-hover">
-        <tbody>
+      <div>
+        <Droppable id={50}>
           {newCV?.map((plant) => {
             const random_number = Math.floor(Math.random() * 10);
             const img = "../src/assets/pictures/" + random_number + ".png";
-
+            const path = `./src/assets/${plant.pic}.png`;
             const lifeCycleName = lifeCycleList
               ? lifeCycleList.filter((obj) => {
                   if (obj.id === plant.life_cycle_id) return obj;
                 })
               : [{ life_cycle_name: "no name yet" }];
-            console.log("lifeCycleName", lifeCycleName);
-            const displayLifeCycleName = lifeCycleName[0]?.life_cycle_name;
-            console.log("life cycle", displayLifeCycleName);
 
-            return (
-              <tr className=" table-dark" key={plant.id}>
-                <td scope="row" className="w30">
-                  <strong>{plant.plant_name}</strong> {displayLifeCycleName}-
-                  {plant.max_height}x{plant.max_width}
-                </td>
-                <td className="w70">
-                  <img src={img} />
-                </td>
-              </tr>
-            );
+            const displayLifeCycleName = lifeCycleName[0]?.life_cycle_name;
+
+            if (plant.in_garden == false) {
+              return (
+                <Draggable id={plant.id} key={plant.id} old_cont={50}>
+                  <div
+                    key={plant.id}
+                    className="m-0 border border-success bg-primary p-1 border-dashed"
+                  >
+                    <div>
+                      <strong>{plant.plant_name}</strong> {displayLifeCycleName}
+                      -{plant.max_height}x{plant.max_width}
+                    </div>
+                    <div>
+                      {" "}
+                      <img src={path} />
+                    </div>
+                  </div>{" "}
+                </Draggable>
+              );
+            }
           })}
-        </tbody>
-      </table>
+        </Droppable>
+      </div>
     );
   }
 

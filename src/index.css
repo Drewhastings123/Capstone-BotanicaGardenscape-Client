@@ -313,7 +313,14 @@ input,
 .shape {
   background-color: #50372c !important;
   background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
-  width: 90%;
+  width: 100%;
 
   /* height: 750px; */
+}
+.z100 {
+  z-index: 100 !important;
+}
+
+.border-dashed{
+  border-style: dashed !important;
 }
