@@ -46,6 +46,7 @@ export default function MyGarden() {
 
   const [form, setForm] = useState(garden?.garden?.[0]);
   const [errM, setErrM] = useState(null);
+  const [successM, setSuccessM] = useState(null);
 
   console.log("function User() SETFORM currentUser: ", form);
 
@@ -67,6 +68,8 @@ export default function MyGarden() {
 
       if (!updateGardenSuccess) {
         return Loading_Bar("30");
+      } else if (updateGardenSuccess) {
+        return setSuccessM("Garden information updated successfully!");
       }
     } catch (err) {
       //   setErrM(err?.data?.message);
@@ -101,7 +104,7 @@ export default function MyGarden() {
           {/* <div className="card-text "> */}
           <form onSubmit={submit} name="formGardenUpdate">
             <div className="col-12 center">
-              <div className="row">
+              <div className="row gap-2">
                 <input
                   type="text"
                   className="form-control text_input"
@@ -165,10 +168,20 @@ export default function MyGarden() {
             {/*  //close col-12 */}
             <div className="row">
               <div className="col-12">
-                <button type="submit" className="btn btn-success form-control">
+                <button
+                  type="submit"
+                  className="btn btn-success form-control mt-2"
+                >
                   Submit
                 </button>
               </div>
+              {successM && (
+                <div className="row">
+                  <div className="col-12">
+                    <p className="text-warning">{successM}</p>
+                  </div>
+                </div>
+              )}
               {errM && (
                 <div className="row">
                   <div className="col-12">
