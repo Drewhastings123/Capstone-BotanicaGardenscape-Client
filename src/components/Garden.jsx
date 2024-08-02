@@ -152,26 +152,28 @@ export default function Garden() {
         <div className="accordion container-fluid w95">
           <div className="row">
             <div className="col-4 pt-3">
-              <h3 className="accordion-header">
-                <button
-                  className="accordion-button"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#collapseOne"
-                  aria-expanded="true"
-                  aria-controls="collapseOne"
+              <div className="accordion-item">
+                <h3 className="accordion-header">
+                  <button
+                    className="accordion-button"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseOne"
+                    aria-expanded="true"
+                    aria-controls="collapseOne"
+                  >
+                    User Info
+                  </button>
+                </h3>
+                <div
+                  id="collapseOne"
+                  className="accordion-collapse collapse show"
+                  aria-labelledby="headingOne"
+                  data-bs-parent="#accordionExample"
                 >
-                  User Info
-                </button>
-              </h3>
-              <div
-                id="collapseOne"
-                className="accordion-collapse collapse show"
-                aria-labelledby="headingOne"
-                data-bs-parent="#accordionExample"
-              >
-                <div className="accordion-body garden-card">
-                  <UserCard />
+                  <div className="accordion-body garden-card">
+                    <UserCard />
+                  </div>
                 </div>
               </div>
               <div className="accordion-item">
@@ -218,7 +220,6 @@ export default function Garden() {
                   data-bs-parent="#accordionExample"
                 >
                   <div className="accordion body">
-                    This will be the plant list
                     <GardenPlants />
                   </div>
                 </div>

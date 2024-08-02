@@ -26,13 +26,13 @@ export default function SelectList({
         name={theListName}
         id={`${theListName}_${theParentForm}`}
         onChange={onChangeFunction || ConsoleTheSelected}
-        defaultValue={theCurrentValue}
+        value={theCurrentValue}
       >
         {theList && theList.length > 0
-          ? theList.map((opt) => {
+          ? theList?.map((opt) => {
               return (
                 // eslint-disable-next-line react/jsx-key
-                <option value={String(opt.id)} key={String(opt.id)}>
+                <option value={String(opt?.id)} key={String(opt?.id)}>
                   {opt[theFieldName] +
                     ((opt[the2FieldName] && " (" + opt[the2FieldName] + ")") ||
                       " ")}

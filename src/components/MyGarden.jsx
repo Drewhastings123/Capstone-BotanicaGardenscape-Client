@@ -1,6 +1,6 @@
 import { useUpdateGardenMutation } from "../components_db/gardenSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SelectList from "./SelectList";
 import Loading_Bar from "./Loading_Bar";
 import { setCurrentGardenCanvas } from "../components_db/gardenSlice.js";
@@ -15,7 +15,7 @@ export default function MyGarden() {
   });
   console.log(`(useSelector(state) - function User() USER: ${id}`);
   const garden = useSelector((state) => {
-    return state.garden;
+    return state?.garden;
   });
   console.log("myGarden page's garden", garden);
   const garden_id = garden?.garden?.[0]?.id;
@@ -42,9 +42,14 @@ export default function MyGarden() {
   // set up the relationship to the garden mutation
   const [updateGarden] = useUpdateGardenMutation();
 
-  const [form, setForm] = useState(garden?.garden?.[0]);
+  const [form, setForm] = useState(garden?.garden?.[0] || {});
   const [errM, setErrM] = useState(null);
   const [successM, setSuccessM] = useState(null);
+  useEffect(() => {
+    if (garden?.garden?.[0]) {
+      setForm(garden.garden[0]);
+    }
+  }, [garden]);
 
   console.log("function User() SETFORM currentUser: ", form);
 
@@ -183,11 +188,9 @@ export default function MyGarden() {
               <div className="col-12">
                 <button
                   type="submit"
-
-                  className="btn form-control btn btn-outline-warning btn-sm border border-warning"
+                  className="btn form-control btn btn-outline-warning btn-sm border border-warning mt-2 mb-2"
                 >
                   Save Garden
-
                 </button>
               </div>
               {successM && (

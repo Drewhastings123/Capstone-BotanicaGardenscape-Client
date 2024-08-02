@@ -30,12 +30,17 @@ export default function GardenPlants() {
     return <div>Error: {error.message}</div>;
   }
 
-  if (!data) {
-    return <div>No plants found.</div>;
+  if (!data?.plantInfo?.[0]?.id) {
+    return (
+      <div>
+        Currently, you do not have any plants in your garden. Please drag plants
+        from the plant list into your garden to add them to this list.
+      </div>
+    );
   }
   const gardenPlantName = plantList
     ? plantList.filter((obj) => {
-        if (obj.id === data.plantInfo?.[0].plant_id) return obj;
+        if (obj.id === data?.plantInfo?.[0]?.plant_id) return obj;
       })
     : [{ plant_name: "no name yet" }];
 
