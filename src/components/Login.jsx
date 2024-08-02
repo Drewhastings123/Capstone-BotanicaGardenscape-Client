@@ -31,7 +31,9 @@ export default function Login() {
         );
       }
     } catch (err) {
-      setErrM(err?.data?.message);
+      setErrM(
+        "Invalid Username or Password, Please check your input and try again."
+      );
     }
   };
 
@@ -59,7 +61,7 @@ export default function Login() {
                       <div className="col-12">
                         <input
                           type="email"
-                          className="form-control form-control-login"
+                          className="form-control form-control-login text_input"
                           name="email"
                           aria-describedby="emailHelp"
                           placeholder="Email"
@@ -70,7 +72,7 @@ export default function Login() {
                       <div className="col-12">
                         <input
                           type="password"
-                          className="form-control form-control-login"
+                          className="form-control form-control-login text_input"
                           name="password"
                           placeholder="Password"
                           onChange={updateForm}
