@@ -63,7 +63,9 @@ export default function Garden() {
   console.log("Garden USER: ", theUser);
   console.log("Garden MYGARDEN: ", myGarden);
 
+
   // // find the correct name for display based on id for zone
+
   const specificZoneName = zoneList
     ? zoneList.filter((obj) => {
         if (obj.id === theUser.zone_id) return obj;
@@ -76,6 +78,7 @@ export default function Garden() {
     specificZoneName[0]?.temp_range +
     ")";
 
+
   // display the gardens shape
   function Garden_Canvas() {
     store.subscribe(() => {
@@ -87,6 +90,7 @@ export default function Garden() {
         return state.garden.currentGardenCanvas;
       })
     );
+
 
     console.log(
       "Garden_Canvas userGardenCanvas (From State): ",
@@ -128,6 +132,7 @@ export default function Garden() {
             <div className="center card-user">
               {theUser.firstname} {theUser.lastname}
             </div>
+            <br></br>
             <div className="center card-user"> Zone: {displayZoneName} </div>
 
             <div className="center pt-3 ">
