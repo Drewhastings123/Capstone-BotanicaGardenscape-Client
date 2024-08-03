@@ -10,8 +10,8 @@ import {
   setZone,
 } from "../components_db/currentViewSlice.js";
 
-import { Droppable } from "./Droppable";
-import { Draggable } from "./Draggable";
+import { Droppable } from "./Droppable.jsx";
+import { Draggable } from "./Draggable.jsx";
 
 import { useSelector, useDispatch } from "react-redux";
 

@@ -6,17 +6,27 @@ import Garden from "./Garden";
 import Original_Plants from "./Original_Plants";
 import Original_Containers from "./Original_Containers";
 import Plants_fixed from "./Plants_fixed";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function Garden_fixed() {
   //   const [allPlants, setAllPlants] = useState(Original_Plants);
   const [allContainers, setAllContainers] = useState(Original_Containers);
+  const [allPlants, setAllPlants] = useState([]);
   const allContainersExtended = allContainers?.map((container) => ({
     ...container,
     plant_pic: Math.floor(Math.random() * 10),
   }));
-  //   setAllContainers(allContainersExtended);
+  const allRef = useSelector((state) => state.reference);
+  const allPlantsBurnt2 = allRef.plantList;
 
-  console.log("ALL PLANTS" + allPlants);
+  const allPlantsExtended2 = allPlantsBurnt2?.map((plant) => ({
+    ...plant,
+    in_garden: false,
+    pic: Math.floor(Math.random() * 10),
+  }));
+  //   setAllContainers(allContainersExtended);
+//   setAllPlants(allPlantsExtended2);
+
   console.log("ALL CONTAINERS" + allContainers);
 
   function handleDragEnd(event) {
@@ -26,7 +36,7 @@ export default function Garden_fixed() {
 
     const old_cont_id = event.active.data.current.old_cont;
 
-    const result = allPlants.filter((plant) => plant.id == plant_id);
+    const result = allPlantsExtended2.filter((plant) => plant.id == plant_id);
     const plant_pic = result.pic;
 
     const new_cont_obj = {
@@ -123,7 +133,7 @@ export default function Garden_fixed() {
             <div className="col-3 ">
               {" "}
               {/* column 1 */}
-              <Garden />
+              <Garden/>
             </div>
             <div className="col-6  center">
               {" "}
