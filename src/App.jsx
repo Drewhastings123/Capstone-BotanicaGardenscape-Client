@@ -9,6 +9,7 @@ import User from "./components/User";
 // import { useState } from "react";
 import Protected from "./components/Protected.jsx";
 import Nav_Bar from "./components/Nav_Bar.jsx";
+import Garden_fixed from "./components/Garden_fixed.jsx";
 
 function App() {
   return (
@@ -21,7 +22,8 @@ function App() {
             <Route path="/user/" element={<User />}></Route>
           </Route>
           <Route path="/garden" element={<Protected />}>
-            <Route path="/garden" element={<Garden />}></Route>
+            {/* <Route path="/garden" element={<Garden />}></Route> */}
+            <Route path="/garden" element={<Garden_fixed />}></Route>
           </Route>
           <Route path="/" element={<Home />}></Route>
           <Route path="/login" element={<Login />}></Route>
