@@ -12,7 +12,7 @@ import {
 
 import { Droppable } from "./Droppable.jsx";
 import { Draggable } from "./Draggable.jsx";
-
+import zero from "../assets/pictures/5.png";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function Plants_fixed() {
@@ -34,7 +34,8 @@ export default function Plants_fixed() {
   const allPlantsExtended = allPlantsBurnt?.map((plant) => ({
     ...plant,
     in_garden: false,
-    pic: Math.floor(Math.random() * 10),
+    // pic: Math.floor(Math.random() * 10),
+    pic: zero,
   }));
 
   // setAllPlants(allPlantsExtended);
@@ -274,8 +275,8 @@ export default function Plants_fixed() {
         <Droppable id={50}>
           {newCV?.map((plant) => {
             // const img = "../src/assets/pictures/" + random_number + ".png";
-            const path = `./src/assets/pictures/${plant.pic}.png`;
-
+            // const path = `./src/assets/pictures/${plant.pic}.png`;
+            const path = zero;
             const lifeCycleName = lifeCycleList
               ? lifeCycleList.filter((obj) => {
                   if (obj.id === plant.life_cycle_id) return obj;
