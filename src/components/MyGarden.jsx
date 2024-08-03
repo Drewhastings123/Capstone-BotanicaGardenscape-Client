@@ -122,10 +122,10 @@ export default function MyGarden() {
           {/* <div className="card-text "> */}
           <form onSubmit={submit} name="formGardenUpdate">
             <div className="col-12 center">
-              <div className="row gap-2">
+              <div className="row gap-1">
                 <input
                   type="text"
-                  className="form-control text_input"
+                  className="form-control text_input mt-2"
                   name="description"
                   //   aria-describedby="emailHelp"
                   //   placeholder="default"

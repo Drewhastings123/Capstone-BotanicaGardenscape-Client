@@ -148,10 +148,10 @@ export default function Garden() {
 
   return (
     <>
-      <div className="row">
+      {/* <div className="row"> */}
         <div className="accordion container-fluid w95">
           <div className="row">
-            <div className="col-4 pt-3">
+            <div className="col-12 pt-3">
               <div className="accordion-item">
                 <h3 className="accordion-header">
                   <button
@@ -225,17 +225,19 @@ export default function Garden() {
                 </div>
               </div>
             </div>
-            <div className="col-5   ">
+            {/* <div className="col-5   ">
               <div className=" garden-canvas ">
-                <Garden_Canvas />
+                <Garden_Canvas /> 
+                <h5>Was Canvas</h5>
               </div>
             </div>
             <div className="col-3   ">
               <Plants />
-            </div>
+              <h5>Was Plant Filter</h5>
+            </div> */}
           </div>
         </div>
-      </div>
+      {/* </div> */}
     </>
   );
 }
