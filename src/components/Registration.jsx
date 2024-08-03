@@ -117,16 +117,16 @@ export default function Registration() {
                 <h4 className="card-title">Registration</h4>
               </div>
 
-              <div className="card-body">
+              <div className="card-body gap-2">
                 <div className="card-text ">
                   <form onSubmit={submit} name="formRegister">
-                    <div className="row">
-                      <div className="col-12">
-                        <div className="row">
+                    <div className="row ">
+                      <div className="col-12  ">
+                        <div className="row ">
                           <div className="col-6 ">
                             <input
                               type="email"
-                              className="form-control"
+                              className="form-control form-control-login"
                               name="email"
                               aria-describedby="emailHelp"
                               placeholder="Email"
@@ -135,7 +135,7 @@ export default function Registration() {
                             />
                             <input
                               type="text"
-                              className="form-control"
+                              className="form-control form-control-login"
                               name="firstname"
                               placeholder="First Name"
                               onChange={updateForm}
@@ -144,7 +144,7 @@ export default function Registration() {
 
                             <input
                               type="phone"
-                              className="form-control"
+                              className="form-control form-control-login"
                               name="phone_number"
                               placeholder="(XXX) 867-5209"
                               onChange={updateForm}
@@ -155,7 +155,7 @@ export default function Registration() {
                           <div className="col-6 ">
                             <input
                               type="password"
-                              className="form-control"
+                              className="form-control form-control-login"
                               name="password"
                               placeholder="Password"
                               onChange={updateForm}
@@ -164,7 +164,7 @@ export default function Registration() {
 
                             <input
                               type="text"
-                              className="form-control"
+                              className="form-control form-control-login"
                               name="lastname"
                               placeholder="Last Name"
                               onChange={updateForm}
@@ -187,11 +187,11 @@ export default function Registration() {
                       {/*  //close col-12 */}
                     </div>{" "}
                     {/*  //close row */}
-                    <div className="row">
-                      <div className="col-12">
+                    <div className="row center">
+                      <div className="col-12 gap-2">
                         <button
                           type="submit"
-                          className="btn btn-success form-control"
+                          className="btn btn-success form-control m-2"
                         >
                           Submit
                         </button>
