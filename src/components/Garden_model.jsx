@@ -136,7 +136,7 @@ export default function Garden_model() {
             </div>
           </div>
 
-          <div className="col-3   border border-dark p-0 ">
+          <div className="col-3  p-0 ">
             {/* {console.log();} */}
             <div className="right">
               <Droppable id={50}>

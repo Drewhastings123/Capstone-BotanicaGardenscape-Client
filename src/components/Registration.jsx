@@ -112,117 +112,101 @@ export default function Registration() {
   };
 
   return (
-    <>
-      <div className=" container top2 w50 registrationForm ">
-        <div className="row  ">
-          <div className=" col-6 card border-success ">
-            <div className="card-header row  ">
-              <h4 className="center">Registration</h4>
-            </div>
-            <form onSubmit={submit} name="formRegister">
-              <div className="center">
-                {" "}
-                <div className="row pt-5 w85 ">
-                  <div className="col-6 center ">
-                    <input
-                      type="email"
-                      className="form-control form-control-login"
-                      name="email"
-                      aria-describedby="emailHelp"
-                      placeholder="Email"
-                      onChange={updateForm}
-                      required
-                    />
-                  </div>
-                  <div className="col-6 center ">
-                    <input
-                      type="password"
-                      className="form-control form-control-login"
-                      name="password"
-                      placeholder="Password"
-                      onChange={updateForm}
-                      required
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="center">
-                {" "}
-                <div className="row pt-2 w85 pb-3">
-                  <div className="col-6 ">
-                    <input
-                      type="text"
-                      className="form-control form-control-login"
-                      name="firstname"
-                      placeholder="First Name"
-                      onChange={updateForm}
-                      required
-                    />
-                  </div>
-
-                  <div className="col-6 ">
-                    <input
-                      type="text"
-                      className="form-control form-control-login"
-                      name="lastname"
-                      placeholder="Last Name"
-                      onChange={updateForm}
-                      required
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="center">
-                {" "}
-                <div className="row  w85 pb-3 ">
-                  <div className="col-6   ">
-                    <input
-                      type="phone"
-                      className="form-control"
-                      name="phone_number"
-                      placeholder="(XXX) 867-5209"
-                      onChange={updateForm}
-                      required
-                    />
-                  </div>
-
-                  <SelectList
-                    theList={zoneList}
-                    theListName="zone_id"
-                    theParentForm="Registration"
-                    onChangeFunction={updateFormOnListChange}
-                    theFieldName="zone_name"
-                    the2FieldName="temp_range"
-                  />
-                </div>
-              </div>
-
-              <div className="center ">
-                {" "}
-                <div className="row pt-3 pb-4 w85 ">
-                  <div className="col-12">
-                    <button
-                      type="submit"
-                      className="btn btn-success form-control mb-5 "
-                    >
-                      Submit
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </form>
-            {errM && (
-              <div className="row">
-                <div className="col-12">
-                  <p className="text-warning">{errM}</p>
-                </div>
-              </div>
-            )}
-          </div>
+    <div className="row  center pt-5   ">
+      <div className=" col-6 card bg-light border-secondary mt-5 p-0 pb-5 ">
+        <div className="card-header center p-3 mb-3  ">
+          <h4 className="center">Registration</h4>
         </div>
-      </div>
-    </>
+        <form onSubmit={submit} name="formRegister">
+          <div className="row pt-5 center ">
+            <div className="col-5 center ">
+              <input
+                type="email"
+                className="form-control form-control-login"
+                name="email"
+                aria-describedby="emailHelp"
+                placeholder="Email"
+                onChange={updateForm}
+                required
+              />
+            </div>
+
+            <div className="col-5 center ">
+              <input
+                type="password"
+                className="form-control form-control-login"
+                name="password"
+                placeholder="Password"
+                onChange={updateForm}
+                required
+              />
+            </div>
+          </div>
+
+          <div className="row pt-4 center">
+            <div className="col-5 center">
+              <input
+                type="text"
+                className="form-control form-control-login"
+                name="firstname"
+                placeholder="First Name"
+                onChange={updateForm}
+                required
+              />
+            </div>
+
+            <div className="col-5 center ">
+              <input
+                type="text"
+                className="form-control form-control-login"
+                name="lastname"
+                placeholder="Last Name"
+                onChange={updateForm}
+                required
+              />
+            </div>
+          </div>
+
+          <div className="row pt-4 center">
+            <div className="col-5 center">
+              <input
+                type="phone"
+                className="form-control"
+                name="phone_number"
+                placeholder="(XXX) 867-5209"
+                onChange={updateForm}
+                required
+              />
+            </div>
+
+            <div className="col-5 center ">
+              <SelectList
+                theList={zoneList}
+                theListName="zone_id"
+                theParentForm="Registration"
+                onChangeFunction={updateFormOnListChange}
+                theFieldName="zone_name"
+                the2FieldName="temp_range"
+              />
+            </div>
+          </div>
+
+          <div className="row center  pt-5">
+            <div className="col-10 center ">
+              <button type="submit" className="btn btn-success form-control  ">
+                Submit
+              </button>
+            </div>
+          </div>
+        </form>
+        {errM && (
+          <div className="row pt-5 ">
+            <div className="col-12 center">
+              <p className="text-warning">{errM}</p>
+            </div>
+          </div>
+        )}
+      </div>{" "}
+    </div>
   );
 }

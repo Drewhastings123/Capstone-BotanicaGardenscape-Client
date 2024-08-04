@@ -35,7 +35,6 @@
 }
 
 .right > div > div {
-  
   text-align: center !important;
 }
 
@@ -46,19 +45,14 @@
 }
 
 .left {
-  
   display: flex;
   justify-content: center !important;
   flex-direction: column;
-  
-  border: solid white 1px;
 }
 
 .center {
   display: flex;
   justify-content: center !important;
- 
-  
 }
 
 .mainContainer {
@@ -93,4 +87,24 @@ img {
   font-size: 1.8em;
   padding-left: 2em;
   padding-right: 0.3em;
+}
+
+.w-100 {
+  width: 100% !important;
+}
+.cgray {
+  color: rgba(160, 160, 160, 0.7) !important;
+}
+
+input,
+select {
+  text-align: center;
+}
+
+.nav-link {
+  padding: 1em 1.3em !important;
+}
+.btn-link {
+  text-decoration: none !important;
+  padding-top: 1em !important;
 }
