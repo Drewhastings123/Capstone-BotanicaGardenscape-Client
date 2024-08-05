@@ -249,5 +249,11 @@ export default function Original_Containers() {
       plant_pic: null,
       occupied: false,
     },
+    {
+      id: 42,
+      plant_id: null,
+      plant_pic: null,
+      occupied: false,
+    },
   ];
 }

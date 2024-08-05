@@ -137,7 +137,7 @@ export default function Left_Column() {
             {theUser.firstname} {theUser.lastname}
           </p>
           <p className="card-text center">Zone: {displayZoneName}</p>
-          <div className="center  pb-3">
+          <div className="center  pb-3 pt-2">
             {" "}
             <button
               type="button"
@@ -154,12 +154,12 @@ export default function Left_Column() {
   return (
     <div className="left_column ">
       <div className="card bg-light mb-5">
-        <div className="card-header">User Info</div>
+        <div className="card-header center">User Info</div>
         <UserCard />
       </div>
 
       <div className="card bg-light mt-3">
-        <div className="card-header">Garden Info</div>
+        <div className="card-header center">Garden Info</div>
         <MyGarden />
       </div>
     </div>

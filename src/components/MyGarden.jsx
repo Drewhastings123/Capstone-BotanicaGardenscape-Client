@@ -122,7 +122,7 @@ export default function MyGarden() {
           <div className="col-6 center ">
             <input
               type="text"
-              className="form-control text_input"
+              className="form-control text_input cgray"
               name="description"
               //   aria-describedby="emailHelp"
               //   placeholder="default"

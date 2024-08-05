@@ -117,14 +117,20 @@ export default function Garden_model() {
   return (
     <div>
       <DndContext onDragEnd={handleDragEnd}>
-        <div className="row p-5 ">
+        <div className="row p-5 pt-3   ">
+          <small className="col-12 tik  p-0 pb-1">
+            Plants in your garden:
+            <span className="text-info sl"> No plants yet</span>
+          </small>
+
           <div className="col-3 left p-0   ">
             <Left_Column />
           </div>
 
           <div className="col-6  center  pt-3 ">
-            {/* <div className="  p-2 text-light  shape rounded-circle "> */}
-            <div className="   text-light  shape  ">
+          
+            {/* rounded-circle  */}
+            <div className="   text-light  shape p-3 ">
               {" "}
               <div className="mainContainer">
                 {allContainers.map((container) => (
