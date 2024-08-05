@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import SelectList from "./SelectList";
 import Loading_Bar from "./Loading_Bar";
 import { setCurrentGardenCanvas } from "../components_db/gardenSlice.js";
+import { setShape } from "../components_db/currentViewSlice.js";
 
 export default function MyGarden() {
   // setup the dispatch for the subscribe on canvase
@@ -58,6 +59,19 @@ export default function MyGarden() {
   const submit = async (e) => {
     e.preventDefault();
     console.log(`(useSelector(state) - function User() SUBMIT`);
+    
+    switch (form.shape_id) {
+      case "dbb444c3-b50e-44ab-9aa9-51490cc4c5bd":
+        dispatch(setShape("sq"));
+        break;
+      case "cc484fd1-d66c-45af-b233-246ceb282fcb":
+        dispatch(setShape("cir"));
+        break;
+      default:
+        dispatch(setShape("sq"));
+        break;
+    }
+
 
     try {
       let updateGardenSuccess = false;
