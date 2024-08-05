@@ -1,4 +1,4 @@
-import Plants from "./Plants";
+// import Plants from "./Plants.jsx";
 import { useState } from "react";
 import { useSelector, useStore } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -7,12 +7,12 @@ import { useNavigate } from "react-router-dom";
 import LoadReference from "./reference.js";
 import LazyUserRefresh from "./lazyRefresh.js";
 
-import { useGetMyGardenQuery } from "../components_db/gardenSlice";
-import MyGarden from "./MyGarden";
+import { useGetMyGardenQuery } from "../components_db/gardenSlice.js";
+import MyGarden from "./MyGarden.jsx";
 
-import GardenPlants from "./GardenPlants";
+import GardenPlants from "./GardenPlants.jsx";
 
-export default function Garden() {
+export default function Left_Column() {
   // load the reference data
   console.log("run reference from garden");
   LoadReference() ? LoadReference() : console.log("Still loading Reference");
@@ -38,6 +38,9 @@ export default function Garden() {
   const { data, error } = useGetMyGardenQuery(theUser.id);
   console.log("myGarden data", data);
   //}
+  if (error) {
+    console.log(error);
+  }
   console.log("myGarden", myGarden);
 
   // just a note for now
@@ -149,83 +152,83 @@ export default function Garden() {
   return (
     <>
       {/* <div className="row"> */}
-        <div className="accordion container-fluid w95">
-          <div className="row">
-            <div className="col-12 pt-3">
-              <div className="accordion-item">
-                <h3 className="accordion-header">
-                  <button
-                    className="accordion-button"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#collapseOne"
-                    aria-expanded="true"
-                    aria-controls="collapseOne"
-                  >
-                    User Info
-                  </button>
-                </h3>
-                <div
-                  id="collapseOne"
-                  className="accordion-collapse collapse show"
-                  aria-labelledby="headingOne"
-                  data-bs-parent="#accordionExample"
+      <div className="accordion container-fluid w95">
+        <div className="row">
+          <div className="col-12 pt-3">
+            <div className="accordion-item">
+              <h3 className="accordion-header">
+                <button
+                  className="accordion-button"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseOne"
+                  aria-expanded="true"
+                  aria-controls="collapseOne"
                 >
-                  <div className="accordion-body garden-card">
-                    <UserCard />
-                  </div>
-                </div>
-              </div>
-              <div className="accordion-item">
-                <h3 className="accordion-header">
-                  <button
-                    className="accordion-button collapsed"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#collapseTwo"
-                    aria-expanded="false"
-                    aria-controls="collapseTwo"
-                  >
-                    Garden Info
-                  </button>
-                </h3>
-                <div
-                  id="collapseTwo"
-                  className="accordion-collapse collapse"
-                  aria-labelledby="headingTwo"
-                  data-bs-parent="#accordionExample"
-                >
-                  <div className="accordion body user-card">
-                    <MyGarden />
-                  </div>
-                </div>
-              </div>
-              <div className="accordion-item">
-                <h3 className="accordion-header">
-                  <button
-                    className="accordion-button collapsed"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#collapseThree"
-                    aria-expanded="false"
-                    aria-controls="collapseThree"
-                  >
-                    Plants in My Garden
-                  </button>
-                </h3>
-                <div
-                  id="collapseThree"
-                  className="accordion-collapse collapse"
-                  aria-labelledby="headingThree"
-                  data-bs-parent="#accordionExample"
-                >
-                  <div className="accordion body">
-                    <GardenPlants />
-                  </div>
+                  User Info
+                </button>
+              </h3>
+              <div
+                id="collapseOne"
+                className="accordion-collapse collapse show"
+                aria-labelledby="headingOne"
+                data-bs-parent="#accordionExample"
+              >
+                <div className="accordion-body garden-card">
+                  <UserCard />
                 </div>
               </div>
             </div>
-            {/* <div className="col-5   ">
+            <div className="accordion-item">
+              <h3 className="accordion-header">
+                <button
+                  className="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseTwo"
+                  aria-expanded="false"
+                  aria-controls="collapseTwo"
+                >
+                  Garden Info
+                </button>
+              </h3>
+              <div
+                id="collapseTwo"
+                className="accordion-collapse collapse"
+                aria-labelledby="headingTwo"
+                data-bs-parent="#accordionExample"
+              >
+                <div className="accordion body user-card">
+                  <MyGarden />
+                </div>
+              </div>
+            </div>
+            <div className="accordion-item">
+              <h3 className="accordion-header">
+                <button
+                  className="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseThree"
+                  aria-expanded="false"
+                  aria-controls="collapseThree"
+                >
+                  Plants in My Garden
+                </button>
+              </h3>
+              <div
+                id="collapseThree"
+                className="accordion-collapse collapse"
+                aria-labelledby="headingThree"
+                data-bs-parent="#accordionExample"
+              >
+                <div className="accordion body">
+                  <GardenPlants />
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* <div className="col-5   ">
               <div className=" garden-canvas ">
                 <Garden_Canvas /> 
                 <h5>Was Canvas</h5>
@@ -235,8 +238,8 @@ export default function Garden() {
               <Plants />
               <h5>Was Plant Filter</h5>
             </div> */}
-          </div>
         </div>
+      </div>
       {/* </div> */}
     </>
   );

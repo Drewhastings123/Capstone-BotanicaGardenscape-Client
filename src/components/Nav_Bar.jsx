@@ -63,7 +63,7 @@ export default function Nav_Bar() {
             )}
             {token && (
               <div>
-                <li className="nav-item active bg-success">
+                <li className="nav-item active ">
                   <NavLink to="/user" className="nav-link ">
                     User Info
                   </NavLink>

@@ -17,6 +17,9 @@ export function Draggable(props) {
       }
     : undefined;
 
+
+
+
   return (
     // <button ref={setNodeRef} style={style} {...listeners} {...attributes} className="yellow">
     //   {props.children}
@@ -26,7 +29,7 @@ export function Draggable(props) {
       style={style}
       {...listeners}
       {...attributes}
-      className="p-1"
+      
     >
       {props.children}
     </div>

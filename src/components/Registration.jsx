@@ -38,6 +38,9 @@ export default function Registration() {
   const soilRequirementList = useSelector((state) => {
     return state.reference.soilRequirementList;
   });
+  const userRoleList = useSelector((state) => {
+    return state.reference.userRoleList;
+  });
 
   const createDefaultGarden = ({ id, zone_id }) => {
     return {
@@ -61,7 +64,7 @@ export default function Registration() {
       let gardenSuccess;
 
       // TO DO - correctly handle user_role_id
-      form.user_role_id = "8b8329b7-943a-4f12-9803-dcba09ec1ede";
+      form.user_role_id = userRoleList[0].id;
 
       success = await registerUser(form).unwrap();
       console.log("registration success REGISTERUSER: ", success);
