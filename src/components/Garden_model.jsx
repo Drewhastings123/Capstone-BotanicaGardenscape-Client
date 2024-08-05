@@ -16,8 +16,8 @@ export default function Garden_model() {
 
 
   const [plantsLeftC, setPlantsLeftC] = useState([]);
-  const shap = useSelector((state) => state.currentView.shape);
-  const allContainers = useSelector((state) => state.mainArrays.allContainers);
+  
+  
 
   const mainArrays = useSelector((state) => state.mainArrays);
   console.log("MAIN ARRAYS" + mainArrays);
@@ -211,22 +211,4 @@ export default function Garden_model() {
       </DndContext>
     </div>
   );
-<<<<<<< HEAD
-=======
-}
-
-{
-  /* <Droppable id={50}>
-                {allPlants.map((plant) => {
-                  const path = `./src/assets/${plant.pic}.png`;
-                  if (plant.in_garden == false) {
-                    return (
-                      <Draggable id={plant.id} key={plant.id} old_cont={50}>
-                        <img src={path} />
-                      </Draggable>
-                    );
-                  }
-                })}
-              </Droppable> */
->>>>>>> 892977234d331888ee7850cd2f79c3956ad1d213
 }
