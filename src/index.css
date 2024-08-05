@@ -108,3 +108,7 @@ select {
   text-decoration: none !important;
   padding-top: 1em !important;
 }
+
+.fdc {
+  flex-direction: column;
+}

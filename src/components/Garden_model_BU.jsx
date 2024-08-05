@@ -5,7 +5,6 @@ import { Draggable } from "./Draggable";
 import Original_Plants from "./Original_Plants";
 import Original_Containers from "./Original_Containers";
 import Left_Column from "./Left_Column";
-import Left_Column_ugly from "./Left_Column_ugly";
 
 export default function Garden_model() {
   const [allPlants, setAllPlants] = useState(Original_Plants);
@@ -121,7 +120,6 @@ export default function Garden_model() {
         <div className="row p-5 ">
           <div className="col-3 left p-0   ">
             <Left_Column />
-            {/* <Left_Column_ugly /> */}
           </div>
 
           <div className="col-6  center p-0 ">
