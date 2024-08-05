@@ -130,7 +130,7 @@ export default function Garden_model() {
           <div className="col-6  center  pt-3 ">
           
             {/* rounded-circle  */}
-            <div className="   text-light  shape p-3 ">
+            <div className="   text-light  shape p-3  ">
               {" "}
               <div className="mainContainer">
                 {allContainers.map((container) => (
