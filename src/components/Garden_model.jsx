@@ -120,13 +120,13 @@ export default function Garden_model() {
       <DndContext onDragEnd={handleDragEnd}>
         <div className="row p-5 ">
           <div className="col-3 left p-0   ">
-            <Left_Column />
-            {/* <Left_Column_ugly /> */}
+            <Left_Column /> 
+         
           </div>
 
-          <div className="col-6  center p-0 ">
+          <div className="col-6  center p-0 pt-3 ">
             {/* <div className="  p-2 text-light  shape rounded-circle "> */}
-            <div className="  p-2 text-light  shape  ">
+            <div className="   text-light  shape  ">
               {" "}
               <div className="mainContainer">
                 {allContainers.map((container) => (

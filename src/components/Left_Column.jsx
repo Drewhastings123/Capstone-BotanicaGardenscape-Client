@@ -137,14 +137,14 @@ export default function Left_Column() {
             {theUser.firstname} {theUser.lastname}
           </p>
           <p className="card-text center">Zone: {displayZoneName}</p>
-          <div className="center pt-3 pb-3">
+          <div className="center  pb-3">
             {" "}
             <button
               type="button"
               className="btn btn-outline-warning  border border-warning p-2"
               onClick={() => navigate("/user")}
             >
-              Update User
+              Edit User
             </button>
           </div>
         </div>
@@ -152,34 +152,16 @@ export default function Left_Column() {
   }
 
   return (
-    <>
-      <div className="card bg-light mb-3">
+    <div className="left_column ">
+      <div className="card bg-light mb-5">
         <div className="card-header">User Info</div>
-
         <UserCard />
       </div>
 
-      <div className="card bg-light mb-3">
+      <div className="card bg-light mt-3">
         <div className="card-header">Garden Info</div>
-        <div className="card-body center fdc">
-          <h4 className="card-title">Your Garden</h4>
-
-          <p className="card-text">Feel free to edit it.</p>
-
-          <MyGarden />
-        </div>
+        <MyGarden />
       </div>
-
-      <div className="card bg-light mb-3">
-        <div className="card-header">Plants in My Garden</div>
-        <div className="card-body">
-          <h4 className="card-title">Light card title</h4>
-          <p className="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card s content.
-          </p>
-        </div>
-      </div>
-    </>
+    </div>
   );
 }
