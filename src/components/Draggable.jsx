@@ -29,7 +29,7 @@ export function Draggable(props) {
       style={style}
       {...listeners}
       {...attributes}
-      className="p-1  "
+      
     >
       {props.children}
     </div>

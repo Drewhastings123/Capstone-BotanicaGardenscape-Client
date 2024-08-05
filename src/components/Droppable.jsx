@@ -16,7 +16,7 @@ export function Droppable(props) {
 
   if (props.id === 50) {
     return (
-      <div ref={setNodeRef} style={style} className="right_panel">
+      <div ref={setNodeRef} style={style} >
         {props.children}
       </div>
     );

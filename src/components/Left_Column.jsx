@@ -80,45 +80,7 @@ export default function Left_Column() {
     specificZoneName[0]?.temp_range +
     ")";
 
-  // display the gardens shape
-  function Garden_Canvas() {
-    store.subscribe(() => {
-      store.getState().garden.currentGardenCanvas;
-    });
-
-    const [userGardenCanvas, setUserGardenCanvas] = useState(
-      useSelector((state) => {
-        return state.garden.currentGardenCanvas;
-      })
-    );
-
-    console.log(
-      "Garden_Canvas userGardenCanvas (From State): ",
-      userGardenCanvas
-    );
-
-    const specificShapeClass = shapeList?.filter((obj) => {
-      if (obj.id === userGardenCanvas) return obj;
-    });
-
-    // set-up defaults
-    let canvasClasses = " garden border-garden p-2 text-dark ";
-    let canvasShape = "square";
-
-    if (typeof specificShapeClass != "undefined") {
-      canvasClasses += specificShapeClass[0]
-        ? specificShapeClass[0].css_class
-        : "square";
-      canvasShape = specificShapeClass[0]?.shape_name
-        ? specificShapeClass[0].shape_name
-        : "Square";
-    }
-
-    console.log("Garden_Canvas - CanvasClasses: ", canvasClasses);
-    console.log("Garden_Canvas- CanvasShape: ", canvasShape);
-
-    return <div className={canvasClasses}>{canvasShape}</div>;
-  }
+  // 
 
   function UserCard() {
     if (!theUser)

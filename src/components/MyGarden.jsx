@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import SelectList from "./SelectList";
 import Loading_Bar from "./Loading_Bar";
 import { setCurrentGardenCanvas } from "../components_db/gardenSlice.js";
+import { setShape } from "../components_db/currentViewSlice.js";
 
 export default function MyGarden() {
   // setup the dispatch for the subscribe on canvase
@@ -17,7 +18,7 @@ export default function MyGarden() {
   const garden = useSelector((state) => {
     return state?.garden;
   });
-  console.log("myGarden page's garden", garden);
+  // console.log("myGarden page's garden", garden);
   const garden_id = garden?.garden?.[0]?.id;
   //   const gardenId = useSelector((state) => {
   //     return state?.garden?.garden[0]?.id;
@@ -54,11 +55,20 @@ export default function MyGarden() {
 
   console.log("function User() SETFORM currentUser: ", form);
 
-  //  What to do when the submit button is clicked
   const submit = async (e) => {
     e.preventDefault();
-    console.log(`(useSelector(state) - function User() SUBMIT`);
-
+    console.log("FORM" + form);
+    switch (form.shape_id) {
+      case "dbb444c3-b50e-44ab-9aa9-51490cc4c5bd":
+        dispatch(setShape("sq"));
+        break;
+      case "cc484fd1-d66c-45af-b233-246ceb282fcb":
+        dispatch(setShape("cir"));
+        break;
+      default:
+        dispatch(setShape("sq"));
+        break;
+    }
     try {
       let updateGardenSuccess = false;
       console.log("gardenID", garden_id);
@@ -122,7 +132,7 @@ export default function MyGarden() {
           <div className="col-6 center ">
             <input
               type="text"
-              className="form-control text_input cgray"
+              className="form-control text_input cgray p-2"
               name="description"
               //   aria-describedby="emailHelp"
               //   placeholder="default"

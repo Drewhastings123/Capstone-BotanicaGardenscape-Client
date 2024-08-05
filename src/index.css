@@ -2,7 +2,15 @@
   padding: 2em;
   margin: 1em;
 } */
+.aife {
+  align-items: flex-end !important;
+}
+.plant_box {
+  display: flex;
 
+  justify-content: space-between;
+  border-radius: 0.5em;
+}
 .vertical {
   display: flex;
   flex-direction: column;
@@ -19,8 +27,6 @@
   color: rgba(255, 255, 255, 0.712);
 }
 .right {
-  border: 1px solid lightblue;
-  /* padding: 1em; */
   display: flex;
   justify-content: space-around;
 
@@ -34,19 +40,18 @@
   /* background-color: aqua; */
 }
 
-.right > div > div {
-  text-align: center !important;
+.card:hover,
+.navbar:hover,
+.plant_box {
+  background-color: rgba(255, 255, 255, 0.4) !important;
+}
+.plant_box:hover {
+  background-color: rgba(255, 255, 255, 0.8) !important;
 }
 
-.right > div > div > img {
-  margin: 0.5em;
-  width: 115px;
-  height: 65px;
-}
-
-.left {
+.left,
+.right {
   display: flex;
-  justify-content: center !important;
   flex-direction: column;
 }
 
@@ -71,14 +76,14 @@
   background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
   width: 43%;
   position: absolute;
-  height: 85%;
- 
+  height: 88%;
+  border-radius: 0.5em;
+
   /* height: 750px; */
 }
 
 .pink {
   background-color: pink !important;
- 
 }
 .blue {
   background-color: lightblue !important;
@@ -146,4 +151,8 @@ select {
 /* //space right */
 .sl {
   padding-left: 0.5em !important;
+}
+
+.pc_info {
+  padding-left: 1.5em;
 }
