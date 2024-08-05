@@ -5,7 +5,6 @@ import { Draggable } from "./Draggable";
 import Original_Plants from "./Original_Plants";
 import Original_Containers from "./Original_Containers";
 import Left_Column from "./Left_Column";
-import Left_Column_ugly from "./Left_Column_ugly";
 
 export default function Garden_model() {
   const [allPlants, setAllPlants] = useState(Original_Plants);
@@ -120,11 +119,10 @@ export default function Garden_model() {
       <DndContext onDragEnd={handleDragEnd}>
         <div className="row p-5 ">
           <div className="col-3 left p-0   ">
-            <Left_Column /> 
-         
+            <Left_Column />
           </div>
 
-          <div className="col-6  center p-0 pt-3 ">
+          <div className="col-6  center  pt-3 ">
             {/* <div className="  p-2 text-light  shape rounded-circle "> */}
             <div className="   text-light  shape  ">
               {" "}
@@ -138,7 +136,7 @@ export default function Garden_model() {
             </div>
           </div>
 
-          <div className="col-3  p-0 ">
+          <div className="col-3 p-0  ">
             {/* {console.log();} */}
             <div className="right">
               <Droppable id={50}>
