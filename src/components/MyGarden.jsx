@@ -18,7 +18,7 @@ export default function MyGarden() {
   const garden = useSelector((state) => {
     return state?.garden;
   });
-  console.log("myGarden page's garden", garden);
+  // console.log("myGarden page's garden", garden);
   const garden_id = garden?.garden?.[0]?.id;
   //   const gardenId = useSelector((state) => {
   //     return state?.garden?.garden[0]?.id;
@@ -55,11 +55,9 @@ export default function MyGarden() {
 
   console.log("function User() SETFORM currentUser: ", form);
 
-  //  What to do when the submit button is clicked
   const submit = async (e) => {
     e.preventDefault();
-    console.log(`(useSelector(state) - function User() SUBMIT`);
-    
+    console.log("FORM" + form);
     switch (form.shape_id) {
       case "dbb444c3-b50e-44ab-9aa9-51490cc4c5bd":
         dispatch(setShape("sq"));
@@ -136,7 +134,7 @@ export default function MyGarden() {
           <div className="col-6 center ">
             <input
               type="text"
-              className="form-control text_input cgray"
+              className="form-control text_input cgray p-2"
               name="description"
               //   aria-describedby="emailHelp"
               //   placeholder="default"

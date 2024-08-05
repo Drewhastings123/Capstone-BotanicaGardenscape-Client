@@ -16,6 +16,14 @@ export default function Garden_model() {
 
 
   const [plantsLeftC, setPlantsLeftC] = useState([]);
+  const shap = useSelector((state) => state.currentView.shape);
+  const allContainers = useSelector((state) => state.mainArrays.allContainers);
+
+  const mainArrays = useSelector((state) => state.mainArrays);
+  console.log("MAIN ARRAYS" + mainArrays);
+  const mainSt = useSelector((state) => state);
+  const contFinales = mainSt.mainArrays.allContainers.Original_Containers;
+  console.log("LOS CONT FINAL" + contFinales);
 
   function DraggableMarkup({ pic, plant_id, old_cont }) {
     const path = "./src/assets/" + pic + ".png";
@@ -57,12 +65,43 @@ export default function Garden_model() {
 
   function Left_List() {
     const leftCoulumnPlants = [];
-    allContainers.forEach((cont) => {
+    const allC = allContainers.Original_Containers;
+    allC.forEach((cont) => {
       if (cont.occupied) {
         leftCoulumnPlants.push(cont.plant_id);
       }
     });
-    console.log("Left New List: " + leftCoulumnPlants);
+    // console.log("Left New List: " + leftCoulumnPlants);
+  }
+
+  function Bring_Shape() {
+    if (shap == "cir") {
+      return (
+        <div className="  text-light  shape p-3 rounded-circle  ">
+          {" "}
+          <div className="mainContainer">
+            {allContainers.map((container) => (
+              // We updated the Droppable component so it would accept an `id`
+              // prop and pass it to `useDroppable`
+              <GetDroppable key={container.id} container={container} />
+            ))}
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div className="   text-light  shape p-3  ">
+          {" "}
+          <div className="mainContainer">
+            {allContainers.map((container) => (
+              // We updated the Droppable component so it would accept an `id`
+              // prop and pass it to `useDroppable`
+              <GetDroppable key={container.id} container={container} />
+            ))}
+          </div>
+        </div>
+      );
+    }
   }
 
   function handleDragEnd(event) {
@@ -172,4 +211,22 @@ export default function Garden_model() {
       </DndContext>
     </div>
   );
+<<<<<<< HEAD
+=======
+}
+
+{
+  /* <Droppable id={50}>
+                {allPlants.map((plant) => {
+                  const path = `./src/assets/${plant.pic}.png`;
+                  if (plant.in_garden == false) {
+                    return (
+                      <Draggable id={plant.id} key={plant.id} old_cont={50}>
+                        <img src={path} />
+                      </Draggable>
+                    );
+                  }
+                })}
+              </Droppable> */
+>>>>>>> 892977234d331888ee7850cd2f79c3956ad1d213
 }
