@@ -69,12 +69,12 @@ const gardenApi = api.injectEndpoints({
 });
 
 const storeGarden = (state, { payload }) => {
-  console.log("storeGarden", payload);
+ // console.log("storeGarden", payload);
   state.garden = payload.gardenInfo;
   state.currentGardenCanvas = payload.gardenInfo?.[0].shape_id;
 };
 const storeUpdatedGarden = (state, { payload }) => {
-  console.log("updateGarden's payload", payload);
+ // console.log("updateGarden's payload", payload);
   state.garden = payload.gardenInfo;
   state.currentGardenCanvas = payload.gardenInfo?.[0].shape_id;
 };

@@ -9,7 +9,7 @@ import { useCreateGardenMutation } from "../components_db/gardenSlice";
 
 export default function Registration() {
   // load the reference data
-  console.log("run reference from Registration");
+ // console.log("run reference from Registration");
   LoadReference() ? LoadReference() : console.log("Still loading Reference");
   //  test this call
 
@@ -51,7 +51,7 @@ export default function Registration() {
 
   const submit = async (e) => {
     e.preventDefault();
-    console.log("submit");
+   // console.log("submit");
 
     try {
       let success;
@@ -62,10 +62,10 @@ export default function Registration() {
       form.user_role_id = "8b8329b7-943a-4f12-9803-dcba09ec1ede";
 
       success = await registerUser(form).unwrap();
-      console.log("registration success REGISTERUSER: ", success);
+    //  console.log("registration success REGISTERUSER: ", success);
       if (success?.token) {
         loginSuccess = await loginUser(form).unwrap();
-        console.log("registration loginSuccess LOGINUSER:", loginSuccess);
+  //      console.log("registration loginSuccess LOGINUSER:", loginSuccess);
 
         // TODO Handle failed registration better
         // TODO Handle failed login better
@@ -78,7 +78,7 @@ export default function Registration() {
 
         gardenSuccess = await createGarden({ specifications }).unwrap();
 
-        console.log("registration gardenSuccess CREATEGARDEN:", gardenSuccess);
+     //   console.log("registration gardenSuccess CREATEGARDEN:", gardenSuccess);
 
         if (loginSuccess?.token) {
           navigate("/garden");
@@ -100,7 +100,7 @@ export default function Registration() {
   };
 
   const updateForm = (e) => {
-    console.log("updateForm");
+   // console.log("updateForm");
     setForm((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,

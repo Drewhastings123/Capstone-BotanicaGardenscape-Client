@@ -20,10 +20,9 @@ export default function Garden_model() {
   
 
   const mainArrays = useSelector((state) => state.mainArrays);
-  console.log("MAIN ARRAYS" + mainArrays);
-  const mainSt = useSelector((state) => state);
-  const contFinales = mainSt.mainArrays.allContainers.Original_Containers;
-  console.log("LOS CONT FINAL" + contFinales);
+  //console.log("MAIN ARRAYS" + mainArrays);
+  // const mainSt = useSelector((state) => state);
+ 
 
   function DraggableMarkup({ pic, plant_id, old_cont }) {
     const path = "./src/assets/" + pic + ".png";
@@ -204,7 +203,7 @@ export default function Garden_model() {
             <Bring_Shape />
           </div>
 
-          <div className="col-3 p-0 right  ">
+          <div className="col-3 p-0 right_column   ">
             <Right_Column />
           </div>
         </div>

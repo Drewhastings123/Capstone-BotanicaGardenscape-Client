@@ -53,11 +53,11 @@ export default function MyGarden() {
     }
   }, [garden]);
 
-  console.log("function User() SETFORM currentUser: ", form);
+  // console.log("function User() SETFORM currentUser: ", form);
 
   const submit = async (e) => {
     e.preventDefault();
-    console.log("FORM" + form);
+   // console.log("FORM" + form);
     switch (form.shape_id) {
       case "dbb444c3-b50e-44ab-9aa9-51490cc4c5bd":
         dispatch(setShape("sq"));
@@ -73,14 +73,14 @@ export default function MyGarden() {
 
     try {
       let updateGardenSuccess = false;
-      console.log("gardenID", garden_id);
-      console.log("form preparing to submit", form);
+    //  console.log("gardenID", garden_id);
+     // console.log("form preparing to submit", form);
       updateGardenSuccess = await updateGarden({ garden_id, form }).unwrap();
 
-      console.log(
-        "(function User() SUBMIT UPDATEGARDENSUCCESS:",
-        updateGardenSuccess
-      );
+      // console.log(
+      //   "(function User() SUBMIT UPDATEGARDENSUCCESS:",
+      //   updateGardenSuccess
+      // );
 
       if (!updateGardenSuccess) {
         return Loading_Bar("30");
@@ -89,12 +89,12 @@ export default function MyGarden() {
       }
     } catch (err) {
       //   setErrM(err?.data?.message);
-      console.log("update garden error", err);
+      // console.log("update garden error", err);
     }
   };
 
   const updateForm = (e) => {
-    console.log(`updateForm: ${e.target.name}: ${e.target.value}`);
+   // console.log(`updateForm: ${e.target.name}: ${e.target.value}`);
     setForm((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -102,10 +102,10 @@ export default function MyGarden() {
   };
 
   const updateFormOnListChange = (e) => {
-    console.log(`updateFormOnListChange: ${e.target.name}: ${e.target.value}`);
+  //  console.log(`updateFormOnListChange: ${e.target.name}: ${e.target.value}`);
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    console.log(updateFormOnListChange);
-    console.log(form);
+  //  console.log(updateFormOnListChange);
+  //  console.log(form);
   };
 
   // FROM currentGardenCanvas

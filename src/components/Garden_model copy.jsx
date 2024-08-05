@@ -245,10 +245,10 @@ export default function Garden_model() {
   const allContainers = useSelector((state) => state.mainArrays.allContainers);
 
   const mainArrays = useSelector((state) => state.mainArrays);
-  console.log("MAIN ARRAYS" + mainArrays);
+  //console.log("MAIN ARRAYS" + mainArrays);
   const mainSt = useSelector((state) => state);
   const contFinales = mainSt.mainArrays.allContainers.Original_Containers;
-  console.log("LOS CONT FINAL" + contFinales);
+ // console.log("LOS CONT FINAL" + contFinales);
 
   function DraggableMarkup({ pic, plant_id, old_cont }) {
     const path = "./src/assets/" + pic + ".png";

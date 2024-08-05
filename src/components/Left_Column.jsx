@@ -13,11 +13,11 @@ import GardenPlants from "./GardenPlants";
 
 export default function Left_Column() {
   // load the reference data
-  console.log("run reference from garden");
+ // console.log("run reference from garden");
   LoadReference() ? LoadReference() : console.log("Still loading Reference");
 
   // load the reference data
-  console.log("run reference from garden");
+  //console.log("run reference from garden");
   LoadReference() ? LoadReference() : console.log("Still loading Reference");
 
   // Set up for navigation and the store
@@ -37,7 +37,7 @@ export default function Left_Column() {
   const { data, error } = useGetMyGardenQuery(theUser.id);
 
   if (error) {
-    console.log(error);
+  //  console.log(error);
   }
 
   // console.log("myGarden data", data);
@@ -62,10 +62,10 @@ export default function Left_Column() {
     return state.reference.shapeList;
   });
 
-  console.log("Garden SHAPELIST: ", shapeList);
-  console.log("Garden ZONELIST: ", zoneList);
-  console.log("Garden USER: ", theUser);
-  console.log("Garden MYGARDEN: ", myGarden);
+ // console.log("Garden SHAPELIST: ", shapeList);
+ // console.log("Garden ZONELIST: ", zoneList);
+ // console.log("Garden USER: ", theUser);
+ // console.log("Garden MYGARDEN: ", myGarden);
 
   // // find the correct name for display based on id for zone
   const specificZoneName = zoneList

@@ -16,6 +16,8 @@ import {
   setZone,
 } from "../components_db/currentViewSlice.js";
 
+import { setAllPlants } from "../components_db/mainArraysSlice.js";
+
 export default function Right_Column() {
   let isLoading = true;
   loadReference();
@@ -30,20 +32,31 @@ export default function Right_Column() {
   const lifeCycleList = allRef.lifeCycleList;
 
   // map allPlants and add a field to each obj
-  const allPlantsBurnt = allRef.plantList;
-
-  const allPlantsExtended = allPlantsBurnt?.map((plant) => ({
-    ...plant,
-    in_garden: false,
-    pic: Math.floor(Math.random() * 10),
-    price: Math.floor(Math.random() * 30) + 10,
-  }));
-
-  let newCV = [];
-
-  isLoading = false;
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    getAllPlants();
+  }, []);
+
+  function getAllPlants() {
+    const allPlantsOriginals = allRef.plantList;
+    const allPlantsExtended = allPlantsOriginals?.map((plant) => ({
+      ...plant,
+      in_garden: false,
+      pic: Math.floor(Math.random() * 10),
+      price: Math.floor(Math.random() * 30) + 10,
+    }));
+    dispatch(setAllPlants(allPlantsExtended)), [];
+  }
+
+  // const st = useSelector((state) => state);
+  const allPlants = useSelector((state) => state.mainArrays.allPlants);
+  console.log("all plants en use effect" + allPlants);
+  // console.log("ST" + st);
+
+  let newCV = [];
+  isLoading = false;
 
   if (isLoading) {
     return Loading_Bar();
@@ -91,11 +104,11 @@ export default function Right_Column() {
 
     switch (filters.length) {
       case 0: // 0 filters
-        newCV = allPlantsExtended;
+        newCV = allPlants;
         break;
 
       case 1: // 1 filter
-        allPlantsExtended?.forEach((plant) => {
+        allPlants?.forEach((plant) => {
           if (cv.zone != 0) {
             if (cv.zone == plant.zone_id) {
               newCV.push(plant);
@@ -120,7 +133,7 @@ export default function Right_Column() {
         break;
 
       case 2: // 2 filters
-        allPlantsExtended?.forEach((plant) => {
+        allPlants?.forEach((plant) => {
           if (cv.zone != 0 && cv.water != 0) {
             //zone & waterq
             if (
@@ -184,7 +197,7 @@ export default function Right_Column() {
         break;
 
       case 3: // 3 filters
-        allPlantsExtended?.forEach((plant) => {
+        allPlants?.forEach((plant) => {
           if (cv.zone == 0) {
             // selected are soil, h20, sun
             if (
@@ -229,7 +242,7 @@ export default function Right_Column() {
         break;
 
       case 4:
-        allPlantsExtended?.forEach((plant) => {
+        allPlants?.forEach((plant) => {
           if (
             cv.zone == plant.zone_id &&
             cv.soil == plant.soil_requirement_id &&
@@ -248,12 +261,12 @@ export default function Right_Column() {
 
   function Plant_List() {
     const cv = useSelector((state) => state.currentView);
-    console.log("current view" + cv);
+    // console.log("current view" + cv);
 
     Manage_Filters();
 
     return (
-      <div>
+      <div >
         <Droppable id={50}>
           {newCV?.map((plant) => {
             // const img = "../src/assets/pictures/" + random_number + ".png";

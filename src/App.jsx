@@ -9,6 +9,7 @@ import Registration from "./components/Registration";
 import Garden_model from "./components/Garden_model";
 import Protected from "./components/Protected.jsx";
 import User from "./components/User";
+import Home from "./components/Home";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <div className="container-fluid p-0">
         <Nav_Bar />
         <Routes>
+          <Route path="/" element={<Home />}></Route>
           <Route path="/user/" element={<Protected />}>
             <Route path="/user/" element={<User />}></Route>
           </Route>

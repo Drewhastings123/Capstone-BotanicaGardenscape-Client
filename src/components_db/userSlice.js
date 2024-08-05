@@ -32,12 +32,13 @@ const userApi = api.injectEndpoints({
         method: "GET",
       }),
       providesTags: ["User"],
-      onQueryStarted: (arg, {_, queryFulfilled}) => {
-        console.log("Refresh Query Start");                        
-        queryFulfilled.then(({data}) => {
-          console.log("Refresh fulfilled", data)
-        }).catch((err) => 
-          console.error("Refresh Query failed", err))
+      onQueryStarted: (arg, { _, queryFulfilled }) => {
+        //   console.log("Refresh Query Start");
+        queryFulfilled
+          .then(({ data }) => {
+            //     console.log("Refresh fulfilled", data)
+          })
+          .catch((err) => console.error("Refresh Query failed", err));
       },
     }),
     updateUser: builder.mutation({
@@ -59,7 +60,7 @@ const userApi = api.injectEndpoints({
 });
 
 const storeUser = (state, { payload }) => {
-  console.log("storeuser: payload", payload);
+  // console.log("storeuser: payload", payload);
 
   //TODO - modify this to
   state.user = payload.user;
@@ -74,7 +75,7 @@ const storeUser = (state, { payload }) => {
 };
 
 const storeUpdateUser = (state, { payload }) => {
-  console.log("storeUpdateUser: payload", payload);
+  // console.log("storeUpdateUser: payload", payload);
 
   //TODO - modify this to
   state.user = payload;
@@ -95,7 +96,7 @@ const userSlice = createSlice({
   },
   reducers: {
     setLoginToken: (state, { payload }) => {
-      console.log("storeLoginToken: payload", payload);
+      //   console.log("storeLoginToken: payload", payload);
       window.sessionStorage.setItem("Token", payload.token);
       state.currentUserId = payload.user.id;
       state.user = payload.user;
@@ -116,7 +117,7 @@ const userSlice = createSlice({
     builder.addMatcher(
       api.endpoints.login.matchFulfilled,
       (state, { payload }) => {
-        console.log("bob");
+        //   console.log("bob");
         state.user = payload.user;
         window.sessionStorage.setItem("Token", payload.token);
       }
