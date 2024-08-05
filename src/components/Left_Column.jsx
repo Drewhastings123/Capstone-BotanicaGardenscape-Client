@@ -80,7 +80,7 @@ export default function Left_Column() {
     specificZoneName[0]?.temp_range +
     ")";
 
-  // 
+  //
 
   function UserCard() {
     if (!theUser)
@@ -115,14 +115,13 @@ export default function Left_Column() {
 
   return (
     <div className="left_column ">
-      <div className="card bg-light mb-5">
-        <div className="card-header center">User Info</div>
-        <UserCard />
-      </div>
-
-      <div className="card bg-light mt-3">
+      <div className="card bg-light mb-5  ">
         <div className="card-header center">Garden Info</div>
         <MyGarden />
+      </div>
+      <div className="card bg-light  ">
+        <div className="card-header center">User Info</div>
+        <UserCard />
       </div>
     </div>
   );

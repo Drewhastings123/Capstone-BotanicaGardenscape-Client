@@ -307,13 +307,13 @@ export default function Right_Column() {
 
         {/* <Filters /> */}
         <div className="card-body center fdc pb-4">
-          <div className="row pt-3 center ">
+          <div className="row pt-2 center ">
             <div className="col-6 center ">
               <select
                 defaultValue="0"
                 onChange={updateCurrentView}
                 name="s_zone"
-                className="form-control cgray w-100 p-1 "
+                className="form-control  cgray w-100 p-2 "
               >
                 <option key="0" className="dropdown-item" value="0" key2="0">
                   &#x1F321; Zone
@@ -340,7 +340,7 @@ export default function Right_Column() {
                 defaultValue="0"
                 onChange={updateCurrentView}
                 name="s_water"
-                className="form-control cgray w-100 p-1"
+                className="form-control cgray w-100 p-2"
               >
                 <option key="0" className="dropdown-item" key2="0">
                   &#x1F4A7; Water
@@ -363,7 +363,7 @@ export default function Right_Column() {
                 defaultValue="0"
                 onChange={updateCurrentView}
                 name="s_sun"
-                className="form-control cgray w-100 p-1"
+                className="form-control cgray w-100 p-2"
               >
                 <option key="0" className="dropdown-item" key2="0">
                   &#9728; Sun{" "}
@@ -387,7 +387,7 @@ export default function Right_Column() {
                 defaultValue="0"
                 onChange={updateCurrentView}
                 name="s_soil"
-                className="form-control cgray w-100 p-1"
+                className="form-control cgray w-100 p-2"
               >
                 <option key="0" key2="0" className="dropdown-item  ">
                   &#9968; Soil{" "}

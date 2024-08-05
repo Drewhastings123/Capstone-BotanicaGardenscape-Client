@@ -196,11 +196,11 @@ export default function Garden_model() {
             <span className="text-info sl"> No plants yet</span>
           </small>
 
-          <div className="col-3 left p-0   ">
+          <div className="col-3 left p-0    ">
             <Left_Column />
           </div>
 
-          <div className="col-6  center   ">
+          <div className="col-6  center    ">
             <Bring_Shape />
           </div>
 
