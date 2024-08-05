@@ -5,7 +5,7 @@ import { Draggable } from "./Draggable";
 import Garden from "./Garden";
 import Original_Plants from "./Original_Plants";
 import Original_Containers from "./Original_Containers";
-import Plants_fixed from "./Right_Column";
+import Plants_fixed from "./Plants_fixed";
 import { useSelector, useDispatch } from "react-redux";
 import zero from "../assets/pictures/7.png";
 import { useAddGardenPlantMutation } from "../components_db/gardenSlice";

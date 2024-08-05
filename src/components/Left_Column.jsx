@@ -30,6 +30,11 @@ export default function Left_Column() {
   const myGarden = useSelector((state) => {
     return state.garden;
   });
+  const mArrays = useSelector((state) => {
+    return state.mainArrays;
+  });
+
+  console.log("whats in state", mArrays);
 
   //if the garden isn't there yet, do the query
   //if (!myGarden?.id) {

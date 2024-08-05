@@ -304,7 +304,7 @@ export default function Plants_fixed() {
                       {" "}
                       {plant.max_height} x{plant.max_width}{" "}
                     </div>
-                    <div className="col-4">${plant.price} each</div>
+                    {/* <div className="col-4">${plant.price} each</div> */}
                   </div>
                 </div>
               </Draggable>
