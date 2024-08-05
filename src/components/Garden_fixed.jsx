@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DndContext } from "@dnd-kit/core";
 import { Droppable } from "./Droppable";
 import { Draggable } from "./Draggable";
@@ -8,6 +8,7 @@ import Original_Containers from "./Original_Containers";
 import Plants_fixed from "./Plants_fixed";
 import { useSelector, useDispatch } from "react-redux";
 import zero from "../assets/pictures/7.png";
+import { useAddGardenPlantMutation } from "../components_db/gardenSlice";
 export default function Garden_fixed() {
   //   const [allPlants, setAllPlants] = useState(Original_Plants);
   const [allContainers, setAllContainers] = useState(Original_Containers);
@@ -124,6 +125,58 @@ export default function Garden_fixed() {
       </Droppable>
     );
   }
+  console.log("trying to get plant id out of containers", allContainers);
+  console.log("if occupied is true", allContainers[1].occupied);
+  const occContainters = allContainers.filter((occ) => {
+    return occ.occupied === true;
+  });
+  console.log("occupied containers?", occContainters);
+  // function AddGardenPlants() {
+  const plantStatus = useSelector((state) => {
+    return state.reference.plantStatusList?.[2].id;
+  });
+  console.log("plantStatus", plantStatus);
+  const garden = useSelector((state) => {
+    return state.garden.garden;
+  });
+  const garden_id = garden?.[0].id;
+  console.log("gf garden id?", garden_id);
+  const [addGardenPlants] = useAddGardenPlantMutation();
+  const [errM, setErrM] = useState(null);
+  const [successM, setSuccessM] = useState(null);
+  const [plants, setPlants] = useState([]);
+
+  useEffect(() => {
+    if (occContainters.length > 0) {
+      const mapPlants = occContainters.map((contPlant) => ({
+        plant_location_x: contPlant.id,
+        plant_location_y: contPlant.id,
+        plant_status_id: plantStatus,
+        plant_id: contPlant.plant_id,
+      }));
+      setPlants(mapPlants);
+    }
+  }, [allContainers]);
+
+  const handleAdd = async (e) => {
+    e.preventDefault();
+    setErrM(null);
+    let success = true;
+    console.log("what are plants?", plants);
+    for (const plant of plants) {
+      try {
+        await addGardenPlants({ garden_id, plant }).unwrap();
+      } catch (err) {
+        setErrM("Error adding plants");
+      }
+    }
+    if (!success) {
+      setErrM("Save not successful");
+    } else {
+      setSuccessM("Plants saved successfully");
+    }
+  };
+  // }
 
   return (
     <>
@@ -142,6 +195,27 @@ export default function Garden_fixed() {
               {/* column 2 */}
               <div className="  p-2 text-light  shape ">
                 <div className="mainContainer">
+                  <button
+                    type="submit"
+                    className="btn form-control btn btn-outline-success btn-sm border border-success mt-2 mb-2"
+                    onClick={handleAdd}
+                  >
+                    Save Plants to Garden
+                  </button>
+                  {successM && (
+                    <div className="row">
+                      <div className="col-12">
+                        <p className="text-warning">{successM}</p>
+                      </div>
+                    </div>
+                  )}
+                  {errM && (
+                    <div className="row">
+                      <div className="col-12">
+                        <p className="text-warning">{errM}</p>
+                      </div>
+                    </div>
+                  )}
                   {allContainersExtended.map((container) => (
                     <GetDroppable key={container.id} container={container} />
                   ))}

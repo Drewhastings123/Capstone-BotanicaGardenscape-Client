@@ -30,7 +30,7 @@ export default function GardenPlants() {
     return <div>Error: {error.message}</div>;
   }
 
-  if (!data?.plantInfo?.[0]?.id) {
+  if (!data?.plantInfo?.length) {
     return (
       <div>
         Currently, you do not have any plants in your garden. Please drag plants
@@ -38,13 +38,18 @@ export default function GardenPlants() {
       </div>
     );
   }
-  const gardenPlantName = plantList
-    ? plantList.filter((obj) => {
-        if (obj.id === data?.plantInfo?.[0]?.plant_id) return obj;
-      })
-    : [{ plant_name: "no name yet" }];
+  //   const gardenPlantName = plantList
+  //     ? plantList.filter((obj) => {
+  //         if (obj.id === data?.plantInfo?.[0]?.plant_id) return obj;
+  //       })
+  //     : [{ plant_name: "no name yet" }];
 
-  const displayPlantName = gardenPlantName[0]?.plant_name;
+  //   const displayPlantName = gardenPlantName[0]?.plant_name;
+
+  const plantNameMap = plantList.reduce((acc, plant) => {
+    acc[plant.id] = plant.plant_name;
+    return acc;
+  }, {});
 
   function Plant_List() {
     return (
@@ -53,6 +58,8 @@ export default function GardenPlants() {
           {data?.plantInfo?.map((plant) => {
             const random_number = Math.floor(Math.random() * 10);
             let img = "../src/assets/pictures/" + random_number + ".png";
+            const displayPlantName =
+              plantNameMap[plant.plant_id] || "no name yet";
             return (
               <tr className=" table-dark" key={plant.id}>
                 <td scope="row" className="w30">

@@ -1,16 +1,13 @@
 import mag3Url from "../assets/homePage/MagnoliaMulti.jpg";
 import solarGnome from "../assets/homePage/solarGnome.png";
 
-
-
 export default function Home() {
-
   return (
     <>
       <div className="container gridHome">
         <div className="homeH1">
           <h1>Welcome to Botanica Gardenscape</h1>
-          <h5>User our handy layout tool and plot your dream garden. </h5>
+          <h5>Use our handy layout tool and plot your dream garden. </h5>
           <h6>
             Please register to access our full functionality and begin designing
             today{" "}
