@@ -152,6 +152,13 @@ export default function User() {
               <button type="submit" className="btn btn-success form-control  ">
                 Submit
               </button>
+              <button
+                          type="button"
+                          className="btn btn-success mt-3"
+                          onClick={() => navigate("/garden")}
+                        >
+                          Return
+                        </button>
             </div>
           </div>
         </form>

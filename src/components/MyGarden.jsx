@@ -27,7 +27,6 @@ export default function MyGarden() {
   const zoneList = useSelector((state) => {
     return state.reference.zoneList;
   });
-
   const shapeList = useSelector((state) => {
     return state.reference.shapeList;
   });

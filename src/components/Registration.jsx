@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useRegistrationMutation } from "../components_db/registrationSlice";
 import { useLoginMutation } from "../components_db/userSlice";
+
+import Loading_Bar from "./Loading_Bar";
 import LoadReference from "./reference";
 import SelectList from "./SelectList";
 import { useCreateGardenMutation } from "../components_db/gardenSlice";

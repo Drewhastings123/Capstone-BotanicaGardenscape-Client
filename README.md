@@ -1,9 +1,31 @@
-# React + Vite
+# Capstone-BotanicaGardenscape - Client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Garden Design Front End
 
-Currently, two official plugins are available:
+A home garden design app. The app will allow a user to create a garden and specify the growing conditions for that garden. With a layout tool, it will allow the user to add plants in a particular location in the garden.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-# drag-drop
+# project planning
+
+(https://github.com/users/CLBaxter-W/projects/8)
+
+# setup project
+
+- npx create-vite@latest // (-> React ->> JavaScript)
+- npm install
+- npm run dev
+
+- npm i @reduxjs/toolkit
+- npm i bootstrap
+- npm i bootswatch
+- npm i react react-dom react-redux react-router react-router-dom
+
+- npm install @dnd-kit/core
+- npm install @dnd-kit/modifiers
+- npm install @dnd-kit/sortable
+
+- add and edit .gitignore
+
+#cache behavior/reload behavior
+
+- https://redux-toolkit.js.org/rtk-query/usage/cache-behavior
+- https://developer.mozilla.org/en-US/docs/Web/API/PerformanceNavigationTiming
