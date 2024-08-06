@@ -5,10 +5,10 @@ import { useEffect } from "react";
 // TODO - should add a pop up if it fails
 const LoadReference = () => {
   
-  console.log("LoadReference");
+  //console.log("LoadReference");
 
   useEffect(() => {
-    console.log("LOAD mounted");
+    //console.log("LOAD mounted");
   });
 
   // const [errM, setErrM] = useState(null);
