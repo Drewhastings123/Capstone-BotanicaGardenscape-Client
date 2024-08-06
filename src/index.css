@@ -41,13 +41,10 @@
 }
 
 .card:hover,
-.navbar:hover,
-.plant_box {
-  background-color: rgba(255, 255, 255, 0.4) !important;
+.navbar:hover, .plant_box:hover {
+  background-color: rgba(255, 255, 255, 0.2) !important;
 }
-.plant_box:hover {
-  background-color: rgba(255, 255, 255, 0.8) !important;
-}
+
 
 .left,
 .right {
@@ -148,14 +145,13 @@ select {
 .tik {
   display: flex;
   flex-direction: row wrap;
-  
 }
 
 /* //space right */
 .sl {
   padding-left: 0.5em !important;
 }
-small{
+small {
   font-size: 0.8em !important;
 }
 

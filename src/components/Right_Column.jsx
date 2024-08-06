@@ -279,7 +279,7 @@ export default function Right_Column() {
             if (plant.in_garden == false) {
               return (
                 <Draggable id={plant.id} key={plant.id} old_cont={50}>
-                  <div className=" plant_box  p-1 mb-2 border border-success">
+                  <div className=" plant_box  p-1 mb-2 bg-primary border border-success">
                     <div className="center">
                       {" "}
                       <img src={path} />
@@ -311,7 +311,7 @@ export default function Right_Column() {
     <>
       {/* row card bg-light card plant_box  mt-2 */}
 
-      <div className="card bg-light mb-3 ">
+      <div className="card  mb-3 ">
         <div className="card-header center">Plants</div>
 
         {/* <Filters /> */}

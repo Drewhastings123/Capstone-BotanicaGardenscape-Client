@@ -116,11 +116,11 @@ export default function Left_Column() {
 
   return (
     <div className="left_column ">
-      <div className="card bg-light mb-5  ">
+      <div className="card  mb-5  ">
         <div className="card-header center">Garden Info</div>
         <MyGarden />
       </div>
-      <div className="card bg-light  ">
+      <div className="card   ">
         <div className="card-header center">User Info</div>
         <UserCard />
       </div>

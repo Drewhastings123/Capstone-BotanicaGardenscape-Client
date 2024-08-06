@@ -14,7 +14,7 @@ export default function Nav_Bar() {
 
 
   return (
-    <nav className="navbar navbar-expand-lg bg-light" data-bs-theme="light">
+    <nav className="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
       <div className="container-fluid">
         <span className="material-symbols-outlined">yard</span>
 
@@ -60,7 +60,7 @@ export default function Nav_Bar() {
                   <li className="nav-item">
                   <button
                     type="button"
-                    className="btn btn-link pt1 text-dark  "
+                    className="btn btn-link pt1   "
                     onClick={() => Logout()}
                   >
                     Logout
