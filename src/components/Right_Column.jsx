@@ -30,18 +30,11 @@ export default function Right_Column() {
   const allH2O = allRef.waterRequirementList;
   const allSoil = allRef.soilRequirementList;
   const lifeCycleList = allRef.lifeCycleList;
-
-  // map allPlants and add a field to each obj
-
+  
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    getAllPlants();
-  }, []);
-
   function getAllPlants() {
-    const allPlantsOriginals = allRef.plantList;
-    const allPlantsExtended = allPlantsOriginals?.map((plant) => ({
+    const allPlantsExtended = allRef.plantList?.map((plant) => ({
       ...plant,
       in_garden: false,
       pic: Math.floor(Math.random() * 10),
@@ -50,9 +43,13 @@ export default function Right_Column() {
     dispatch(setAllPlants(allPlantsExtended)), [];
   }
 
+  useEffect(() => {
+    getAllPlants();
+  }, []);
+
   // const st = useSelector((state) => state);
   const allPlants = useSelector((state) => state.mainArrays.allPlants);
-  console.log("all plants en use effect" + allPlants);
+ // console.log("all plants en use effect" + allPlants);
   // console.log("ST" + st);
 
   let newCV = [];

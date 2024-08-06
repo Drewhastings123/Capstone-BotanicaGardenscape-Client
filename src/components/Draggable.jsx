@@ -17,19 +17,16 @@ export function Draggable(props) {
       }
     : undefined;
 
-
-
-
   return (
     // <button ref={setNodeRef} style={style} {...listeners} {...attributes} className="yellow">
     //   {props.children}
     // </button>
     <div
+      
       ref={setNodeRef}
       style={style}
       {...listeners}
       {...attributes}
-      
     >
       {props.children}
     </div>
