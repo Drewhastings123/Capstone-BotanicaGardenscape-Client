@@ -119,10 +119,10 @@ export default function Registration() {
   return (
     <>
       <div className="container top5">
-        <div className="row w100">
+        <div className="row">
           <div className="col"></div>
 
-          <div className="col-8">
+          <div className="col-12">
             <div className="card border-success ">
               <div className="card-header ">
                 <h4 className="card-title">Registration</h4>
@@ -137,9 +137,7 @@ export default function Registration() {
                           <div className="col-6 ">
                             <input
                               type="email"
-
                               className="form-control form-control-login"
-
                               name="email"
                               aria-describedby="emailHelp"
                               placeholder="Email"
@@ -148,9 +146,7 @@ export default function Registration() {
                             />
                             <input
                               type="text"
-
                               className="form-control form-control-login"
-
                               name="firstname"
                               placeholder="First Name"
                               onChange={updateForm}
@@ -159,9 +155,7 @@ export default function Registration() {
 
                             <input
                               type="phone"
-
                               className="form-control form-control-login"
-
                               name="phone_number"
                               placeholder="(XXX) 867-5209"
                               onChange={updateForm}
@@ -172,9 +166,7 @@ export default function Registration() {
                           <div className="col-6 ">
                             <input
                               type="password"
-
                               className="form-control form-control-login"
-
                               name="password"
                               placeholder="Password"
                               onChange={updateForm}
@@ -183,9 +175,7 @@ export default function Registration() {
 
                             <input
                               type="text"
-
                               className="form-control form-control-login"
-
                               name="lastname"
                               placeholder="Last Name"
                               onChange={updateForm}
@@ -209,7 +199,7 @@ export default function Registration() {
                     </div>{" "}
                     {/*  //close row */}
                     <div className="row center">
-                      <div className="col-12 gap-2">
+                      <div className="col-6 gap-2">
                         <button
                           type="submit"
                           className="btn btn-success form-control m-2"

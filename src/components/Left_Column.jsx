@@ -85,45 +85,46 @@ export default function Left_Column() {
     specificZoneName[0]?.temp_range +
     ")";
 
+  // //CB No longer used
   // display the gardens shape
-  function Garden_Canvas() {
-    store.subscribe(() => {
-      store.getState().garden.currentGardenCanvas;
-    });
+  // function Garden_Canvas() {
+  //   store.subscribe(() => {
+  //     store.getState().garden.currentGardenCanvas;
+  //   });
 
-    const [userGardenCanvas, setUserGardenCanvas] = useState(
-      useSelector((state) => {
-        return state.garden.currentGardenCanvas;
-      })
-    );
+  //   const [userGardenCanvas, setUserGardenCanvas] = useState(
+  //     useSelector((state) => {
+  //       return state.garden.currentGardenCanvas;
+  //     })
+  //   );
 
-    console.log(
-      "Garden_Canvas userGardenCanvas (From State): ",
-      userGardenCanvas
-    );
+  //   console.log(
+  //     "Garden_Canvas userGardenCanvas (From State): ",
+  //     userGardenCanvas
+  //   );
 
-    const specificShapeClass = shapeList?.filter((obj) => {
-      if (obj.id === userGardenCanvas) return obj;
-    });
+  //   const specificShapeClass = shapeList?.filter((obj) => {
+  //     if (obj.id === userGardenCanvas) return obj;
+  //   });
 
-    // set-up defaults
-    let canvasClasses = " garden border-garden p-2 text-dark ";
-    let canvasShape = "square";
+  //   // set-up defaults
+  //   let canvasClasses = " garden border-garden p-2 text-dark ";
+  //   let canvasShape = "square";
 
-    if (typeof specificShapeClass != "undefined") {
-      canvasClasses += specificShapeClass[0]
-        ? specificShapeClass[0].css_class
-        : "square";
-      canvasShape = specificShapeClass[0]?.shape_name
-        ? specificShapeClass[0].shape_name
-        : "Square";
-    }
+  //   if (typeof specificShapeClass != "undefined") {
+  //     canvasClasses += specificShapeClass[0]
+  //       ? specificShapeClass[0].css_class
+  //       : "square";
+  //     canvasShape = specificShapeClass[0]?.shape_name
+  //       ? specificShapeClass[0].shape_name
+  //       : "Square";
+  //   }
 
-    console.log("Garden_Canvas - CanvasClasses: ", canvasClasses);
-    console.log("Garden_Canvas- CanvasShape: ", canvasShape);
+  //   console.log("Garden_Canvas - CanvasClasses: ", canvasClasses);
+  //   console.log("Garden_Canvas- CanvasShape: ", canvasShape);
 
-    return <div className={canvasClasses}>{canvasShape}</div>;
-  }
+  //   return <div className={canvasClasses}>{canvasShape}</div>;
+  // }
 
   function UserCard() {
     if (!theUser)
@@ -131,7 +132,7 @@ export default function Left_Column() {
     else
       return (
         <div className=" border-primary mt-1 card">
-          <div className="card-header card-email-header"> {theUser.email}</div>
+          <div className=" "> {theUser.email}</div>
 
           <div className="grid center pt-2 pb-3 card-user">
             <div className="center card-user">
@@ -143,7 +144,7 @@ export default function Left_Column() {
             <div className="center pt-3 ">
               <button
                 type="button"
-                className="btn btn-outline-warning btn-sm border border-warning"
+                className="btn btn-outline-success btn-sm border border-success"
                 onClick={() => navigate("/user")}
               >
                 Update User
@@ -156,96 +157,82 @@ export default function Left_Column() {
 
   return (
     <>
-      {/* <div className="row"> */}
-      <div className="accordion container-fluid w95">
-        <div className="row">
-          <div className="col-12 pt-3">
-            <div className="accordion-item">
-              <h3 className="accordion-header">
-                <button
-                  className="accordion-button"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#collapseOne"
-                  aria-expanded="true"
-                  aria-controls="collapseOne"
-                >
-                  User Info
-                </button>
-              </h3>
-              <div
-                id="collapseOne"
-                className="accordion-collapse collapse show"
-                aria-labelledby="headingOne"
-                data-bs-parent="#accordionExample"
+      <div className="accordion container-fluid w100">
+        <div className="col-12 ">
+          <div className="accordion-item">
+            <h3 className="accordion-header">
+              <button
+                className="accordion-button"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseOne"
+                aria-expanded="true"
+                aria-controls="collapseOne"
               >
-                <div className="accordion-body garden-card">
-                  <UserCard />
-                </div>
-              </div>
-            </div>
-            <div className="accordion-item">
-              <h3 className="accordion-header">
-                <button
-                  className="accordion-button collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#collapseTwo"
-                  aria-expanded="false"
-                  aria-controls="collapseTwo"
-                >
-                  Garden Info
-                </button>
-              </h3>
-              <div
-                id="collapseTwo"
-                className="accordion-collapse collapse"
-                aria-labelledby="headingTwo"
-                data-bs-parent="#accordionExample"
-              >
-                <div className="accordion body user-card">
-                  <MyGarden />
-                </div>
-              </div>
-            </div>
-            <div className="accordion-item">
-              <h3 className="accordion-header">
-                <button
-                  className="accordion-button collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#collapseThree"
-                  aria-expanded="false"
-                  aria-controls="collapseThree"
-                >
-                  Plants in My Garden
-                </button>
-              </h3>
-              <div
-                id="collapseThree"
-                className="accordion-collapse collapse"
-                aria-labelledby="headingThree"
-                data-bs-parent="#accordionExample"
-              >
-                <div className="accordion body">
-                  <GardenPlants />
-                </div>
+                User Info
+              </button>
+            </h3>
+            <div
+              id="collapseOne"
+              className="accordion-collapse collapse show"
+              aria-labelledby="headingOne"
+              data-bs-parent="#accordionExample"
+            >
+              <div className="accordion-body garden-card">
+                <UserCard />
               </div>
             </div>
           </div>
-          {/* <div className="col-5   ">
-              <div className=" garden-canvas ">
-                <Garden_Canvas /> 
-                <h5>Was Canvas</h5>
+          <div className="accordion-item">
+            <h3 className="accordion-header">
+              <button
+                className="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseTwo"
+                aria-expanded="false"
+                aria-controls="collapseTwo"
+              >
+                Garden Info
+              </button>
+            </h3>
+            <div
+              id="collapseTwo"
+              className="accordion-collapse collapse"
+              aria-labelledby="headingTwo"
+              data-bs-parent="#accordionExample"
+            >
+              <div className="accordion body user-card">
+                <MyGarden />
               </div>
             </div>
-            <div className="col-3   ">
-              <Plants />
-              <h5>Was Plant Filter</h5>
-            </div> */}
+          </div>
+          <div className="accordion-item">
+            <h3 className="accordion-header">
+              <button
+                className="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseThree"
+                aria-expanded="false"
+                aria-controls="collapseThree"
+              >
+                Plants in My Garden
+              </button>
+            </h3>
+            <div
+              id="collapseThree"
+              className="accordion-collapse collapse"
+              aria-labelledby="headingThree"
+              data-bs-parent="#accordionExample"
+            >
+              <div className="accordion body">
+                <GardenPlants />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      {/* </div> */}
     </>
   );
 }

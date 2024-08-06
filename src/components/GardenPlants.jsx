@@ -141,6 +141,7 @@ export default function GardenPlants() {
             const displayPlantName =
               plantNameMap[plant.plant_id] || "no name yet";
             return (
+              
               <tr className=" table-dark" key={plant.id}>
                 <td scope="row" className="w30">
                   {displayPlantName}

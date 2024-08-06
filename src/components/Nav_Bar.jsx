@@ -14,6 +14,7 @@ export default function Nav_Bar() {
   return (
     <>
       {" "}
+      
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
         <span className="material-symbols-outlined">yard</span>
         <NavLink to="/" className="navbar-brand active bg-success">
@@ -63,7 +64,7 @@ export default function Nav_Bar() {
             )}
             {token && (
               <div>
-                <li className="nav-item active ">
+                <li className="nav-item ">
                   <NavLink to="/user" className="nav-link ">
                     User Info
                   </NavLink>
@@ -72,10 +73,10 @@ export default function Nav_Bar() {
             )}
             {token && (
               <div>
-                <li className="nav-item logout ">
+                <li className="nav-item logout center">
                   <button
                     type="button"
-                    className="btn btn-link text-white-50 pt1 "
+                    className="btn nav-link "
                     onClick={() => Logout()}
                   >
                     Logout

@@ -46,11 +46,19 @@ export default function MyGarden() {
   const [form, setForm] = useState(garden?.garden?.[0]);
   const [errM, setErrM] = useState(null);
   const [successM, setSuccessM] = useState(null);
-  useEffect(() => {
-    if (garden?.garden?.[0]) {
-      setForm(garden.garden[0]);
-    }
-  }, [garden]);
+
+  //CB 8/5 - This effect was the source of the double set on
+  //         the shape drop list.   Commented for the moment
+  //         to check in my changes - review in the am.
+  // Although, this may not in fact solve the problem.
+  // The form seems to not be updated by the change in the select list
+  // even though, it is setForm in the function.
+  // useEffect(() => {
+  //      if (garden?.garden?.[0]) {
+  //        setForm(garden.garden[0]);
+  
+  //    }
+  // }, [garden]);
 
   console.log("function User() SETFORM currentUser: ", form);
 
@@ -58,17 +66,26 @@ export default function MyGarden() {
   const submit = async (e) => {
     e.preventDefault();
     console.log(`(useSelector(state) - function User() SUBMIT`);
-    switch (form.shape_id) {
-        case "dbb444c3-b50e-44ab-9aa9-51490cc4c5bd":
-          dispatch(setShape("sq"));
-          break;
-        case "cc484fd1-d66c-45af-b233-246ceb282fcb":
-          dispatch(setShape("cir"));
-          break;
-        default:
-          dispatch(setShape("sq"));
-          break;
-      }
+
+    // CB  (8/5) This is also being done by the store
+    // with gardenSlice.setCurrentGardenCanvas
+    // in order to move away from the hardcoded shape values
+    // implementing both.
+    // the dispatch(setShape()) is being called by the
+    // change event updateCanvasOnListChange - which happens
+    // when the select list is changed
+    // currently line 125
+    // switch (form.shape_id) {
+    //     case "dbb444c3-b50e-44ab-9aa9-51490cc4c5bd":
+    //       dispatch(setShape("sq"));
+    //       break;
+    //     case "cc484fd1-d66c-45af-b233-246ceb282fcb":
+    //       dispatch(setShape("cir"));
+    //       break;
+    //     default:
+    //       dispatch(setShape("sq"));
+    //       break;
+    //   }
 
     try {
       let updateGardenSuccess = false;
@@ -111,14 +128,33 @@ export default function MyGarden() {
   // get the current garden shape stored in the state
   // variable from  currentGardenCanvas
   const updateCanvasOnListChange = (e) => {
-    // set the variable in the store
-    dispatch(setCurrentGardenCanvas(e.target.value));
-
-    // set the variable for my garden
+    // set the form variable for my garden for saving this one
     setForm((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
+
+    // set the variable in the store for the garden
+    dispatch(setCurrentGardenCanvas(e.target.value));
+
+    const temp = shapeList.find((shape) => {
+      if (shape.id === e.target.value) return shape.css_class;
+    });
+
+    // CB  (8/5) Adding in the setShape call for the currentViewSlice
+    dispatch(setShape(temp.css_class));
+
+    console.log("shap_className - updateCanvasOnListChange - form: ", form);
+    console.log(
+      "shap_className - updateCanvasOnListChange - temp: ",
+      temp.css_class
+    );
+    console.log(
+      "shap_className - updateCanvasOnListChange - e: ",
+      e.target.name,
+      " - ",
+      e.target.value
+    );
   };
   //TO currentGardenCanvas
 
@@ -200,7 +236,7 @@ export default function MyGarden() {
               <div className="col-12">
                 <button
                   type="submit"
-                  className="btn form-control btn btn-outline-warning btn-sm border border-warning mt-2 mb-2"
+                  className="btn form-control btn-outline-success btn-sm border border-success mt-2 mb-2"
                 >
                   Save Garden
                 </button>

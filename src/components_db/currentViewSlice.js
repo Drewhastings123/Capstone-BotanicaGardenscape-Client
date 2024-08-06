@@ -8,7 +8,7 @@ const currentViewSlice = createSlice({
     sun: "0",
     soil: "0",
     zone: "0",
-    shape: "sq",
+    shape: "odd",
   },
   reducers: {
     setWater: (state, { payload }) => {
