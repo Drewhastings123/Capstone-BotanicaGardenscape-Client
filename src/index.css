@@ -41,10 +41,10 @@
 }
 
 .card:hover,
-.navbar:hover, .plant_box:hover {
-  background-color: rgba(255, 255, 255, 0.1) !important;
+.navbar:hover,
+.plant_box:hover {
+  background-color: rgba(0, 0, 0, 0.05);
 }
-
 
 .left,
 .right {
@@ -165,7 +165,13 @@ small {
   margin-bottom: 1em;
 }
 
-input, select{
-  background-color: rgba(255, 255, 255, 0.08) !important;
-  border: rgba(255, 255, 255, 0.144) 1px solid !important;
+input,
+select,
+option {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border: rgba(255, 255, 255, 0.05) 1px solid !important;
+}
+
+select {
+  color: rgba(255, 255, 255, 0.459) !important;
 }
