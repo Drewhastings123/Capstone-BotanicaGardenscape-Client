@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { DndContext } from "@dnd-kit/core";
 import { Droppable } from "./Droppable";
 import { Draggable } from "./Draggable";
@@ -14,10 +14,7 @@ export default function Garden_model() {
 
   const shap = useSelector((state) => state.currentView.shape);
 
-
   const [plantsLeftC, setPlantsLeftC] = useState([]);
-  
-  
 
   const mainArrays = useSelector((state) => state.mainArrays);
   console.log("MAIN ARRAYS" + mainArrays);
@@ -158,16 +155,11 @@ export default function Garden_model() {
       setAllPlants(updatedPlants);
     }
   }
- 
+
   return (
     <div>
       <DndContext onDragEnd={handleDragEnd}>
         <div className="row p-5 pt-3   ">
-          <small className="col-12 tik  p-0 pb-2 pt-2">
-            Plants in your garden:
-            <span className="text-info sl"> No plants yet</span>
-          </small>
-
           <div className="col-3 left p-0   ">
             <Left_Column />
           </div>

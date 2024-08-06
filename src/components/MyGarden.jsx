@@ -200,7 +200,7 @@ export default function MyGarden() {
               <div className="col-12">
                 <button
                   type="submit"
-                  className="btn form-control btn btn-outline-warning btn-sm border border-warning mt-2 mb-2"
+                  className="btn form-control btn-outline-success btn-sm border border-success mt-2 mb-2"
                 >
                   Save Garden
                 </button>

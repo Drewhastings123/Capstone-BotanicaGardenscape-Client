@@ -70,7 +70,7 @@ export default function User() {
 
   return (
     <>
-      <div className="container top5">
+      <div className="container">
         <div className="row w100">
           <div className="col"></div>
 
@@ -84,7 +84,7 @@ export default function User() {
                 <div className="card-text ">
                   <form onSubmit={submit} name="formUserUpdate">
                     <div className="col-12">
-                      <div className="row gap-3">
+                      <div className="row ">
                         <input
                           type="email"
                           className="form-control text_input"
@@ -125,16 +125,17 @@ export default function User() {
                           onChange={updateForm}
                           required
                         />
-
-                        <SelectList
-                          theList={zoneList}
-                          theListName="zone_id"
-                          theParentForm="UserUpdate"
-                          onChangeFunction={updateFormOnListChange}
-                          theCurrentValue={form.zone_id}
-                          theFieldName="zone_name"
-                          the2FieldName="temp_range"
-                        />
+                        <div className="mt-2">
+                          <SelectList
+                            theList={zoneList}
+                            theListName="zone_id"
+                            theParentForm="UserUpdate"
+                            onChangeFunction={updateFormOnListChange}
+                            theCurrentValue={form.zone_id}
+                            theFieldName="zone_name"
+                            the2FieldName="temp_range"
+                          />
+                        </div>
                       </div>{" "}
                       {/*  //close row */}
                     </div>{" "}
@@ -143,13 +144,13 @@ export default function User() {
                       <div className="col-12">
                         <button
                           type="submit"
-                          className="btn btn-success form-control mt-3"
+                          className="btn form-control mt-4 btn-success btn-sm  "
                         >
                           Submit
                         </button>
                         <button
                           type="button"
-                          className="btn btn-success mt-3"
+                          className="btn form-control mt-4 btn-success  btn-sm  "
                           onClick={() => navigate("/garden")}
                         >
                           Return

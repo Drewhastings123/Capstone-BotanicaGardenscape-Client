@@ -22,7 +22,7 @@ export default function SelectList({
         {`${theListName}`}
       </label>*/}
       <select
-        className="form-select select-reference"
+        className="form-select form-select-sm"
         name={theListName}
         id={`${theListName}_${theParentForm}`}
         onChange={onChangeFunction || ConsoleTheSelected}

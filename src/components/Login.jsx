@@ -47,14 +47,14 @@ export default function Login() {
   return (
     <>
       <div className="container top3">
-        <div className="row w100 ">
+        <div className="row w100 center ">
           <div className="col-7 card border-success ">
             <div className="card-header row  ">
               <h4 className="center">Login</h4>
             </div>
             <form onSubmit={submit} name="formRegister">
-              <div className="row">
-                <div className="col-12">
+              <div className="row center ">
+                <div className="col-7">
                   <input
                     type="email"
                     className="form-control form-control-login"
@@ -67,8 +67,8 @@ export default function Login() {
                 </div>{" "}
               </div>
 
-              <div className="row">
-                <div className="col-12">
+              <div className="row center">
+                <div className=" col-7">
                   <input
                     type="password"
                     className="form-control form-control-login"
@@ -80,23 +80,20 @@ export default function Login() {
                 </div>
               </div>
 
-
-
-              <div className="row">
-                <div className="col-12">
+              <div className="row center">
+                <div className="col-7">
                   <button
                     type="submit"
                     className="btn btn-success form-control mv1"
                   >
                     Submit
                   </button>
-
                 </div>
               </div>
             </form>
             {errM && (
-              <div className="row">
-                <div className="col-12">
+              <div className="row center">
+                <div className="col-7">
                   <p className="text-warning">{errM}</p>
                 </div>
               </div>

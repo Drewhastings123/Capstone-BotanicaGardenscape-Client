@@ -126,7 +126,7 @@ export default function Left_Column() {
     else
       return (
         <div className=" border-primary mt-1 card">
-          <div className="card-header card-email-header"> {theUser.email}</div>
+          <div className=" "> {theUser.email}</div>
 
           <div className="grid center pt-2 pb-3 card-user">
             <div className="center card-user">
@@ -138,7 +138,7 @@ export default function Left_Column() {
             <div className="center pt-3 ">
               <button
                 type="button"
-                className="btn btn-outline-warning btn-sm border border-warning"
+                className="btn btn-outline-success btn-sm border border-success"
                 onClick={() => navigate("/user")}
               >
                 Update User
