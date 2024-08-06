@@ -46,7 +46,7 @@ export default function Login() {
 
   return (
     <div className="row  center pt-5 ">
-      <div className=" col-5 card bg-light border-secondary mt-5 p-0 pb-5">
+      <div className=" col-5 card  border-secondary mt-5 p-0 pb-5">
         <div className=" card-header  center p-3 ">
           <h4>Login</h4>
         </div>

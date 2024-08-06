@@ -113,7 +113,7 @@ export default function Registration() {
 
   return (
     <div className="row  center pt-5   ">
-      <div className=" col-6 card bg-light border-secondary mt-5 p-0 pb-5 ">
+      <div className=" col-6 card  border-secondary mt-5 p-0 pb-5 ">
         <div className="card-header center p-3 mb-3  ">
           <h4 className="center">Registration</h4>
         </div>
