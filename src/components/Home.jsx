@@ -91,8 +91,32 @@ export default function Home() {
               </tr>
               <tr className="table-success">
                 <td>
-                  <a href="https://extension.colostate.edu">
+                  <a href="https://extension.colostate.edu" target="_blank">
                     Colorado State University Extension
+                  </a>
+                </td>
+              </tr>
+              <tr className="table-success">
+                <td>
+                  <a href="https://plants.usda.gov/home" target="_blank">
+                    United States Department of Agriculture
+                  </a>
+                </td>
+              </tr>
+              <tr className="table-success">
+                <td>
+                  <a href="https://garden.org/plants/" target="_blank">
+                    The National Gardening Association
+                  </a>
+                </td>
+              </tr>
+              <tr className="table-success">
+                <td>
+                  <a
+                    href="https://xerces.org/pollinator-conservation/pollinator-friendly-plant-lists"
+                    target="_blank"
+                  >
+                    Xerces Society for Invertebrate Conservation
                   </a>
                 </td>
               </tr>
