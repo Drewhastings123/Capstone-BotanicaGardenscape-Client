@@ -14,11 +14,12 @@ import GardenPlants from "./GardenPlants";
 export default function Left_Column() {
   // load the reference data
  // console.log("run reference from garden");
-  LoadReference() ? LoadReference() : console.log("Still loading Reference");
-
+  //LoadReference() ? LoadReference() : console.log("Still loading Reference");
+  LoadReference() ? LoadReference() : console.log("");
   // load the reference data
   //console.log("run reference from garden");
-  LoadReference() ? LoadReference() : console.log("Still loading Reference");
+ // LoadReference() ? LoadReference() : console.log("Still loading Reference");
+  LoadReference() ? LoadReference() : console.log("");
 
   // Set up for navigation and the store
   const navigate = useNavigate();
@@ -103,7 +104,7 @@ export default function Left_Column() {
             {" "}
             <button
               type="button"
-              className="btn btn-outline-warning  border border-warning p-2"
+              className="btn btn-success p-2"
               onClick={() => navigate("/user")}
             >
               Edit User

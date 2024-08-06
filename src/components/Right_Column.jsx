@@ -261,12 +261,11 @@ export default function Right_Column() {
 
   function Plant_List() {
     const cv = useSelector((state) => state.currentView);
-    // console.log("current view" + cv);
 
     Manage_Filters();
 
     return (
-      <div >
+      <div>
         <Droppable id={50}>
           {newCV?.map((plant) => {
             // const img = "../src/assets/pictures/" + random_number + ".png";

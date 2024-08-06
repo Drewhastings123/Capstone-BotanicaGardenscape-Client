@@ -14,7 +14,7 @@ export default function MyGarden() {
   const id = useSelector((state) => {
     return state.user.id;
   });
-  console.log(`(useSelector(state) - function User() USER: ${id}`);
+  //console.log(`(useSelector(state) - function User() USER: ${id}`);
   const garden = useSelector((state) => {
     return state?.garden;
   });
@@ -57,7 +57,7 @@ export default function MyGarden() {
 
   const submit = async (e) => {
     e.preventDefault();
-   // console.log("FORM" + form);
+    // console.log("FORM" + form);
     switch (form.shape_id) {
       case "dbb444c3-b50e-44ab-9aa9-51490cc4c5bd":
         dispatch(setShape("sq"));
@@ -70,11 +70,10 @@ export default function MyGarden() {
         break;
     }
 
-
     try {
       let updateGardenSuccess = false;
-    //  console.log("gardenID", garden_id);
-     // console.log("form preparing to submit", form);
+      //  console.log("gardenID", garden_id);
+      // console.log("form preparing to submit", form);
       updateGardenSuccess = await updateGarden({ garden_id, form }).unwrap();
 
       // console.log(
@@ -94,7 +93,7 @@ export default function MyGarden() {
   };
 
   const updateForm = (e) => {
-   // console.log(`updateForm: ${e.target.name}: ${e.target.value}`);
+    // console.log(`updateForm: ${e.target.name}: ${e.target.value}`);
     setForm((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -102,10 +101,10 @@ export default function MyGarden() {
   };
 
   const updateFormOnListChange = (e) => {
-  //  console.log(`updateFormOnListChange: ${e.target.name}: ${e.target.value}`);
+    //  console.log(`updateFormOnListChange: ${e.target.name}: ${e.target.value}`);
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  //  console.log(updateFormOnListChange);
-  //  console.log(form);
+    //  console.log(updateFormOnListChange);
+    //  console.log(form);
   };
 
   // FROM currentGardenCanvas
@@ -210,20 +209,25 @@ export default function MyGarden() {
         </div>
 
         <div className="row pt-4 center ">
-          <div className="col-12 center pt-2 pb-1 ">
-            <button
-              type="submit"
-              className="btn btn-outline-warning  border border-warning p-2"
-            >
+          <div className="col-10  center ">
+            <button type="submit" className="btn btn-success p-2  m-3">
               Save Garden
             </button>
+            <button
+              type="submit"
+              className="btn btn-success btn-buy-garden"
+            >
+              Buy Garden
+            </button>
           </div>
+
+          
         </div>
 
         {successM && (
           <div className="row pt-4 ">
             <div className="col-12 center">
-              <p className="text-success">{successM}</p>
+              <p className="text-warning">{successM}</p>
             </div>
           </div>
         )}
