@@ -156,7 +156,7 @@ export default function Left_Column() {
   }
 
   return (
-    <>
+    <div className="left_column  ">
       <div className="accordion container-fluid w100">
         <div className="col-12 ">
           <div className="accordion-item">
@@ -233,6 +233,6 @@ export default function Left_Column() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

@@ -49,8 +49,8 @@ export default function Login() {
   };
 
   return (
-    <div className="row  center pt-5 ">
-      <div className=" col-5 card  border-secondary mt-5 p-0 pb-5">
+    <div className="row  center pt-3 ">
+      <div className=" col-5 card  border-secondary mt-3 p-0 pb-5">
         <div className=" card-header  center p-3 ">
           <h4>Login</h4>
         </div>
@@ -82,7 +82,7 @@ export default function Login() {
             </div>
           </div>
 
-          <div className="row center pt-5">
+          <div className="row center pt-5 pb-4">
             <div className="col-10 center ">
               <button type="submit" className="btn btn-success form-control  ">
                 Submit
