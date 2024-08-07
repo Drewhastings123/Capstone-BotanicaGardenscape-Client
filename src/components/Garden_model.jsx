@@ -17,7 +17,11 @@ export default function Garden_model() {
   const allRef = useSelector((state) => state.reference);
   const ma = useSelector((state) => state.mainArrays);
   const allPlants = ma.allPlants;
-  const allPlantsExtended = ma.originalExtPlants;
+  const allContainers = ma.allContainers;
+  const plantsInGarden = ma.plantsInGarden;
+   
+
+  const [referalPlants, setReferalPlants] = useState(allPlants);
 
   // const mainArrays = useSelector((state) => state.mainArrays);
 
@@ -26,7 +30,19 @@ export default function Garden_model() {
 
   useEffect(() => {
     getAllContainers();
+    getAllPlants();
   }, []);
+
+  function getAllPlants() {
+    const allPlantsExtended = allRef.plantList.map((plant) => ({
+      ...plant,
+      in_garden: false,
+      pic: Math.floor(Math.random() * 10),
+      price: Math.floor(Math.random() * 30) + 10,
+    }));
+
+    dispatch(setAllPlants(allPlantsExtended));
+  }
 
   function getAllContainers() {
     const oc = [
@@ -252,19 +268,10 @@ export default function Garden_model() {
     dispatch(setAllContainers(oc)), [];
   }
 
-  // const st = useSelector((state) => state);
-  const allContainers = useSelector((state) => state.mainArrays.allContainers);
-  const plantsInGarden = useSelector(
-    (state) => state.mainArrays.plantsInGarden
-  );
-
  
-  
 
   function DraggableMarkup({ plant_id, old_cont }) {
-    //const npa = [...allPlants];
-    const npa = useSelector((state) => state.mainArrays.allPlants);
-    const plant_obj = allPlantsExtended.filter((plant) => plant.id == plant_id);
+    const plant_obj = referalPlants.filter((plant) => plant.id == plant_id);
 
     const path = "./src/assets/pictures/" + plant_obj[0]?.pic + ".png";
     const plant_name = plant_obj[0]?.plant_name;
@@ -274,8 +281,10 @@ export default function Garden_model() {
       <>
         {" "}
         <Draggable id={plant_id} old_cont={old_cont}>
-          <p>{plant_name}</p>
-          <img src={path} />{" "}
+          <div className="dragInGarden">
+            <p>{plant_name}</p>
+            <img src={path} />
+          </div>{" "}
         </Draggable>
       </>
     );
@@ -283,11 +292,6 @@ export default function Garden_model() {
 
   function GetDroppable({ container }) {
     if (container.vacancy == false) {
-      //filter
-      const result = allPlants.filter(
-        (plant) => plant.id == container.plant_id
-      );
-
       //in_garden={false}
       return (
         <Droppable key={container.id} id={container.id}>
@@ -344,14 +348,14 @@ export default function Garden_model() {
     const new_cont_id = event.over?.id;
     const old_cont_id = event.active.data.current.old_cont;
 
-    const plant_obj = allPlants.filter((plant) => plant.id == plant_id);
-    const plant_price = plant_obj[0].price;
+    const plant_obj = referalPlants.filter((plant) => plant.id == plant_id);
+    const plant_price = plant_obj[0]?.price;
 
-    const plant_pic = plant_obj[0].pic;
-    const plant_name = plant_obj[0].plant_name;
-    const plant_mx_h = plant_obj[0].max_height;
-    const plant_mx_w = plant_obj[0].max_width;
-    const life_cycle_id = plant_obj[0].life_cycle_id;
+    const plant_pic = plant_obj[0]?.pic;
+    const plant_name = plant_obj[0]?.plant_name;
+    const plant_mx_h = plant_obj[0]?.max_height;
+    const plant_mx_w = plant_obj[0]?.max_width;
+    const life_cycle_id = plant_obj[0]?.life_cycle_id;
 
     const new_cont_obj = {
       id: new_cont_id,
@@ -455,7 +459,7 @@ export default function Garden_model() {
   return (
     <div>
       <DndContext onDragEnd={handleDragEnd}>
-        <div className="row p-5 pt-3   ">
+        <div className="row pt-3   ">
           <small className="col-12  tik  p-0 pb-2 pt-2 ">
             Plants in the garden:
             <span className="text-info sl tik">

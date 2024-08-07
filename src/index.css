@@ -87,6 +87,14 @@
   background-color: lightblue !important;
 }
 
+.dragInGarden > p {
+  font-size: 0.8em;
+}
+.dragInGarden > * {
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
 .left_column {
   display: flex;
   flex-direction: column;

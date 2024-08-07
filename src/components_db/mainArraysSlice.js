@@ -6,8 +6,6 @@ const mainArraysSlice = createSlice({
   initialState: {
     allPlants: [],
     allContainers: [],
-    plantsInGarden: [],
-    originalExtPlants:[],
   },
   reducers: {
     setAllPlants: (state, { payload }) => {
@@ -21,16 +19,10 @@ const mainArraysSlice = createSlice({
     setPlantsInGarden: (state, { payload }) => {
       state.plantsInGarden = payload;
     },
-
-    setOriginalExtPlants: (state, { payload }) => {
-      state.plantsInGarden = payload;
-    },
-
-
   },
 });
 
-export const { setAllPlants, setAllContainers, setPlantsInGarden, setOriginalExtPlants } =
+export const { setAllPlants, setAllContainers, setPlantsInGarden } =
   mainArraysSlice.actions;
 
 export default mainArraysSlice.reducer;

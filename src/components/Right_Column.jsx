@@ -16,10 +16,6 @@ import {
   setZone,
 } from "../components_db/currentViewSlice.js";
 
-import {
-  setAllPlants,
-  setOriginalExtPlants,
-} from "../components_db/mainArraysSlice.js";
 
 export default function Right_Column() {
   let isLoading = true;
@@ -43,29 +39,9 @@ export default function Right_Column() {
 
   const dispatch = useDispatch();
 
-  function getAllPlants() {
-    const allPlantsExtended = allPlantOr?.map((plant) => ({
-      ...plant,
-      in_garden: false,
-      pic: Math.floor(Math.random() * 10),
-      price: Math.floor(Math.random() * 30) + 10,
-    }));
-
-    dispatch(setAllPlants(allPlantsExtended));
-    dispatch(setOriginalExtPlants(allPlantsExtended));
-  }
-
-  useEffect(() => {
-    console.log("is loading plants");
-
-    getAllPlants();
-    console.log("stopped loading plants");
-  }, []);
-
   const allPlants = ma?.allPlants;
-  
-  isLoading = false;
 
+  isLoading = false;
 
   let newCV = [];
 
