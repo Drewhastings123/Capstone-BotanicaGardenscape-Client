@@ -1,16 +1,13 @@
 import mag3Url from "../assets/homePage/MagnoliaMulti.jpg";
 import solarGnome from "../assets/homePage/solarGnome.png";
 
-
-
 export default function Home() {
-
   return (
     <>
       <div className="container gridHome">
         <div className="homeH1">
           <h1>Welcome to Botanica Gardenscape</h1>
-          <h5>User our handy layout tool and plot your dream garden. </h5>
+          <h5>Use our handy layout tool and plot your dream garden. </h5>
           <h6>
             Please register to access our full functionality and begin designing
             today{" "}
@@ -94,8 +91,32 @@ export default function Home() {
               </tr>
               <tr className="table-success">
                 <td>
-                  <a href="https://extension.colostate.edu">
+                  <a href="https://extension.colostate.edu" target="_blank">
                     Colorado State University Extension
+                  </a>
+                </td>
+              </tr>
+              <tr className="table-success">
+                <td>
+                  <a href="https://plants.usda.gov/home" target="_blank">
+                    United States Department of Agriculture
+                  </a>
+                </td>
+              </tr>
+              <tr className="table-success">
+                <td>
+                  <a href="https://garden.org/plants/" target="_blank">
+                    The National Gardening Association
+                  </a>
+                </td>
+              </tr>
+              <tr className="table-success">
+                <td>
+                  <a
+                    href="https://xerces.org/pollinator-conservation/pollinator-friendly-plant-lists"
+                    target="_blank"
+                  >
+                    Xerces Society for Invertebrate Conservation
                   </a>
                 </td>
               </tr>

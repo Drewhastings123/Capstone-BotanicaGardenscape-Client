@@ -11,8 +11,10 @@ import { useCreateGardenMutation } from "../components_db/gardenSlice";
 
 export default function Registration() {
   // load the reference data
-  console.log("run reference from Registration");
-  LoadReference() ? LoadReference() : console.log("Still loading Reference");
+  //console.log("run reference from Registration");
+  // console.log("run reference from Registration");
+  LoadReference() ? LoadReference() : console.log("");
+  // LoadReference() ? LoadReference() : console.log("Still loading Reference");
   //  test this call
 
   const navigate = useNavigate();
@@ -38,6 +40,9 @@ export default function Registration() {
   const soilRequirementList = useSelector((state) => {
     return state.reference.soilRequirementList;
   });
+  const userRoleList = useSelector((state) => {
+    return state.reference.userRoleList;
+  });
 
   const createDefaultGarden = ({ id, zone_id }) => {
     return {
@@ -53,7 +58,7 @@ export default function Registration() {
 
   const submit = async (e) => {
     e.preventDefault();
-    console.log("submit");
+    //console.log("submit");
 
     try {
       let success;
@@ -61,13 +66,13 @@ export default function Registration() {
       let gardenSuccess;
 
       // TO DO - correctly handle user_role_id
-      form.user_role_id = "8b8329b7-943a-4f12-9803-dcba09ec1ede";
+      form.user_role_id = userRoleList[0].id;
 
       success = await registerUser(form).unwrap();
-      console.log("registration success REGISTERUSER: ", success);
+      //console.log("registration success REGISTERUSER: ", success);
       if (success?.token) {
         loginSuccess = await loginUser(form).unwrap();
-        console.log("registration loginSuccess LOGINUSER:", loginSuccess);
+        //console.log("registration loginSuccess LOGINUSER:", loginSuccess);
 
         // TODO Handle failed registration better
         // TODO Handle failed login better
@@ -80,7 +85,7 @@ export default function Registration() {
 
         gardenSuccess = await createGarden({ specifications }).unwrap();
 
-        console.log("registration gardenSuccess CREATEGARDEN:", gardenSuccess);
+        //console.log("registration gardenSuccess CREATEGARDEN:", gardenSuccess);
 
         if (loginSuccess?.token) {
           navigate("/garden");
@@ -102,7 +107,7 @@ export default function Registration() {
   };
 
   const updateForm = (e) => {
-    console.log("updateForm");
+    //console.log("updateForm");
     setForm((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -114,123 +119,101 @@ export default function Registration() {
   };
 
   return (
-    <>
-      <div className="container top5">
-        <div className="row w100">
-          <div className="col"></div>
+    <div className="row  center pt-3  ">
+      <div className=" col-6 card p-0   border-secondary mt-3 pb-5  ">
+        <div className="card-header center p-3 mb-3  ">
+          <h4 className="center">Registration</h4>
+        </div>
+        <form onSubmit={submit} name="formRegister">
+          <div className="row pt-5 center ">
+            <div className="col-5 center ">
+              <input
+                type="email"
+                className="form-control form-control-login "
+                name="email"
+                aria-describedby="emailHelp"
+                placeholder="Email"
+                onChange={updateForm}
+                required
+              />
+            </div>
 
-          <div className="col-8">
-            <div className="card border-success ">
-              <div className="card-header ">
-                <h4 className="card-title">Registration</h4>
-              </div>
-
-              <div className="card-body gap-2">
-                <div className="card-text ">
-                  <form onSubmit={submit} name="formRegister">
-                    <div className="row ">
-                      <div className="col-12  ">
-                        <div className="row ">
-                          <div className="col-6 ">
-                            <input
-                              type="email"
-
-                              className="form-control form-control-login"
-
-                              name="email"
-                              aria-describedby="emailHelp"
-                              placeholder="Email"
-                              onChange={updateForm}
-                              required
-                            />
-                            <input
-                              type="text"
-
-                              className="form-control form-control-login"
-
-                              name="firstname"
-                              placeholder="First Name"
-                              onChange={updateForm}
-                              required
-                            />
-
-                            <input
-                              type="phone"
-
-                              className="form-control form-control-login"
-
-                              name="phone_number"
-                              placeholder="(XXX) 867-5209"
-                              onChange={updateForm}
-                              required
-                            />
-                          </div>
-
-                          <div className="col-6 ">
-                            <input
-                              type="password"
-
-                              className="form-control form-control-login"
-
-                              name="password"
-                              placeholder="Password"
-                              onChange={updateForm}
-                              required
-                            />
-
-                            <input
-                              type="text"
-
-                              className="form-control form-control-login"
-
-                              name="lastname"
-                              placeholder="Last Name"
-                              onChange={updateForm}
-                              required
-                            />
-
-                            <SelectList
-                              theList={zoneList}
-                              theListName="zone_id"
-                              theParentForm="Registration"
-                              onChangeFunction={updateFormOnListChange}
-                              theFieldName="zone_name"
-                              the2FieldName="temp_range"
-                            />
-                          </div>
-                          {/*  //close col-6 */}
-                        </div>{" "}
-                        {/*  //close row */}
-                      </div>{" "}
-                      {/*  //close col-12 */}
-                    </div>{" "}
-                    {/*  //close row */}
-                    <div className="row center">
-                      <div className="col-12 gap-2">
-                        <button
-                          type="submit"
-                          className="btn btn-success form-control m-2"
-                        >
-                          Submit
-                        </button>
-                      </div>
-                      {errM && (
-                        <div className="row">
-                          <div className="col-12">
-                            <p className="text-warning">{errM}</p>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </form>
-                </div>
-              </div>
+            <div className="col-5 center ">
+              <input
+                type="password"
+                className="form-control form-control-login "
+                name="password"
+                placeholder="Password"
+                onChange={updateForm}
+                required
+              />
             </div>
           </div>
 
-          <div className="col"></div>
-        </div>{" "}
-      </div>
-    </>
+          <div className="row pt-4 center">
+            <div className="col-5 center">
+              <input
+                type="text"
+                className="form-control form-control-login "
+                name="firstname"
+                placeholder="First Name"
+                onChange={updateForm}
+                required
+              />
+            </div>
+
+            <div className="col-5 center ">
+              <input
+                type="text"
+                className="form-control form-control-login "
+                name="lastname"
+                placeholder="Last Name"
+                onChange={updateForm}
+                required
+              />
+            </div>
+          </div>
+
+          <div className="row pt-4 center">
+            <div className="col-5 center">
+              <input
+                type="phone"
+                className="form-control "
+                name="phone_number"
+                placeholder="(XXX) 867-5209"
+                onChange={updateForm}
+                required
+              />
+            </div>
+
+            <div className="col-5  p-05 aic   ">
+              <SelectList
+                theList={zoneList}
+                theListName="zone_id"
+                theParentForm="Registration"
+                onChangeFunction={updateFormOnListChange}
+                theFieldName="zone_name"
+                the2FieldName="temp_range"
+              />
+            </div>
+          </div>
+
+          <div className="row center  pt-5">
+            <div className="col-10 center ">
+              <button type="submit" className="btn btn-success form-control  ">
+                Submit
+              </button>
+            </div>
+          </div>
+        </form>
+        {errM && (
+          <div className="row pt-5 ">
+            <div className="col-12 center">
+              <p className="text-warning">{errM}</p>
+            </div>
+          </div>
+        )}
+      </div>{" "}
+    </div>
   );
 }

@@ -12,7 +12,7 @@ export default function User() {
   const navigate = useNavigate();
 
   // console.log("user page load reference");
-  // LoadReference();
+  LoadReference();
 
   // Get the current User
   const user = useSelector((state) => {
@@ -34,14 +34,16 @@ export default function User() {
   //  What to do when the submit button is clicked
   const submit = async (e) => {
     e.preventDefault();
-    console.log(`(useSelector(state) - function User() SUBMIT`);
+    //console.log(`(useSelector(state) - function User() SUBMIT`);
+   // console.log(`(useSelector(state) - function User() SUBMIT`);
 
     try {
       let updateSuccess = false;
 
       updateSuccess = updateUser(form).unwrap();
 
-      console.log(`(function User() SUBMIT UPDATESUCCESS: ${updateSuccess}`);
+     // console.log(`(function User() SUBMIT UPDATESUCCESS: ${updateSuccess}`);
+      //console.log(`(function User() SUBMIT UPDATESUCCESS: ${updateSuccess}`);
 
       if (!updateSuccess) {
         return Loading_Bar("30");
@@ -54,7 +56,7 @@ export default function User() {
   };
 
   const updateForm = (e) => {
-    console.log(`updateForm: ${e.target.name}: ${e.target.value}`);
+ 
     setForm((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -62,10 +64,9 @@ export default function User() {
   };
 
   const updateFormOnListChange = (e) => {
-    console.log(`updateFormOnListChange: ${e.target.name}: ${e.target.value}`);
+
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    console.log(updateFormOnListChange);
-    console.log(form);
+
   };
 
   return (
@@ -182,3 +183,4 @@ export default function User() {
     </>
   );
 }
+

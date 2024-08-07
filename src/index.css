@@ -1,62 +1,23 @@
-/* .nav-link:hover {
-  background-color: #62c462 ;
-} */
-
-.w100 {
-  width: 100% !important;
+.frame {
+  padding: 0em 2em !important;
 }
-
-.w85 {
-  width: 85% !important;
+.aife {
+  align-items: flex-end !important;
 }
-.w75 {
-  width: 75% !important;
-}
-.w95 {
-  width: 85% !important;
-}
-
-.w90 {
-  width: 90% !important;
-}
-.top3 {
-  padding-top: 3em;
-}
-.top2 {
-  padding-top: 2em;
-}
-.top5 {
-  padding-top: 5em;
-}
-
-.mv2 {
-  margin: 2em 0em !important;
-}
-.mv1 {
-  margin: 1em 0em !important;
-}
-
-.pl-1 {
-  padding-left: 1em !important;
-}
-
-.pl-5 {
-  padding-left: 5em !important;
-}
-.p-lados-5 {
-  padding-left: 5em !important;
-  padding-right: 5em !important;
-}
-
-.progress-bar-animated {
-  width: 75%;
-}
-
-.card-header {
+.aic {
+  align-items: center !important;
   display: flex;
-  justify-content: center;
-  flex-direction: column;
-  padding: 1em 0em !important;
+}
+
+.plant_box {
+  display: flex;
+  justify-content: space-around;
+  border-radius: 0.4em;
+  
+}
+.plant_box:hover {
+  /* background-color: rgba(255, 255, 255, 0.8) !important; */
+  background-color: rgba(0, 0, 0, 0.1) !important;
 }
 
 .material-symbols-outlined {
@@ -70,36 +31,7 @@
 .nav-link {
   padding: 1em 1.3em !important;
 }
-.btn-link {
-  text-decoration: none !important;
-  padding-top: 1em !important;
-}
 
-.del_garden_button .btn-link {
-  padding-top: 0.5em !important;
-}
-
-.card-body .row .col-12 {
-  display: flex;
-  justify-content: center !important;
-}
-
-.card-text-login .row .col-12 input {
-  width: 88%;
-}
-
-.card-text .row .col-12 .row {
-  width: 90%;
-}
-
-.card-text,
-.card-text-login {
-  padding: 1.2em !important;
-}
-
-.btn-success {
-  width: 80% !important;
-}
 small {
   padding-top: 1em;
 }
@@ -124,97 +56,66 @@ small {
   border-radius: 0.25em;
 }
 
-.custom-select,
+/* .custom-select,
 .list-select {
   padding: 0.2em;
   border-radius: 0.25em;
+} */
+.btn-link {
+  text-decoration: none !important;
+  padding-top: 1em !important;
 }
 
-.garden-buttons button,
-.full-name span {
-  margin: 0em 0.7em;
-}
-
-.btn-link:hover {
-  color: orange !important;
-}
-
-.del_garden_button,
-.center {
-  display: flex;
-  justify-content: center;
-}
-
-.mt2h {
-  margin-top: 2.5em !important;
-}
+/* .btn-link:hover,
+.btn:hover {
+  color: rgb(17, 50, 12) !important;
+} */
 
 .garden {
-  /* background-color: #420a09 !important; 
-   background-image: url("https://www.transparenttextures.com/patterns/pool-table.png");  */
   background-color: #50372c !important;
   background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png") !important;
 }
+
 .square {
-  width: 50vh;
-  height: 50vh;
+  /* width: 50vh;
+  height: 50vh; */
   max-width: 100%;
+}
+
+.plant_small {
+  width: 100%;
 }
 
 .rectangle {
   width: 100%;
-  height: 450px;
 }
 
-.circle {
-  width: 85%;
-  height: 50vh;
-  border-radius: 50%;
-}
-
-.rounded-circle {
-  width: 85%;
-  height: 50vh;
-  border-radius: 50%;
-}
-
-.plants-header {
+.left,
+.right {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
 }
 
-img {
-  width: 70% !important;
-  height: 70% !important;
-}
-
-.space-around {
+.center {
   display: flex;
-  justify-content: space-around;
-  align-items: center !important;
+  justify-content: center;
 }
 .space-evenly {
   display: flex;
   justify-content: space-evenly !important;
 }
 
+.space-around {
+  display: flex;
+  justify-content: space-around;
+}
+
 .space-around > * {
   padding: 0.1em 0em;
 }
 
-.input-sm {
-  width: 80% !important;
-  text-align: center;
-}
-
 .navbar {
   margin-bottom: 3.5em;
-}
-.mtn1 {
-  margin-top: -1.5em !important;
-}
-.mtn2 {
-  margin-top: -2em !important;
 }
 
 .table-responsive {
@@ -231,26 +132,15 @@ td {
   text-align: left !important;
   padding-left: 2em !important;
 }
-.w50 {
-  width: 50% !important;
-  /* text-align: left !important;
-  padding-left: 2em !important; */
-}
+
 .w70 {
   width: 70% !important;
   text-align: center !important;
 }
-.card {
+/* .card {
   width: 100% !important;
-}
+} */
 
-.ml2 {
-  margin-left: 2em !important;
-}
-
-.mr2 {
-  margin-right: 1em;
-}
 /* width */
 ::-webkit-scrollbar {
   width: 0.6em;
@@ -274,17 +164,6 @@ td {
 }
 
 .dropdown-item {
-  /* background-color: rgba(0, 0, 0, 0.233) !important ; */
-  background-color: #343a41 !important;
-  padding: 0.4em !important;
-}
-
-.dropdown {
-  border-radius: 0.4em !important;
-}
-
-.dropdown-item {
-  /* background-color: rgba(0, 0, 0, 0.233) !important ; */
   background-color: #343a41 !important;
   padding: 0.4em !important;
 }
@@ -295,7 +174,27 @@ td {
 
 input,
 .loginForm button {
-  margin: 0.8em 0em !important;
+  margin: 0.5em 0em !important;
+}
+
+.drop_position {
+  padding: 3em;
+  margin: 1em;
+  display: flex;
+  justify-content: center;
+  border: rgba(255, 255, 255, 0.4) 1px dashed;
+}
+
+/*  changes from final touch - without checking if it already exists
+in this file */
+
+.plant {
+  padding: 2em;
+  margin: 1em;
+}
+
+.white-soft {
+  color: rgba(255, 255, 255, 0.712);
 }
 
 .mainContainer {
@@ -309,29 +208,121 @@ input,
   width: 100%;
 }
 
-.drop_position {
-  padding: 3em;
-  margin: 0.5em;
-  display: flex;
-  justify-content: center;
-  border: rgba(255, 255, 255, 0.4) 1px dashed;
-}
-
 .shape {
   background-color: #50372c !important;
   background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
-  width: 100%;
 
+  border-radius: 0.5em;
+  margin: 0em 2em;
   /* height: 750px; */
 }
-.z100 {
-  z-index: 100 !important;
+
+.pink {
+  background-color: pink !important;
+}
+.blue {
+  background-color: lightblue !important;
 }
 
-.border-dashed{
-  border-style: dashed !important;
+.dragInGarden > p {
+  font-size: 0.8em;
+}
+.dragInGarden > * {
+  margin: 0px !important;
+  padding: 0px !important;
 }
 
-.rc > img {
-  width:40% !important;
+.left_column {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0px !important;
 }
+.right_column {
+  padding-right: 0px !important;
+  flex-direction: column;
+  display: flex;
+  justify-content: flex-start;
+  
+  
+}
+
+img {
+  width: 125px;
+  height: 75px;
+}
+
+.w-100 {
+  width: 100% !important;
+}
+
+.cgray {
+  color: rgba(160, 160, 160, 1) !important;
+}
+
+input,
+select {
+  text-align: center;
+  color: rgba(160, 160, 160, 1) !important;
+}
+
+.fdc {
+  flex-direction: column;
+}
+.w-100 {
+  width: 100% !important;
+}
+
+.left-column,
+.right_column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.left-column > div {
+  padding: 3em !important;
+}
+
+.fdc {
+  flex-direction: column;
+}
+
+.left-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.left-column > div {
+  padding: 3em !important;
+}
+
+.tik {
+  display: flex;
+}
+
+/* //space right */
+.sl {
+  padding-left: 0.5em !important;
+}
+
+.pc_info {
+  padding-left: 1.5em;
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+/* @media only screen and (min-width: 600px) {
+  .frameInt {
+    display: flex;
+    flex-direction: column;
+  }
+  .center_column {
+    margin: 2em 0em !important;
+  }
+
+  .left_column {
+    padding-right: 0em;
+  }
+
+  
+} */

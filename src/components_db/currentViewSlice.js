@@ -8,6 +8,7 @@ const currentViewSlice = createSlice({
     sun: "0",
     soil: "0",
     zone: "0",
+    shape: "odd_shape",
   },
   reducers: {
     setWater: (state, { payload }) => {
@@ -24,9 +25,13 @@ const currentViewSlice = createSlice({
     setSoil: (state, { payload }) => {
       state.soil = payload;
     },
+    setShape: (state, { payload }) => {
+      state.shape = payload;
+    },
   },
 });
 
-export const { setWater, setZone, setSun, setSoil } = currentViewSlice.actions;
+export const { setWater, setZone, setSun, setSoil, setShape } =
+  currentViewSlice.actions;
 
 export default currentViewSlice.reducer;

@@ -1,9 +1,11 @@
 import { useGetUserGardenQuery } from "../components_db/gardenSlice";
-
+import { useState, useEffect } from "react";
 import Loading_Bar from "./Loading_Bar";
-import { useSelector } from "react-redux";
+import { useSelector, useStore } from "react-redux";
+import { useAddGardenPlantMutation } from "../components_db/gardenSlice";
 
 export default function GardenPlants() {
+  const store = useStore();
   // Get the current User id
   const user_id = useSelector((state) => {
     return state.user.user.id;
@@ -11,6 +13,10 @@ export default function GardenPlants() {
   //get plantList to display plant_name
   const plantList = useSelector((state) => {
     return state.reference.plantList;
+  });
+  //get specific plant status for the moment as we are not updating plant status
+  const plantStatus = useSelector((state) => {
+    return state.reference.plantStatusList?.[2].id;
   });
   //get current user's garden id
   const userGarden = useSelector((state) => {
@@ -21,7 +27,7 @@ export default function GardenPlants() {
     user_id,
     garden_id,
   });
-  console.log("UserGarden data", data);
+  // console.log("UserGarden data", data);
   if (isLoading) {
     return Loading_Bar("50");
   }
@@ -30,21 +36,102 @@ export default function GardenPlants() {
     return <div>Error: {error.message}</div>;
   }
 
-  if (!data?.plantInfo?.[0]?.id) {
+  if (!data?.plantInfo?.length) {
     return (
       <div>
         Currently, you do not have any plants in your garden. Please drag plants
         from the plant list into your garden to add them to this list.
+        <GetDroppedPlants />
       </div>
     );
   }
-  const gardenPlantName = plantList
-    ? plantList.filter((obj) => {
-        if (obj.id === data?.plantInfo?.[0]?.plant_id) return obj;
-      })
-    : [{ plant_name: "no name yet" }];
+  //   const gardenPlantName = plantList
+  //     ? plantList.filter((obj) => {
+  //         if (obj.id === data?.plantInfo?.[0]?.plant_id) return obj;
+  //       })
+  //     : [{ plant_name: "no name yet" }];
 
-  const displayPlantName = gardenPlantName[0]?.plant_name;
+  //   const displayPlantName = gardenPlantName[0]?.plant_name;
+  //   store.subscribe(() => {
+  //     store.getState().mainArrays.allContainers;
+  //   });
+
+  function GetDroppedPlants() {
+    const [addGardenPlants] = useAddGardenPlantMutation();
+    const [errM, setErrM] = useState(null);
+    const [successM, setSuccessM] = useState(null);
+    const [plants, setPlants] = useState([]);
+    const [userGardenCont, setUserGardenCont] = useState(
+      useSelector((state) => {
+        return state.mainArrays.allContainers;
+      })
+    );
+
+    const occContainers = userGardenCont.filter((occ) => {
+      return occ.vacancy === false;
+    });
+    console.log("occupied containers?", occContainers);
+
+    const handleAdd = async (e) => {
+      e.preventDefault();
+      setErrM(null);
+      let mapPlants;
+      if (occContainers.length > 0) {
+        mapPlants = occContainers.map((contPlant) => ({
+          plant_location_x: contPlant.id,
+          plant_location_y: contPlant.id,
+          plant_status_id: plantStatus,
+          plant_id: contPlant.plant_id,
+        }));
+      }
+      let success = true;
+      console.log("what are plants?", mapPlants);
+      for (const plant of mapPlants) {
+        try {
+          await addGardenPlants({ garden_id, plant }).unwrap();
+        } catch (err) {
+          setErrM("Error adding plants");
+        }
+      }
+      if (!success) {
+        setErrM("Save not successful");
+      } else {
+        setSuccessM("Plants saved successfully");
+      }
+    };
+    return (
+      <>
+        <div>
+          <button
+            type="submit"
+            className="btn form-control btn btn-outline-success btn-sm border border-success mt-2 mb-2"
+            onClick={handleAdd}
+          >
+            Add Plants to Garden
+          </button>
+          {successM && (
+            <div className="row">
+              <div className="col-12">
+                <p className="text-warning">{successM}</p>
+              </div>
+            </div>
+          )}
+          {errM && (
+            <div className="row">
+              <div className="col-12">
+                <p className="text-warning">{errM}</p>
+              </div>
+            </div>
+          )}
+        </div>
+      </>
+    );
+  }
+
+  const plantNameMap = plantList.reduce((acc, plant) => {
+    acc[plant.id] = plant.plant_name;
+    return acc;
+  }, {});
 
   function Plant_List() {
     return (
@@ -52,14 +139,17 @@ export default function GardenPlants() {
         <tbody>
           {data?.plantInfo?.map((plant) => {
             const random_number = Math.floor(Math.random() * 10);
-            let img = "../src/assets/pictures/" + random_number + ".png";
+            // CB - let img = "../src/assets/pictures/" + random_number + ".png";
+            let img = "/" + random_number + ".png";
+            const displayPlantName =
+              plantNameMap[plant.plant_id] || "no name yet";
             return (
               <tr className=" table-dark" key={plant.id}>
                 <td scope="row" className="w30">
                   {displayPlantName}
                 </td>
                 <td className="w70">
-                  <img src={img} />
+                  <img className="small_img" src={img} />
                 </td>
               </tr>
             );
@@ -77,6 +167,7 @@ export default function GardenPlants() {
         <div className="table-responsive  ">
           {" "}
           <Plant_List />
+          <GetDroppedPlants />
         </div>
       </div>
     </>

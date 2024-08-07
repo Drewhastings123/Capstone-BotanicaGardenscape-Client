@@ -1,17 +1,34 @@
 #root {
-  max-width: 1280px;
+  /* max-width: 1280px; */
   margin: 0 auto;
-  padding: 2rem;
+  /* padding: 2rem; */
   text-align: center;
+
+  /* color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424; */
 }
+
+/* @media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+} */
 
 legend {
   font-size: 1em;
 }
 
-body {
+/* body {
   color: whitesmoke !important;
-}
+} */
 
 .homeH1 {
   grid-column: 1 / 4;
@@ -86,16 +103,6 @@ body {
   height: 100vh;
 }
 
-/* .active {
-  background-color: #5bee5b75;
-  color: whitesmoke;
-} */
-
-.navbar li > .active {
-  font-weight: bold;
-  background-color: green !important;
-}
-
 .card-email-header {
   display: inline-block;
   /* font-size: calc(.75vw + .75vh); */
@@ -107,20 +114,15 @@ body {
   /* font-size: calc(.75vw + .75vh); */
   font-size: 0.9em;
 }
-.select-reference {
-
-  background-color: #d8dbe2 !important;
-
-}
-
-.garden-select-reference {
-
-  
-
-}
 
 .text_input {
-
   background-color: #d8dbe2 !important;
-
 }
+
+ .small_img {
+  width: 100px !important;
+  height: auto !important;
+
+  max-width: 5vw !important;
+  max-height: 5vh !important;
+} 

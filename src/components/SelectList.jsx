@@ -14,7 +14,7 @@ export default function SelectList({
   };
 
   return (
-    <div>
+    <div className="col-12  ">
       {/*<label
         htmlFor={`${theListName}_${theParentForm}`}
         className="form-label mt-4"
@@ -22,7 +22,7 @@ export default function SelectList({
         {`${theListName}`}
       </label>*/}
       <select
-        className="form-select select-reference"
+        className=" form-control   w-100 p-2"
         name={theListName}
         id={`${theListName}_${theParentForm}`}
         onChange={onChangeFunction || ConsoleTheSelected}
