@@ -516,16 +516,18 @@ export default function Garden_model() {
             </span>
           </small>  */}
 
-          <div className="col-3  left_column  ">
+          <div className="col-3  left_column p-0  ">
             <Left_Column />
+           
           </div>
 
           <div className="col-6  center  center_column  ">
             <Bring_Shape />
           </div>
 
-          <div className="col-3  right_column   ">
+          <div className="col-3  right-column p-0  ">
             <Right_Column />
+            
           </div>
         </div>
       </DndContext>

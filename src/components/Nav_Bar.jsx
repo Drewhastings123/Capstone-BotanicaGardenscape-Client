@@ -12,10 +12,11 @@ export default function Nav_Bar() {
   }
 
   return (
-    <>
-      {" "}
-      
-      <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav
+      className="navbar navbar-expand-lg navbar-dark bg-primary"
+      data-bs-theme="dark"
+    >
+      <div className="container-fluid">
         <span className="material-symbols-outlined">yard</span>
 
         <NavLink to="/" className="navbar-brand ">
@@ -87,7 +88,7 @@ export default function Nav_Bar() {
             )}
           </ul>
         </div>
-      </nav>
-    </>
+      </div>
+    </nav>
   );
 }

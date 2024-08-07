@@ -12,22 +12,19 @@ import Home from "./components/Home";
 
 function App() {
   return (
-
     <Provider store={store}>
-       <div className="container-fluid p-0">
-        <Nav_Bar />
-        <Routes>
-          <Route path="/user/" element={<Protected />}>
-            <Route path="/user/" element={<User />}></Route>
-          </Route>
-          <Route path="/garden" element={<Protected />}>
-            <Route path="/garden" element={<Garden_model />}></Route>
-          </Route>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/registration" element={<Registration />}></Route>
-        </Routes>
-      </div>
+      <Nav_Bar />
+      <Routes>
+        <Route path="/user/" element={<Protected />}>
+          <Route path="/user/" element={<User />}></Route>
+        </Route>
+        <Route path="/garden" element={<Protected />}>
+          <Route path="/garden" element={<Garden_model />}></Route>
+        </Route>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/registration" element={<Registration />}></Route>
+      </Routes>
     </Provider>
   );
 }

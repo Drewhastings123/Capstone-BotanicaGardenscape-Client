@@ -274,22 +274,33 @@ export default function Right_Column() {
             if (plant.in_garden == false) {
               return (
                 <Draggable id={plant.id} key={plant.id} old_cont={50}>
-                  <div className=" plant_box  p-1 mb-2 bg-primary border border-success">
-                    <div className="center">
+                  <div className=" plant_box  p-2 mb-3  border border-success  ">
+                    <div className="center col-4">
                       {" "}
                       <img className="small_img" src={path} />
                     </div>
-
-                    <div className="row pc_info ">
-                      <div className="col-12 center  aife   ">
-                        <h6>{plant.plant_name}</h6>
-                      </div>
-
-                      <div className="col-4 "> {displayLifeCycleName} </div>
-                      <div className="col-4">
-                        {plant.max_height} x{plant.max_width}{" "}
+                    <div className=" col-8 ">
+                      <h6 className=" text-warning">{plant.plant_name}</h6>
+                      <div className="row  ">
+                        <div className="col-6 "> {displayLifeCycleName} </div>
+                        <div className="col-6">
+                          {plant.max_height} x{plant.max_width}{" "}
+                        </div>
                       </div>
                     </div>
+
+                    {/* <div className="center  ">
+                            <div className="col-12 center  aife   ">
+                            <h6>{plant.plant_name}</h6>
+                            </div>
+                       </div>
+                      
+                       <div className="row  ">
+                              <div className="col-6 "> {displayLifeCycleName} </div>
+                              <div className="col-6">
+                                {plant.max_height} x{plant.max_width}{" "}
+                               </div> 
+                        </div> */}
                   </div>
                 </Draggable>
               );
@@ -304,11 +315,12 @@ export default function Right_Column() {
     <>
       {/* row card bg-light card plant_box  mt-2 */}
 
-      <div className="card  mb-3 ">
+      <div className="card  mb-3 border border-success  ">
         <div className="card-header center">Plants</div>
 
         {/* <Filters /> */}
-        <div className="card-body center fdc pb-4">
+
+        <div className="card-body bg-dark  center fdc pb-4">
           <div className="row pt-2 center ">
             <div className="col-6 center ">
               <select
@@ -360,7 +372,7 @@ export default function Right_Column() {
           </div>
 
           <div className="row pt-4 center ">
-            <div className="col-6 center ">
+            <div className="col-6 center  ">
               <select
                 defaultValue="0"
                 onChange={updateCurrentView}
