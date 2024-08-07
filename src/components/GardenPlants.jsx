@@ -27,7 +27,7 @@ export default function GardenPlants() {
     user_id,
     garden_id,
   });
- // console.log("UserGarden data", data);
+  // console.log("UserGarden data", data);
   if (isLoading) {
     return Loading_Bar("50");
   }
@@ -41,6 +41,7 @@ export default function GardenPlants() {
       <div>
         Currently, you do not have any plants in your garden. Please drag plants
         from the plant list into your garden to add them to this list.
+        <GetDroppedPlants />
       </div>
     );
   }
@@ -51,10 +52,11 @@ export default function GardenPlants() {
   //     : [{ plant_name: "no name yet" }];
 
   //   const displayPlantName = gardenPlantName[0]?.plant_name;
+  //   store.subscribe(() => {
+  //     store.getState().mainArrays.allContainers;
+  //   });
+
   function GetDroppedPlants() {
-    store.subscribe(() => {
-      store.getState().mainArrays.allContainers;
-    });
     const [addGardenPlants] = useAddGardenPlantMutation();
     const [errM, setErrM] = useState(null);
     const [successM, setSuccessM] = useState(null);
@@ -66,25 +68,25 @@ export default function GardenPlants() {
     );
 
     const occContainers = userGardenCont.filter((occ) => {
-      return occ.occupied === true;
+      return occ.vacancy === false;
     });
     console.log("occupied containers?", occContainers);
 
-    if (occContainers.length > 0) {
-      const mapPlants = occContainers.map((contPlant) => ({
-        plant_location_x: contPlant.id,
-        plant_location_y: contPlant.id,
-        plant_status_id: plantStatus,
-        plant_id: contPlant.plant_id,
-      }));
-      setPlants(mapPlants);
-    }
     const handleAdd = async (e) => {
       e.preventDefault();
       setErrM(null);
+      let mapPlants;
+      if (occContainers.length > 0) {
+        mapPlants = occContainers.map((contPlant) => ({
+          plant_location_x: contPlant.id,
+          plant_location_y: contPlant.id,
+          plant_status_id: plantStatus,
+          plant_id: contPlant.plant_id,
+        }));
+      }
       let success = true;
-      console.log("what are plants?", plants);
-      for (const plant of plants) {
+      console.log("what are plants?", mapPlants);
+      for (const plant of mapPlants) {
         try {
           await addGardenPlants({ garden_id, plant }).unwrap();
         } catch (err) {
@@ -141,13 +143,12 @@ export default function GardenPlants() {
             const displayPlantName =
               plantNameMap[plant.plant_id] || "no name yet";
             return (
-              
               <tr className=" table-dark" key={plant.id}>
                 <td scope="row" className="w30">
                   {displayPlantName}
                 </td>
                 <td className="w70">
-                  <img  className="small_img" src={img} />
+                  <img className="small_img" src={img} />
                 </td>
               </tr>
             );

@@ -14,18 +14,20 @@ import {
   setAllPlants,
   setReferencePlants,
 } from "../components_db/mainArraysSlice.js";
-
+import LazyUserRefresh from "./lazyRefresh.js";
+import LoadReference from "./reference.js";
 import { useGetReferenceQuery } from "../components_db/referenceSlice";
 
 export default function Garden_model() {
-  const { data, isSuccess, isLoading, isError, error } = useGetReferenceQuery();
-  if (isSuccess) {
-    console.log("suxed en reference loading garden model: ", data);
-  } else {
-    console.log("error en reference loading garden model:", error);
-  }
-
+  //   const { data, isSuccess, isLoading, isError, error } = useGetReferenceQuery();
+  //   if (isSuccess) {
+  //     console.log("suxed en reference loading garden model: ", data);
+  //   } else {
+  //     console.log("error en reference loading garden model:", error);
+  //   }
+  LoadReference() ? LoadReference() : console.log("Still loading Reference");
   const shap = useSelector((state) => state.currentView.shape);
+  const user = useSelector((state) => state.user.user);
   const allRef = useSelector((state) => state.reference);
   const ma = useSelector((state) => state.mainArrays);
   const allPlants = ma.allPlants;
@@ -34,14 +36,15 @@ export default function Garden_model() {
   const referencePlants = ma.referencePlants;
 
   const dispatch = useDispatch();
-
+  const newRefresh = LazyUserRefresh();
+  console.log("does this do anything", newRefresh);
   useEffect(() => {
     getAllContainers();
     getAllPlants();
-  }, []);
+  }, [user]);
 
   function getAllPlants() {
-    const allPlantsExtended = data?.plantList?.map((plant) => ({
+    const allPlantsExtended = allRef?.plantList?.map((plant) => ({
       ...plant,
       in_garden: false,
       pic: Math.floor(Math.random() * 10),
@@ -273,7 +276,7 @@ export default function Garden_model() {
         vacancy: true,
       },
     ];
-    dispatch(setAllContainers(oc)), [];
+    dispatch(setAllContainers(oc));
   }
 
   function DraggableMarkup({ plant_id, old_cont }) {
