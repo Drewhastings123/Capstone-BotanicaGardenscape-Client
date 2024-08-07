@@ -108,9 +108,13 @@ small {
 }
 
 .square {
-  width: 50vh;
-  height: 50vh;
+  /* width: 50vh;
+  height: 50vh; */
   max-width: 100%;
+}
+
+.plant_small {
+  width: 100%;
 }
 
 .rectangle {
@@ -252,9 +256,9 @@ input,
   border-style: dashed !important;
 }
 
- .rc > img {
+.rc > img {
   width: 10px !important;
-} 
+}
 
 .img {
   width: 4% !important;

@@ -290,7 +290,7 @@ export default function Garden_model() {
         <Draggable id={plant_id} old_cont={old_cont}>
           <div className="dragInGarden">
             <p>{plant_name}</p>
-            <img src={path} />
+            <img src={path} className="plant_small" />
           </div>{" "}
         </Draggable>
       </>
@@ -323,7 +323,6 @@ export default function Garden_model() {
   }
 
   function Bring_Shape() {
-
     // CB  (8/5) Adding in getting the shape from the DB - garden.shape reference
     // in a round about way from the droplist which got it from the
     // user's garden
@@ -485,19 +484,16 @@ export default function Garden_model() {
           (container) => container.id == new_cont_id
         );
         allContainers_temp[containerIndexN] = movedObj;
-        dispatch(setAllContainers(allContainers_temp));
+        // dispatch(setAllContainers(allContainers_temp));
 
         // b. remove plant from old container(set to vacancy: true and plant_id: null)
-        // const allContainers_temp2 = [...allContainers];
-        // const containerIndexO = allContainers_temp2.findIndex(
-        //   (container) => container.id == old_cont_id
-        // );
-        // allContainers_temp2[containerIndexO] = old_cont_obj;
-        // dispatch(setAllContainers(allContainers_temp2));
-        // console.log("after empty last cont" + allContainers);
-        
 
-        
+        const containerIndexO = allContainers_temp.findIndex(
+          (container) => container.id == old_cont_id
+        );
+        allContainers_temp[containerIndexO] = old_cont_obj;
+        dispatch(setAllContainers(allContainers_temp));
+        console.log("after empty last cont" + allContainers);
       }
     }
   }
@@ -506,15 +502,15 @@ export default function Garden_model() {
     <div className="frame">
       <DndContext onDragEnd={handleDragEnd}>
         <div className="row pt-3 frameInt   ">
-          <small className="col-12  tik  p-0 pb-2 pt-2 ">
+          {/* <small className="col-12  tik  p-0 pb-2 pt-2 ">
             Plants in the garden:
             <span className="text-info sl tik">
-              {/* {if (plantsInGarden.length == 0)(<div>no hay plantas</div>)} */}
+              {if (plantsInGarden.length == 0)(<div>no hay plantas</div>)}
               {plantsInGarden?.map((plant) => {
                 return <div key={plant.id}>{plant.name}, </div>;
               })}
             </span>
-          </small> */}
+          </small>  */}
 
           <div className="col-3  left_column  ">
             <Left_Column />

@@ -47,9 +47,9 @@ export default function MyGarden() {
   });
 
   //dispatch the saved user's garden shape to the canvas
-  shapeList?.find((shape) => {
-    if (shape.id === form.shape_id) dispatch(setShape(shape.css_class));
-  });
+//   shapeList?.find((shape) => {
+//     if (shape.id === form.shape_id) dispatch(setShape(shape.css_class));
+//   });
   
   // set up the relationship to the garden mutation
   const [updateGarden] = useUpdateGardenMutation();
