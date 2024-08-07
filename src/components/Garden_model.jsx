@@ -8,24 +8,31 @@ import { Draggable } from "./Draggable";
 import Left_Column from "./Left_Column";
 import Right_Column from "./Right_Column";
 import { useSelector, useDispatch } from "react-redux";
-import { setAllContainers } from "../components_db/mainArraysSlice.js";
-import { setPlantsInGarden } from "../components_db/mainArraysSlice.js";
-import { setAllPlants } from "../components_db/mainArraysSlice.js";
+import {
+  setAllContainers,
+  setPlantsInGarden,
+  setAllPlants,
+  setReferencePlants,
+} from "../components_db/mainArraysSlice.js";
+
+import { useGetReferenceQuery } from "../components_db/referenceSlice";
 
 export default function Garden_model() {
+  const { data, isSuccess, isLoading, isError, error } = useGetReferenceQuery();
+  if (isSuccess) {
+    console.log("suxed en reference loading garden model: ", data);
+  } else {
+    console.log("error en reference loading garden model:", error);
+  }
+
   const shap = useSelector((state) => state.currentView.shape);
   const allRef = useSelector((state) => state.reference);
   const ma = useSelector((state) => state.mainArrays);
   const allPlants = ma.allPlants;
   const allContainers = ma.allContainers;
   const plantsInGarden = ma.plantsInGarden;
-   
+  const referencePlants = ma.referencePlants;
 
-  const [referalPlants, setReferalPlants] = useState(allPlants);
-
-  // const mainArrays = useSelector((state) => state.mainArrays);
-
-  // const mainSt = useSelector((state) => state);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,7 +41,7 @@ export default function Garden_model() {
   }, []);
 
   function getAllPlants() {
-    const allPlantsExtended = allRef.plantList.map((plant) => ({
+    const allPlantsExtended = data?.plantList?.map((plant) => ({
       ...plant,
       in_garden: false,
       pic: Math.floor(Math.random() * 10),
@@ -42,6 +49,7 @@ export default function Garden_model() {
     }));
 
     dispatch(setAllPlants(allPlantsExtended));
+    dispatch(setReferencePlants(allPlantsExtended));
   }
 
   function getAllContainers() {
@@ -268,10 +276,8 @@ export default function Garden_model() {
     dispatch(setAllContainers(oc)), [];
   }
 
- 
-
   function DraggableMarkup({ plant_id, old_cont }) {
-    const plant_obj = referalPlants.filter((plant) => plant.id == plant_id);
+    const plant_obj = referencePlants.filter((plant) => plant.id == plant_id);
 
     const path = "./src/assets/pictures/" + plant_obj[0]?.pic + ".png";
     const plant_name = plant_obj[0]?.plant_name;
@@ -348,7 +354,7 @@ export default function Garden_model() {
     const new_cont_id = event.over?.id;
     const old_cont_id = event.active.data.current.old_cont;
 
-    const plant_obj = referalPlants.filter((plant) => plant.id == plant_id);
+    const plant_obj = referencePlants?.filter((plant) => plant.id == plant_id);
     const plant_price = plant_obj[0]?.price;
 
     const plant_pic = plant_obj[0]?.pic;
@@ -419,7 +425,10 @@ export default function Garden_model() {
         const allPlants_temp = [...allPlants];
 
         allPlants_temp.push(new_plant);
+        console.log(allPlants_temp);
+
         dispatch(setAllPlants(allPlants_temp));
+        console.log("all plants after new plant added" + allPlants);
 
         // b. update containersArray (set old container to vacancy: true and plant_id: null)
         const allContainers_temp = [...allContainers];
@@ -427,6 +436,7 @@ export default function Garden_model() {
           (container) => container.id == old_cont_id
         );
         allContainers_temp[containerIndexO] = old_cont_obj;
+        console.log(allContainers_temp);
         dispatch(setAllContainers(allContainers_temp));
 
         // remove from plantsInGarden
@@ -435,6 +445,7 @@ export default function Garden_model() {
           (plant) => plant.id == plant_id
         );
         const plantRemoved = plantsInGarden_temp.splice(plantIndex, 1);
+        console.log(plantsInGarden_temp);
         dispatch(setPlantsInGarden(plantsInGarden_temp));
       } else {
         // update containers array , a. add plant in new container,

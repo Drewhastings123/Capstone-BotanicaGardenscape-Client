@@ -13,8 +13,9 @@ import Home from "./components/Home";
 
 function App() {
   return (
+
     <Provider store={store}>
-      
+    <div className="container-fluis p-0 m-0 ">  
         <Nav_Bar />
 
         <Routes>
@@ -29,7 +30,7 @@ function App() {
           <Route path="/login" element={<Login />}></Route>
           <Route path="/registration" element={<Registration />}></Route>
         </Routes>
-     
+        </div>
     </Provider>
   );
 }

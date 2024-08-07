@@ -31,7 +31,7 @@ export default function Right_Column() {
   const allH2O = allRef.waterRequirementList;
   const allSoil = allRef.soilRequirementList;
   const lifeCycleList = allRef.lifeCycleList;
-  const allPlantOr = allRef.plantList;
+ 
 
   console.log("PIG" + ma?.PlantsInGarden?.length);
   console.log("ALL P" + ma?.allPlants?.length);
