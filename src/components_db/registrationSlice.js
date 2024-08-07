@@ -20,6 +20,7 @@ const registrationSlice = createSlice({
   reducers: {
     setToken: ({ payload }) => {
       //console.log("Registration setToken: ", payload.token);
+   //   console.log("Registration setToken: ", payload.token);
       window.sessionStorage.setItem("Token", payload.token);
     },
 
@@ -32,6 +33,7 @@ const registrationSlice = createSlice({
       api.endpoints.registration.matchFulfilled,
       (state, { payload }) => {
         //console.log("registration bob");
+    //    console.log("registration bob");
         // window.sessionStorage.setItem(
         //   "Token",
         //   payload.token

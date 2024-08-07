@@ -40,8 +40,8 @@ export default function Plants_fixed() {
 
   // setAllPlants(allPlantsExtended);
 
-  // const allPlants2 = useState(allPlantsExtended);
-  // console.log("allPlantsExtended " + allPlantsExtended);
+  const allPlants2 = useState(allPlantsExtended);
+  console.log("allPlantsExtended " + allPlantsExtended);
 
   let newCV = [];
 
@@ -49,7 +49,7 @@ export default function Plants_fixed() {
 
   isLoading = false;
 
-  //console.log("all ref: ", allRef);
+  console.log("all ref: ", allRef);
 
   const dispatch = useDispatch();
 
@@ -66,7 +66,7 @@ export default function Plants_fixed() {
     // console.log("VALUE: " + e.target.value);
     const selectedIndex = e.target.options.selectedIndex;
     const newValue = e.target.options[selectedIndex].getAttribute("key2");
-    //console.log("NEW VALUE" + newValue);
+    console.log("NEW VALUE" + newValue);
 
     switch (e.target.name) {
       case "s_soil":
@@ -88,7 +88,7 @@ export default function Plants_fixed() {
 
   function Manage_Filters() {
     newCV = [];
-    //console.log("NewCV in manage filters" + newCV);
+    console.log("NewCV in manage filters" + newCV);
     const filters = [];
 
     if (cv.zone != "0") {
@@ -263,12 +263,12 @@ export default function Plants_fixed() {
 
   function Plant_List() {
     const cv = useSelector((state) => state.currentView);
-    //console.log("current view" + cv);
+    console.log("current view" + cv);
 
     Manage_Filters();
 
-    //console.log("All Plants: " + allPlantsBurnt);
-    //console.log("CURRENT VIEW " + newCV);
+    console.log("All Plants: " + allPlantsBurnt);
+    console.log("CURRENT VIEW " + newCV);
 
     return (
       <div>
@@ -288,53 +288,45 @@ export default function Plants_fixed() {
             if (plant.in_garden == false) {
               return (
                 <Draggable id={plant.id} key={plant.id} old_cont={50}>
-                <div className=" plant_box  p-1 mb-2 border border-success">
-                  <div className="center">
-                    {" "}
-                    <img src={path} />
-                  </div>
-
-                  <div className="row pc_info ">
-                    <div className="col-12 center  aife   ">
-                      <h6>{plant.plant_name}</h6>
+                  <div
+                    key={plant.id}
+                    className="m-0 border border-success bg-primary p-2 border-dashed"
+                  >
+                    <div>
+                      <strong>{plant.plant_name}</strong> {displayLifeCycleName}
+                      -{plant.max_height}x{plant.max_width}
                     </div>
-
-                    <div className="col-4 "> {displayLifeCycleName} - </div>
-                    <div className="col-4">
+                    <div className="rc">
                       {" "}
-                      {plant.max_height} x{plant.max_width}{" "}
+                      <img src={path} />
                     </div>
-                  </div>
-                </div>
-              </Draggable>
-            );
-          }
-        })}
-      </Droppable>
-    </div>
-  );
-}
+                  </div>{" "}
+                </Draggable>
+              );
+            }
+          })}
+        </Droppable>
+      </div>
+    );
+  }
 
-return (
-  <>
-    {/* row card bg-light card plant_box  mt-2 */}
+  return (
+    <>
+      <div className=" border-dark bg-primary  card ">
+        <div className="card-header ">Plants</div>
 
-    <div className="card card_refList bg-light mb-3 ">
-      <div className="card-header center">Plants</div>
-
-      {/* <Filters /> */}
-      <div className="card-body center fdc pb-4">
-        <div className="row pt-2 center ">
-          <div className="col-6 center ">
+        <div className=" row   m-1  mt-3 ">
+          <div className="col-sm-6  space-around ">
             <select
+              className="list-select form-control input  dropdown-item text-warning dropdown border border-warning  "
               defaultValue="0"
               onChange={updateCurrentView}
               name="s_zone"
-              className="form-control  cgray w-100 p-2 "
             >
               <option key="0" className="dropdown-item" value="0" key2="0">
                 &#x1F321; Zone
               </option>
+
               {allZones?.map((zone) => {
                 return (
                   <option
@@ -349,15 +341,16 @@ return (
                   </option>
                 );
               })}
-            </select>
+            </select>{" "}
           </div>
 
-          <div className="col-6 center ">
+          <div className="col-sm-6 center">
+            {/* <label htmlFor="s_water"> Water</label> */}
             <select
+              className="list-select form-control input p-1  dropdown-item text-warning dropdown border border-warning"
               defaultValue="0"
               onChange={updateCurrentView}
               name="s_water"
-              className="form-control cgray w-100 p-2"
             >
               <option key="0" className="dropdown-item" key2="0">
                 &#x1F4A7; Water
@@ -374,37 +367,33 @@ return (
           </div>
         </div>
 
-        <div className="row pt-4 center ">
-          <div className="col-6 center ">
+        <div className="row   center   m-1  mb-3 mt-2 ">
+          <div className="col-sm-6 nav-item dropdown center ">
             <select
+              className=" form-control input p-1 dropdown-item text-warning dropdown border border-warning"
               defaultValue="0"
               onChange={updateCurrentView}
               name="s_sun"
-              className="form-control cgray w-100 p-2"
             >
               <option key="0" className="dropdown-item" key2="0">
                 &#9728; Sun{" "}
               </option>
               {allSuns?.map((sun) => {
                 return (
-                  <option
-                    key={sun.id}
-                    className="dropdown-item"
-                    key2={sun.id}
-                  >
+                  <option key={sun.id} className="dropdown-item" key2={sun.id}>
                     &#9728; {sun.sun_name}
                   </option>
                 );
               })}
-            </select>
+            </select>{" "}
           </div>
 
-          <div className="col-6 center ">
+          <div className="col-sm-6 center ">
             <select
+              className="list-select form-control  p-1 dropdown-item text-warning dropdown border border-warning"
               defaultValue="0"
               onChange={updateCurrentView}
               name="s_soil"
-              className="form-control cgray w-100 p-2"
             >
               <option key="0" key2="0" className="dropdown-item  ">
                 &#9968; Soil{" "}
@@ -420,11 +409,10 @@ return (
           </div>
         </div>
       </div>
-    </div>
-
-    <div>
-      <Plant_List />
-    </div>
-  </>
-);
+      {/* <div className="table-responsive  "> */}
+      <div>
+        <Plant_List />
+      </div>
+    </>
+  );
 }

@@ -1,56 +1,18 @@
-.w100 {
-  width: 100% !important;
+/* .plant {
+  padding: 2em;
+  margin: 1em;
+} */
+.aife {
+  align-items: flex-end !important;
 }
-
-.w85 {
-  width: 85% !important;
-}
-.w75 {
-  width: 75% !important;
-}
-.w95 {
-  width: 85% !important;
-}
-
-.w90 {
-  width: 90% !important;
-}
-.top3 {
-  padding-top: 3em;
-}
-.top2 {
-  padding-top: 2em;
-}
-.top5 {
-  padding-top: 5em;
-}
-
-.mv2 {
-  margin: 2em 0em !important;
-}
-.mv1 {
-  margin: 1em 0em !important;
-}
-
-.pl-1 {
-  padding-left: 1em !important;
-}
-
-.pl-5 {
-  padding-left: 5em !important;
-}
-.p-lados-5 {
-  padding-left: 5em !important;
-  padding-right: 5em !important;
-}
-
-.progress-bar-animated {
-  width: 75%;
-}
-
-.card-header {
+.plant_box {
   display: flex;
-  justify-content: center;
+
+  justify-content: space-between;
+  border-radius: 0.5em;
+}
+.vertical {
+  display: flex;
   flex-direction: column;
   padding: 1em 0em !important;
 }
@@ -149,32 +111,27 @@ small {
 
 .rectangle {
   width: 100%;
-  height: 450px;
+  /* background-color: yellowgreen; */
+
+  /* background-color: aqua; */
 }
 
-.circle {
-  width: 85%;
-  height: 50vh;
-  border-radius: 50%;
+.card:hover,
+.navbar:hover,
+.plant_box {
+  background-color: rgba(255, 255, 255, 0.4) !important;
+}
+.plant_box:hover {
+  background-color: rgba(255, 255, 255, 0.8) !important;
 }
 
-.rounded-circle {
-  width: 85%;
-  height: 50vh;
-  border-radius: 50%;
-}
-
-.plants-header {
+.left,
+.right {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
 }
 
-img {
-  width: 70% !important;
-  height: 70% !important;
-}
-
-.space-around {
+.center {
   display: flex;
   justify-content: space-around;
   align-items: center !important;
@@ -403,6 +360,20 @@ select {
   padding: 3em !important;
 }
 
+.fdc {
+  flex-direction: column;
+}
+
+.left-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.left-column > div {
+  padding: 3em !important;
+}
+
 .tik {
   display: flex;
 }
@@ -410,6 +381,10 @@ select {
 /* //space right */
 .sl {
   padding-left: 0.5em !important;
+}
+
+.pc_info {
+  padding-left: 1.5em;
 }
 
 .pc_info {

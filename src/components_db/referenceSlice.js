@@ -11,6 +11,7 @@ const referenceApi = api.injectEndpoints({
       providesTags: ["Reference"],
       onQueryStarted: (arg, { _, queryFulfilled }) => {
         //console.log("Reference Query Start");
+     //   console.log("Reference Query Start");
         queryFulfilled
           .then(({ data }) => {
             //console.log("Reference fulfilled", data);

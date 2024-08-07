@@ -1,39 +1,302 @@
-import { useState } from "react";
+import React from "react";
+import { useEffect, useState } from "react";
 import { DndContext } from "@dnd-kit/core";
 import { Droppable } from "./Droppable";
 import { Draggable } from "./Draggable";
-// import Original_Plants from "./Original_Plants";
-import Original_Containers from "./Original_Containers";
+
+// import Original_Containers from "./Original_Containers";
 import Left_Column from "./Left_Column";
 import Right_Column from "./Right_Column";
 import { useSelector, useDispatch } from "react-redux";
+import { setAllContainers } from "../components_db/mainArraysSlice.js";
+import { setPlantsInGarden } from "../components_db/mainArraysSlice.js";
+import { setAllPlants } from "../components_db/mainArraysSlice.js";
 
 export default function Garden_model() {
-  const [allPlants, setAllPlants] = useState([]);
-  const [allContainers, setAllContainers] = useState(Original_Containers);
-
   const shap = useSelector((state) => state.currentView.shape);
+  const allRef = useSelector((state) => state.reference);
 
-  const [plantsLeftC, setPlantsLeftC] = useState([]);
+  // const mainArrays = useSelector((state) => state.mainArrays);
 
-  const mainArrays = useSelector((state) => state.mainArrays);
-  console.log("MAIN ARRAYS" + mainArrays);
-  const mainSt = useSelector((state) => state);
-  const contFinales = mainSt.mainArrays.allContainers.Original_Containers;
-  console.log("LOS CONT FINAL" + contFinales);
+  // const mainSt = useSelector((state) => state);
+  const dispatch = useDispatch();
 
-  function DraggableMarkup({ pic, plant_id, old_cont }) {
-    const path = "./src/assets/" + pic + ".png";
+  useEffect(() => {
+    getAllContainers();
+  }, []);
+
+  function getAllContainers() {
+    const oc = [
+      {
+        id: 1,
+        plant_id: null,
+        plant_pic: null,
+        vacancy: true,
+      },
+      {
+        id: 2,
+        plant_id: null,
+        plant_pic: null,
+        vacancy: true,
+      },
+      {
+        id: 3,
+        plant_id: null,
+        plant_pic: null,
+        vacancy: true,
+      },
+      {
+        id: 4,
+        plant_id: null,
+        plant_pic: null,
+        vacancy: true,
+      },
+      {
+        id: 5,
+        plant_id: null,
+        plant_pic: null,
+        vacancy: true,
+      },
+      {
+        id: 6,
+        plant_id: null,
+        plant_pic: null,
+        vacancy: true,
+      },
+      {
+        id: 7,
+        plant_id: null,
+        plant_pic: null,
+        vacancy: true,
+      },
+      {
+        id: 8,
+        plant_id: null,
+        plant_pic: null,
+        vacancy: true,
+      },
+      {
+        id: 9,
+        plant_id: null,
+        plant_pic: null,
+        vacancy: true,
+      },
+
+      {
+        id: 10,
+        plant_id: null,
+        plant_pic: null,
+        vacancy: true,
+      },
+      {
+        id: 11,
+        plant_id: null,
+        plant_pic: null,
+        vacancy: true,
+      },
+      {
+        id: 12,
+        plant_id: null,
+        plant_pic: null,
+        vacancy: true,
+      },
+      {
+        id: 13,
+        plant_id: null,
+        plant_pic: null,
+        vacancy: true,
+      },
+      {
+        id: 14,
+        plant_id: null,
+        plant_pic: null,
+        vacancy: true,
+      },
+      {
+        id: 15,
+        plant_id: null,
+        plant_pic: null,
+        vacancy: true,
+      },
+      {
+        id: 16,
+        plant_id: null,
+        plant_pic: null,
+        vacancy: true,
+      },
+      {
+        id: 17,
+        plant_id: null,
+        plant_pic: null,
+        vacancy: true,
+      },
+      {
+        id: 18,
+        plant_id: null,
+        plant_pic: null,
+        vacancy: true,
+      },
+      {
+        id: 19,
+        plant_id: null,
+        plant_pic: null,
+        vacancy: true,
+      },
+
+      {
+        id: 20,
+        plant_id: null,
+        plant_pic: null,
+        vacancy: true,
+      },
+      {
+        id: 21,
+        plant_id: null,
+        plant_pic: null,
+        vacancy: true,
+      },
+      {
+        id: 22,
+        plant_id: null,
+        plant_pic: null,
+        vacancy: true,
+      },
+      {
+        id: 23,
+        plant_id: null,
+        plant_pic: null,
+        vacancy: true,
+      },
+      {
+        id: 24,
+        plant_id: null,
+        plant_pic: null,
+        vacancy: true,
+      },
+      {
+        id: 25,
+        plant_id: null,
+        plant_pic: null,
+        vacancy: true,
+      },
+      {
+        id: 26,
+        plant_id: null,
+        plant_pic: null,
+        vacancy: true,
+      },
+      {
+        id: 27,
+        plant_id: null,
+        plant_pic: null,
+        vacancy: true,
+      },
+      {
+        id: 28,
+        plant_id: null,
+        plant_pic: null,
+        vacancy: true,
+      },
+      {
+        id: 29,
+        plant_id: null,
+        plant_pic: null,
+        vacancy: true,
+      },
+      {
+        id: 30,
+        plant_id: null,
+        plant_pic: null,
+        vacancy: true,
+      },
+      {
+        id: 31,
+        plant_id: null,
+        plant_pic: null,
+        vacancy: true,
+      },
+      {
+        id: 32,
+        plant_id: null,
+        plant_pic: null,
+        vacancy: true,
+      },
+      {
+        id: 33,
+        plant_id: null,
+        plant_pic: null,
+        vacancy: true,
+      },
+      {
+        id: 34,
+        plant_id: null,
+        plant_pic: null,
+        vacancy: true,
+      },
+      {
+        id: 35,
+        plant_id: null,
+        plant_pic: null,
+        vacancy: true,
+      },
+      {
+        id: 36,
+        plant_id: null,
+        plant_pic: null,
+        vacancy: true,
+      },
+    ];
+    dispatch(setAllContainers(oc)), [];
+  }
+
+  // const st = useSelector((state) => state);
+  const allContainers = useSelector((state) => state.mainArrays.allContainers);
+  const plantsInGarden = useSelector(
+    (state) => state.mainArrays.plantsInGarden
+  );
+
+  const allPlants = useSelector((state) => state.mainArrays.allPlants);
+
+  function Get_PlantName({ plant_id }) {
+    const plant = allPlants.filter((plant) => plant.id == plant_id);
+    const plantName = plant.name + ", ";
+
+    return { plantName };
+  }
+
+  // console.log("all plants en use effect" + allPlants);
+  function Get_PlantsInGarden() {
+    console.log("plants in garden q " + plantsInGarden.length);
+    // if (plantsInGarden.length == 0) {
+    //   return <div>no hay plantas</div>;
+    // } else {
+    //   plantsInGarden.map((plant) => {
+    //     const nn = plant.name + ", ";
+    //     return ({nn});
+    //   });
+    // }
+  }
+
+  function DraggableMarkup({ plant_id, old_cont }) {
+    const plant_obj = allPlants.filter((plant) => plant.id == plant_id);
+    const plant_pic = plant_obj[0].pic;
+    const path = "./src/assets/pictures/" + plant_pic + ".png";
+    const plant_name = plant_obj[0].plant_name;
+    //const path = "";
+
     return (
-      <Draggable id={plant_id} old_cont={old_cont}>
-        <img src={path} />{" "}
-      </Draggable>
+      <>
+        {" "}
+        <Draggable id={plant_id} old_cont={old_cont}>
+          <p>{plant_name}</p>
+          <img src={path} />{" "}
+        </Draggable>
+      </>
     );
   }
 
   function GetDroppable({ container }) {
-    // console.log(container.id + container.pic + container.occupied);
-    if (container.occupied) {
+    if (container.vacancy == false) {
       //filter
       const result = allPlants.filter(
         (plant) => plant.id == container.plant_id
@@ -45,7 +308,6 @@ export default function Garden_model() {
           {" "}
           <DraggableMarkup
             key={container.plant_id}
-            pic={container.plant_pic}
             plant_id={container.plant_id}
             old_cont={container.id}
           />{" "}
@@ -60,133 +322,179 @@ export default function Garden_model() {
     );
   }
 
-  function Left_List() {
-    const leftColumnPlants = [];
-    const allC = allContainers.Original_Containers;
-    allC.forEach((cont) => {
-      if (cont.occupied) {
-        leftColumnPlants.push(cont.plant_id);
-      }
-    });
-    // console.log("Left New List: " + leftColumnPlants);
-  }
-
   function Bring_Shape() {
-    // CB  (8/5) Adding in getting the shape from the DB - garden.shape reference
-    // in a round about way from the droplist which got it from the
-    // user's garden
-    const shap_className = "  text-light  shape p-3 " + shap;
-    console.log("shap_className: ", shap_className);
-    return (
-      <div className={shap_className}>
-        {" "}
-        <div className="mainContainer">
-          {allContainers.map((container) => (
-            // We updated the Droppable component so it would accept an `id`
-            // prop and pass it to `useDroppable`
-            <GetDroppable key={container.id} container={container} />
-          ))}
+    if (shap == "cir") {
+      return (
+        <div className="  text-light  shape p-3 rounded-circle  ">
+          {" "}
+          <div className="mainContainer">
+            {allContainers.map((container) => (
+              // We updated the Droppable component so it would accept an `id`
+              // prop and pass it to `useDroppable`
+              <GetDroppable key={container.id} container={container} />
+            ))}
+          </div>
         </div>
-      </div>
-    );
-
-    // if (shap == "circle") {
-    //   return (
-    //     <div className="  text-light  shape p-3 rounded-circle  ">
-    //       {" "}
-    //       <div className="mainContainer">
-    //         {allContainers.map((container) => (
-    //           // We updated the Droppable component so it would accept an `id`
-    //           // prop and pass it to `useDroppable`
-    //           <GetDroppable key={container.id} container={container} />
-    //         ))}
-    //       </div>
-    //     </div>
-    //   );
-    // } else {
-    //   return (
-    //     <div className="   text-light  shape p-3  ">
-    //       {" "}
-    //       <div className="mainContainer">
-    //         {allContainers.map((container) => (
-    //           // We updated the Droppable component so it would accept an `id`
-    //           // prop and pass it to `useDroppable`
-    //           <GetDroppable key={container.id} container={container} />
-    //         ))}
-    //       </div>
-    //     </div>
-    //   );
-    // }
+      );
+    } else {
+      return (
+        <div className="   text-light  shape p-3  ">
+          {" "}
+          <div className="mainContainer">
+            {allContainers.map((container) => (
+              // We updated the Droppable component so it would accept an `id`
+              // prop and pass it to `useDroppable`
+              <GetDroppable key={container.id} container={container} />
+            ))}
+          </div>
+        </div>
+      );
+    }
   }
 
   function handleDragEnd(event) {
     const plant_id = event.active.id;
     const new_cont_id = event.over?.id;
-    const new_all_containers = [...allContainers];
-    const new_all_plants = [...allPlants];
     const old_cont_id = event.active.data.current.old_cont;
-    const was_garden = event.active.data.current.in_garden;
+
+    const plant_obj = allPlants.filter((plant) => plant.id == plant_id);
+    const plant_price = plant_obj[0].price;
+
+    const plant_pic = plant_obj[0].pic;
+    const plant_name = plant_obj[0].plant_name;
+    const plant_mx_h = plant_obj[0].max_height;
+    const plant_mx_w = plant_obj[0].max_width;
+    const life_cycle_id = plant_obj[0].life_cycle_id;
 
     const new_cont_obj = {
       id: new_cont_id,
       plant_id: plant_id,
-      plant_pic: plant_id,
-      occupied: true,
+      plant_pic: plant_pic,
+      vacancy: false,
     };
-
-    const objIndex = new_all_containers.findIndex(
-      (obj) => obj.id == new_cont_id
-    );
-    new_all_containers[objIndex] = new_cont_obj;
 
     const old_cont_obj = {
       id: old_cont_id,
       plant_id: null,
       plant_pic: null,
-      occupied: false,
+      vacancy: true,
     };
 
-    const objOC = new_all_containers.findIndex((obj) => obj.id == old_cont_id);
-    new_all_containers[objOC] = old_cont_obj;
+    const new_plantInGarden = {
+      id: plant_id,
+      name: plant_name,
+      price: plant_price,
+    };
 
-    setAllContainers(new_all_containers);
+    const new_plant = {
+      id: plant_id,
+      plant_name: plant_name,
+      max_height: plant_mx_h,
+      max_width: plant_mx_w,
+      pic: plant_pic,
+      price: plant_price,
+      life_cycle_id: life_cycle_id,
+    };
 
-    // if (was_garden) {
-    if (old_cont_id != 50) {
-      const updatedPlants2 = allPlants.map((plant) => {
-        if (plant.id == plant_id) {
-          return { ...plant, in_garden: false };
-        } else {
-          return plant;
-        }
-      });
-      setAllPlants(updatedPlants2);
+    // container 50 is the plant list container, which is also a "droppable"
+    if (old_cont_id == 50) {
+      // a.(add plant to the container in containers array ...
+      const allContainers_temp = [...allContainers];
+      const containerIndexN = allContainers_temp.findIndex(
+        (container) => container.id == new_cont_id
+      );
+      allContainers_temp[containerIndexN] = new_cont_obj;
+      dispatch(setAllContainers(allContainers_temp));
+
+      // ... and remove plant from plants array)
+      const allPlants_temp = [...allPlants];
+      const plantIndex = allPlants_temp.findIndex(
+        (plant) => plant.id == plant_id
+      );
+
+      console.log("all plants temp antes de slice" + allPlants_temp.length);
+      allPlants_temp.splice(plantIndex, 1);
+      console.log("all plants temp luego de slice" + allPlants_temp.length);
+      // console.log("all plants luego de borrarle uno" + allPlants_temp);
+
+      // dispatch(setAllPlants(allPlants_temp));
+
+      // b.(add plant to plantsInGarden)
+      //setPlantsInGarden
+      const plantsInGarden_temp = [...plantsInGarden];
+      plantsInGarden_temp.push(new_plantInGarden);
+    
+      dispatch(setPlantsInGarden(plantsInGarden_temp));
     } else {
-      const updatedPlants = allPlants.map((plant) => {
-        if (plant.id == plant_id) {
-          return { ...plant, in_garden: true };
-        } else {
-          return plant;
-        }
-      });
+      if (new_cont_id == 50) {
+        // a. add plant to plantsArray ,
+        // cant do it yet until 
+        const allPlants_temp = [...allPlants];
+        
+        allPlants_temp.push(new_plant);
+        dispatch(setAllPlants(allPlants_temp));
 
-      setAllPlants(updatedPlants);
+        // b. update containersArray (set old container to vacancy: true and plant_id: null)
+        const allContainers_temp = [...allContainers];
+        const containerIndexO = allContainers_temp.findIndex(
+          (container) => container.id == old_cont_id
+        );
+        allContainers_temp[containerIndexO] = old_cont_obj;
+        dispatch(setAllContainers(allContainers_temp));
+
+        // remove from plantsInGarden
+        const plantsInGarden_temp = [...plantsInGarden];
+        const plantIndex = plantsInGarden_temp.findIndex(
+          (plant) => plant.id == plant_id
+        );
+        const plantRemoved = plantsInGarden_temp.splice(plantIndex, 1);
+        dispatch(setPlantsInGarden(plantsInGarden_temp));
+      } else {
+        // update containers array , a. add plant in new container,
+        const allContainers_temp = [...allContainers];
+        const containerIndexN = allContainers_temp.findIndex(
+          (container) => container.id == new_cont_id
+        );
+        allContainers_temp[containerIndexN] = new_cont_obj;
+        dispatch(setAllContainers(allContainers_temp));
+
+        // b. remove plant from old container(set to vacancy: true and plant_id: null)
+        const allContainers_temp2 = [...allContainers];
+        const containerIndexO = allContainers_temp2.findIndex(
+          (container) => container.id == old_cont_id
+        );
+        allContainers_temp2[containerIndexO] = old_cont_obj;
+        dispatch(setAllContainers(allContainers_temp));
+      }
     }
   }
 
   return (
     <div>
       <DndContext onDragEnd={handleDragEnd}>
-        <div className="row p-3 pt-3   ">
-          <div className="col-3 left p-0   ">
+        <div className="row p-5 pt-3   ">
+          <small className="col-12  tik  p-0 pb-2 pt-2 ">
+            Plants in the garden:
+            <span className="text-info sl tik">
+           
+              {/* {if (plantsInGarden.length == 0)(<div>no hay plantas</div>)} */}
+              {plantsInGarden?.map((plant) => {
+                return (<div key={plant.id}>{plant.name}, </div>);
+              })}
+           
+           
+            </span>
+          </small>
+
+          <div className="col-3 left p-0    ">
             <Left_Column />
           </div>
 
-          <div className="col-5  center   ">
+          <div className="col-6  center    ">
             <Bring_Shape />
           </div>
 
-          <div className="col-3 p-0 right  ">
+          <div className="col-3 p-0 right_column   ">
             <Right_Column />
           </div>
         </div>

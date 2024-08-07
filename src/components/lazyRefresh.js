@@ -2,7 +2,7 @@ import { useGetRefreshQuery } from "../components_db/userSlice";
 
 //
 const LazyUserRefresh = () => {
-  //console.log("LazyUserRefresh");
+ // console.log("LazyUserRefresh");
 
   // FROM -- Created infinite loop
   // const [theUserData, setTheUserData] = useState();
@@ -27,10 +27,10 @@ const LazyUserRefresh = () => {
     useGetRefreshQuery();
 
   if (isSuccess) {
-    //console.log("Lazy Refresh ", data);
+   // console.log("Lazy Refresh ", data);
   }
   if (isError) {
-    console.log("lazyRefresh isError", isError);
+   // console.log("lazyRefresh isError", isError);
   }
   //TO THIS
 };

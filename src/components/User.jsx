@@ -12,7 +12,7 @@ export default function User() {
   const navigate = useNavigate();
 
   // console.log("user page load reference");
-  // LoadReference();
+  LoadReference();
 
   // Get the current User
   const user = useSelector((state) => {
@@ -35,12 +35,14 @@ export default function User() {
   const submit = async (e) => {
     e.preventDefault();
     //console.log(`(useSelector(state) - function User() SUBMIT`);
+   // console.log(`(useSelector(state) - function User() SUBMIT`);
 
     try {
       let updateSuccess = false;
 
       updateSuccess = updateUser(form).unwrap();
 
+     // console.log(`(function User() SUBMIT UPDATESUCCESS: ${updateSuccess}`);
       //console.log(`(function User() SUBMIT UPDATESUCCESS: ${updateSuccess}`);
 
       if (!updateSuccess) {
@@ -54,7 +56,7 @@ export default function User() {
   };
 
   const updateForm = (e) => {
-    //console.log(`updateForm: ${e.target.name}: ${e.target.value}`);
+ 
     setForm((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -62,15 +64,14 @@ export default function User() {
   };
 
   const updateFormOnListChange = (e) => {
-    //console.log(`updateFormOnListChange: ${e.target.name}: ${e.target.value}`);
+
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    //console.log(updateFormOnListChange);
-    //console.log(form);
+
   };
 
   return (
     <>
-      <div className="container">
+      <div className="container top5">
         <div className="row w100">
           <div className="col"></div>
 
@@ -84,7 +85,7 @@ export default function User() {
                 <div className="card-text ">
                   <form onSubmit={submit} name="formUserUpdate">
                     <div className="col-12">
-                      <div className="row ">
+                      <div className="row gap-3">
                         <input
                           type="email"
                           className="form-control text_input"
@@ -105,15 +106,7 @@ export default function User() {
                           value={form.firstname}
                           required
                         />
-                        <input
-                          type="text"
-                          className="form-control text_input"
-                          name="lastname"
-                          placeholder="Last Name"
-                          value={form.lastname}
-                          onChange={updateForm}
-                          required
-                        />
+
                         <input
                           type="phone"
                           className="form-control text_input"
@@ -123,17 +116,26 @@ export default function User() {
                           value={form.phone_number}
                           required
                         />
-                        <div className="mt-2">
-                          <SelectList
-                            theList={zoneList}
-                            theListName="zone_id"
-                            theParentForm="UserUpdate"
-                            onChangeFunction={updateFormOnListChange}
-                            theCurrentValue={form.zone_id}
-                            theFieldName="zone_name"
-                            the2FieldName="temp_range"
-                          />
-                        </div>
+
+                        <input
+                          type="text"
+                          className="form-control text_input"
+                          name="lastname"
+                          placeholder="Last Name"
+                          value={form.lastname}
+                          onChange={updateForm}
+                          required
+                        />
+
+                        <SelectList
+                          theList={zoneList}
+                          theListName="zone_id"
+                          theParentForm="UserUpdate"
+                          onChangeFunction={updateFormOnListChange}
+                          theCurrentValue={form.zone_id}
+                          theFieldName="zone_name"
+                          the2FieldName="temp_range"
+                        />
                       </div>{" "}
                       {/*  //close row */}
                     </div>{" "}
@@ -142,13 +144,13 @@ export default function User() {
                       <div className="col-12">
                         <button
                           type="submit"
-                          className="btn form-control mt-4 btn-success btn-sm  "
+                          className="btn btn-success form-control mt-3"
                         >
                           Submit
                         </button>
                         <button
                           type="button"
-                          className="btn form-control mt-4 btn-success  btn-sm  "
+                          className="btn btn-success mt-3"
                           onClick={() => navigate("/garden")}
                         >
                           Return
@@ -181,3 +183,4 @@ export default function User() {
     </>
   );
 }
+

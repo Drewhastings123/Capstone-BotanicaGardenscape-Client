@@ -14,11 +14,11 @@ export default function MyGarden() {
   const id = useSelector((state) => {
     return state.user.id;
   });
-
+  //console.log(`(useSelector(state) - function User() USER: ${id}`);
   const garden = useSelector((state) => {
     return state?.garden;
   });
-  console.log("myGarden page's garden", garden);
+  // console.log("myGarden page's garden", garden);
   const garden_id = garden?.garden?.[0]?.id;
   const [form, setForm] = useState([]);
   console.log("24: ", form);
@@ -63,6 +63,8 @@ export default function MyGarden() {
     }
   }, [garden]);
 
+  // console.log("function User() SETFORM currentUser: ", form);
+
   //  What to do when the submit button is clicked
   const submit = async (e) => {
     e.preventDefault();
@@ -98,12 +100,8 @@ export default function MyGarden() {
       }));
 
       console.log("form preparing to submit", form);
-      updateGardenSuccess = await updateGarden({ garden_id, form }).unwrap();
 
-      console.log(
-        "(function User() SUBMIT UPDATEGARDENSUCCESS:",
-        updateGardenSuccess
-      );
+      updateGardenSuccess = await updateGarden({ garden_id, form }).unwrap();
 
       if (!updateGardenSuccess) {
         return Loading_Bar("30");
@@ -112,18 +110,20 @@ export default function MyGarden() {
       }
     } catch (err) {
       //   setErrM(err?.data?.message);
-      console.log("update garden error", err);
+      // console.log("update garden error", err);
     }
   };
 
   const updateForm = (e) => {
-    console.log(`updateForm: ${e.target.name}: ${e.target.value}`);
+    // console.log(`updateForm: ${e.target.name}: ${e.target.value}`);
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const updateFormOnListChange = (e) => {
-    console.log(`updateFormOnListChange: ${e.target.name}: ${e.target.value}`);
+    //  console.log(`updateFormOnListChange: ${e.target.name}: ${e.target.value}`);
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    //  console.log(updateFormOnListChange);
+    //  console.log(form);
     console.log("updateFormOnListChange: ", form);
   };
 

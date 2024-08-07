@@ -45,62 +45,55 @@ export default function Login() {
   };
 
   return (
-    <>
-      <div className="container top3">
-        <div className="row w100 center ">
-          <div className="col-7 card border-success ">
-            <div className="card-header row  ">
-              <h4 className="center">Login</h4>
-            </div>
-            <form onSubmit={submit} name="formRegister">
-              <div className="row center ">
-                <div className="col-7">
-                  <input
-                    type="email"
-                    className="form-control form-control-login"
-                    name="email"
-                    aria-describedby="emailHelp"
-                    placeholder="Email"
-                    onChange={updateForm}
-                    required
-                  />
-                </div>{" "}
-              </div>
-
-              <div className="row center">
-                <div className=" col-7">
-                  <input
-                    type="password"
-                    className="form-control form-control-login"
-                    name="password"
-                    placeholder="Password"
-                    onChange={updateForm}
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="row center">
-                <div className="col-7">
-                  <button
-                    type="submit"
-                    className="btn btn-success form-control mv1"
-                  >
-                    Submit
-                  </button>
-                </div>
-              </div>
-            </form>
-            {errM && (
-              <div className="row center">
-                <div className="col-7">
-                  <p className="text-warning">{errM}</p>
-                </div>
-              </div>
-            )}
-          </div>
+    <div className="row  center pt-5 ">
+      <div className=" col-5 card  border-secondary mt-5 p-0 pb-5">
+        <div className=" card-header  center p-3 ">
+          <h4>Login</h4>
         </div>
+        <form onSubmit={submit} name="formLogin">
+          <div className="row pt-5 center">
+            <div className="col-10 center">
+              <input
+                type="email"
+                className="form-control input"
+                name="email"
+                aria-describedby="emailHelp"
+                placeholder="Email"
+                onChange={updateForm}
+                required
+              />
+            </div>{" "}
+          </div>
+
+          <div className="row center pt-4">
+            <div className="col-10 center">
+              <input
+                type="password"
+                className="form-control  input"
+                name="password"
+                placeholder="Password"
+                onChange={updateForm}
+                required
+              />
+            </div>
+          </div>
+
+          <div className="row center pt-5">
+            <div className="col-10 center ">
+              <button type="submit" className="btn btn-success form-control  ">
+                Submit
+              </button>
+            </div>
+          </div>
+        </form>
+        {errM && (
+          <div className="row pt-5 ">
+            <div className="col-12 center">
+              <p className="text-warning">{errM}</p>
+            </div>
+          </div>
+        )}
       </div>
-    </>
+    </div>
   );
 }

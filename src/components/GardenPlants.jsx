@@ -27,7 +27,7 @@ export default function GardenPlants() {
     user_id,
     garden_id,
   });
-  console.log("UserGarden data", data);
+ // console.log("UserGarden data", data);
   if (isLoading) {
     return Loading_Bar("50");
   }
