@@ -116,8 +116,8 @@ small {
   /* background-color: aqua; */
 }
 
-.card:hover,
-.navbar:hover,
+/* .card:hover, */
+/* .navbar:hover, */
 .plant_box {
   background-color: rgba(255, 255, 255, 0.4) !important;
 }
@@ -234,7 +234,7 @@ input,
 
 .drop_position {
   padding: 3em;
-  margin: 0.5em;
+  margin: 0.8em 0.5em;
   display: flex;
   justify-content: center;
   border: rgba(255, 255, 255, 0.4) 1px dashed;
@@ -248,17 +248,22 @@ input,
   border-style: dashed !important;
 }
 
-.rc > img {
-  width: 40% !important;
+ .rc > img {
+  width: 10px !important;
+} 
+
+.img {
+  width: 4% !important;
 }
 
 /*  changes from final touch - without checking if it already exists
 in this file */
 
-/* .plant {
+.plant {
   padding: 2em;
   margin: 1em;
-} */
+}
+
 .aife {
   align-items: flex-end !important;
 }
@@ -290,7 +295,7 @@ in this file */
   /* background-color: aqua; */
 }
 
-.card_refList:hover,
+/* .card_refList:hover, */
 .plant_box:hover {
   background-color: rgba(255, 255, 255, 0.8) !important;
 }

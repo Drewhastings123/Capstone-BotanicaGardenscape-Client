@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import store from "./app/store.js";
 import { Provider } from "react-redux";
@@ -9,17 +8,13 @@ import Registration from "./components/Registration";
 import Garden_model from "./components/Garden_model";
 import User from "./components/User";
 import Protected from "./components/Protected.jsx";
-import User from "./components/User";
 import Home from "./components/Home";
-import Nav_Bar from "./components/Nav_Bar.jsx";
-import Garden_model from "./components/Garden_model";
 
 function App() {
   return (
     <Provider store={store}>
-   
+       <div className="container-fluid p-0">
         <Nav_Bar />
-
         <Routes>
           <Route path="/user/" element={<Protected />}>
             <Route path="/user/" element={<User />}></Route>
@@ -31,7 +26,7 @@ function App() {
           <Route path="/login" element={<Login />}></Route>
           <Route path="/registration" element={<Registration />}></Route>
         </Routes>
-     
+      </div>
     </Provider>
   );
 }

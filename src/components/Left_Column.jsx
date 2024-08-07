@@ -14,7 +14,7 @@ import GardenPlants from "./GardenPlants.jsx";
 
 export default function Left_Column() {
   // load the reference data
-  console.log("run reference from garden");
+  //console.log("run reference from garden");
   LoadReference() ? LoadReference() : console.log("Still loading Reference");
 
   // Set up for navigation and the store

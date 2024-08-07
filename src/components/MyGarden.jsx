@@ -11,16 +11,18 @@ export default function MyGarden() {
   const dispatch = useDispatch();
 
   // Get the current User id
-  const id = useSelector((state) => {
-    return state.user.id;
-  });
+  // const id = useSelector((state) => {
+  //   return state.user.id;
+  // });
+
   //console.log(`(useSelector(state) - function User() USER: ${id}`);
   const garden = useSelector((state) => {
     return state?.garden;
   });
+
   // console.log("myGarden page's garden", garden);
   const garden_id = garden?.garden?.[0]?.id;
-  const [form, setForm] = useState([]);
+  const [form, setForm] = useState({});
   console.log("24: ", form);
 
   //   const gardenId = useSelector((state) => {
@@ -44,6 +46,11 @@ export default function MyGarden() {
     return state.reference.soilRequirementList;
   });
 
+  //dispatch the saved user's garden shape to the canvas
+  shapeList?.find((shape) => {
+    if (shape.id === form.shape_id) dispatch(setShape(shape.css_class));
+  });
+  
   // set up the relationship to the garden mutation
   const [updateGarden] = useUpdateGardenMutation();
 
@@ -63,11 +70,9 @@ export default function MyGarden() {
     }
   }, [garden]);
 
-  // console.log("function User() SETFORM currentUser: ", form);
-
   //  What to do when the submit button is clicked
   const submit = async (e) => {
-    e.preventDefault();
+    //e.preventDefault();
     console.log(`(useSelector(state) - function User() SUBMIT`);
 
     // CB  (8/5) This is also being done by the store
@@ -93,14 +98,7 @@ export default function MyGarden() {
     try {
       let updateGardenSuccess = false;
       console.log("gardenID", garden_id);
-
-      setForm((prev) => ({
-        ...prev,
-        [form.shape_id]: garden.currentGardenCanvas,
-      }));
-
       console.log("form preparing to submit", form);
-
       updateGardenSuccess = await updateGarden({ garden_id, form }).unwrap();
 
       if (!updateGardenSuccess) {
@@ -109,22 +107,22 @@ export default function MyGarden() {
         return setSuccessM("Garden information updated successfully!");
       }
     } catch (err) {
-      //   setErrM(err?.data?.message);
-      // console.log("update garden error", err);
+      setErrM(err?.data?.message);
     }
   };
 
   const updateForm = (e) => {
-    // console.log(`updateForm: ${e.target.name}: ${e.target.value}`);
+    console.log(`MyGarden - updateForm: ${e.target.name}: ${e.target.value}`);
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const updateFormOnListChange = (e) => {
-    //  console.log(`updateFormOnListChange: ${e.target.name}: ${e.target.value}`);
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    //  console.log(updateFormOnListChange);
-    //  console.log(form);
-    console.log("updateFormOnListChange: ", form);
+
+    console.log(
+      `MyGarden - updateFormOnListChange: ${e.target.name}: ${e.target.value}`
+    );
+    console.log("MyGarden - updateFormOnListChange: ", form);
   };
 
   // FROM currentGardenCanvas
@@ -133,16 +131,14 @@ export default function MyGarden() {
   const updateCanvasOnListChange = (e) => {
     // set the form variable for my garden for saving this one
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    
+
     // set the variable in the store for the garden
     dispatch(setCurrentGardenCanvas(e.target.value));
 
-    setForm((prev) => ({
-      ...prev,
-      [form.shape_id]: garden.currentGardenCanvas,
-    }));
-
-
+    // setForm((prev) => ({
+    //   ...prev,
+    //   [form.shape_id]: garden.currentGardenCanvas,
+    // }));
 
     const temp = shapeList.find((shape) => {
       if (shape.id === e.target.value) return shape.css_class;
@@ -151,13 +147,16 @@ export default function MyGarden() {
     // CB  (8/5) Adding in the setShape call for the currentViewSlice
     dispatch(setShape(temp.css_class));
 
-    console.log("shap_className - updateCanvasOnListChange - form: ", form);
     console.log(
-      "shap_className - updateCanvasOnListChange - temp: ",
+      "MyGarden - shap_className - updateCanvasOnListChange - form: ",
+      form
+    );
+    console.log(
+      "MyGarden - shap_className - updateCanvasOnListChange - temp: ",
       temp.css_class
     );
     console.log(
-      "shap_className - updateCanvasOnListChange - e: ",
+      "MyGarden - shap_className - updateCanvasOnListChange - e: ",
       e.target.name,
       " - ",
       e.target.value
@@ -204,8 +203,9 @@ export default function MyGarden() {
                     theList={shapeList}
                     theListName="shape_id"
                     theParentForm="GardenUpdate"
+                    //onChangeFunction={updateFormOnListChange}
                     onChangeFunction={updateCanvasOnListChange}
-                    theCurrentValue={garden.currentGardenCanvas}
+                    theCurrentValue={form?.shape_id}
                     theFieldName="shape_name"
                     the2FieldName="description"
                   />

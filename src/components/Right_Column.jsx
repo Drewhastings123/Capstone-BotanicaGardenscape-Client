@@ -10,12 +10,13 @@ import {
   setZone,
 } from "../components_db/currentViewSlice.js";
 
+import { setAllPlants } from "../components_db/mainArraysSlice.js";
 import { Droppable } from "./Droppable.jsx";
 import { Draggable } from "./Draggable.jsx";
 import zero from "../assets/pictures/5.png";
 import { useSelector, useDispatch } from "react-redux";
 
-export default function Plants_fixed() {
+export default function Right_Column() {
   let isLoading = true;
   loadReference();
 
@@ -28,6 +29,18 @@ export default function Plants_fixed() {
   const allSoil = allRef.soilRequirementList;
   const lifeCycleList = allRef.lifeCycleList;
 
+  const dispatch = useDispatch();
+
+  function getAllPlants() {
+    const allPlantsExtended = allRef.plantList?.map((plant) => ({
+      ...plant,
+      in_garden: false,
+      pic: Math.floor(Math.random() * 10),
+      price: Math.floor(Math.random() * 30) + 10,
+    }));
+    dispatch(setAllPlants(allPlantsExtended)), [];
+  }
+
   // map allPlants and add a field to each obj
   const allPlantsBurnt = allRef.plantList;
 
@@ -38,10 +51,19 @@ export default function Plants_fixed() {
     pic: zero,
   }));
 
+  useEffect(() => {
+    getAllPlants();
+  }, []);
+
   // setAllPlants(allPlantsExtended);
 
-  const allPlants2 = useState(allPlantsExtended);
-  console.log("allPlantsExtended " + allPlantsExtended);
+  // const st = useSelector((state) => state);
+  const allPlants = useSelector((state) => state.mainArrays.allPlants);
+  // console.log("all plants en use effect" + allPlants);
+  // console.log("ST" + st);
+
+  // const allPlants2 = useState(allPlantsExtended);
+  // console.log("allPlantsExtended " + allPlantsExtended);
 
   let newCV = [];
 
@@ -49,9 +71,7 @@ export default function Plants_fixed() {
 
   isLoading = false;
 
-  console.log("all ref: ", allRef);
-
-  const dispatch = useDispatch();
+  //console.log("all ref: ", allRef);
 
   if (isLoading) {
     return Loading_Bar();
@@ -106,11 +126,11 @@ export default function Plants_fixed() {
 
     switch (filters.length) {
       case 0: // 0 filters
-        newCV = allPlantsExtended;
+        newCV = allPlants;
         break;
 
       case 1: // 1 filter
-        allPlantsExtended?.forEach((plant) => {
+        allPlants?.forEach((plant) => {
           if (cv.zone != 0) {
             if (cv.zone == plant.zone_id) {
               newCV.push(plant);
@@ -135,7 +155,7 @@ export default function Plants_fixed() {
         break;
 
       case 2: // 2 filters
-        allPlantsExtended?.forEach((plant) => {
+        allPlants?.forEach((plant) => {
           if (cv.zone != 0 && cv.water != 0) {
             //zone & waterq
             if (
@@ -199,7 +219,7 @@ export default function Plants_fixed() {
         break;
 
       case 3: // 3 filters
-        allPlantsExtended?.forEach((plant) => {
+        allPlants?.forEach((plant) => {
           if (cv.zone == 0) {
             // selected are soil, h20, sun
             if (
@@ -244,7 +264,7 @@ export default function Plants_fixed() {
         break;
 
       case 4:
-        allPlantsExtended?.forEach((plant) => {
+        allPlants?.forEach((plant) => {
           if (
             cv.zone == plant.zone_id &&
             cv.soil == plant.soil_requirement_id &&
@@ -263,20 +283,16 @@ export default function Plants_fixed() {
 
   function Plant_List() {
     const cv = useSelector((state) => state.currentView);
-    console.log("current view" + cv);
 
     Manage_Filters();
 
-    console.log("All Plants: " + allPlantsBurnt);
-    console.log("CURRENT VIEW " + newCV);
-
     return (
       <div>
-        <Droppable id={50}>
+        <Droppable id={50} key={50}>
           {newCV?.map((plant) => {
             // const img = "../src/assets/pictures/" + random_number + ".png";
-            // const path = `./src/assets/pictures/${plant.pic}.png`;
-            const path = zero;
+            const path = `./src/assets/pictures/${plant.pic}.png`;
+
             const lifeCycleName = lifeCycleList
               ? lifeCycleList.filter((obj) => {
                   if (obj.id === plant.life_cycle_id) return obj;
@@ -288,19 +304,23 @@ export default function Plants_fixed() {
             if (plant.in_garden == false) {
               return (
                 <Draggable id={plant.id} key={plant.id} old_cont={50}>
-                  <div
-                    key={plant.id}
-                    className="m-0 border border-success bg-primary p-2 border-dashed"
-                  >
-                    <div>
-                      <strong>{plant.plant_name}</strong> {displayLifeCycleName}
-                      -{plant.max_height}x{plant.max_width}
-                    </div>
-                    <div className="rc">
+                  <div className=" plant_box  p-1 mb-2 bg-primary border border-success">
+                    <div className="center">
                       {" "}
-                      <img src={path} />
+                      <img className="small_img" src={path} />
                     </div>
-                  </div>{" "}
+
+                    <div className="row pc_info ">
+                      <div className="col-12 center  aife   ">
+                        <h6>{plant.plant_name}</h6>
+                      </div>
+
+                      <div className="col-4 "> {displayLifeCycleName} </div>
+                      <div className="col-4">
+                        {plant.max_height} x{plant.max_width}{" "}
+                      </div>
+                    </div>
+                  </div>
                 </Draggable>
               );
             }
@@ -312,107 +332,282 @@ export default function Plants_fixed() {
 
   return (
     <>
-      <div className=" border-dark bg-primary  card ">
-        <div className="card-header ">Plants</div>
+      {/* row card bg-light card plant_box  mt-2 */}
 
-        <div className=" row   m-1  mt-3 ">
-          <div className="col-sm-6  space-around ">
-            <select
-              className="list-select form-control input  dropdown-item text-warning dropdown border border-warning  "
-              defaultValue="0"
-              onChange={updateCurrentView}
-              name="s_zone"
-            >
-              <option key="0" className="dropdown-item" value="0" key2="0">
-                &#x1F321; Zone
-              </option>
+      <div className="card  mb-3 ">
+        <div className="card-header center">Plants</div>
 
-              {allZones?.map((zone) => {
-                return (
-                  <option
-                    key={zone.id}
-                    className="dropdown-item"
-                    value={zone.id}
-                    key2={zone.id}
-                  >
-                    &#x1F321;{zone.zone_name}
-                    {zone.temp_range}
-                    {/* &#127811; */}
-                  </option>
-                );
-              })}
-            </select>{" "}
+        {/* <Filters /> */}
+        <div className="card-body center fdc pb-4">
+          <div className="row pt-2 center ">
+            <div className="col-6 center ">
+              <select
+                defaultValue="0"
+                onChange={updateCurrentView}
+                name="s_zone"
+                className="form-control  cgray w-100 p-2 "
+              >
+                <option key="0" className="dropdown-item" value="0" key2="0">
+                  &#x1F321; Zone
+                </option>
+                {allZones?.map((zone) => {
+                  return (
+                    <option
+                      key={zone.id}
+                      className="dropdown-item"
+                      value={zone.id}
+                      key2={zone.id}
+                    >
+                      &#x1F321;{zone.zone_name}
+                      {zone.temp_range}
+                      {/* &#127811; */}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+
+            <div className="col-6 center ">
+              <select
+                defaultValue="0"
+                onChange={updateCurrentView}
+                name="s_water"
+                className="form-control cgray w-100 p-2"
+              >
+                <option key="0" className="dropdown-item" key2="0">
+                  &#x1F4A7; Water
+                </option>
+                {allH2O?.map((h2o) => {
+                  return (
+                    <option key={h2o.id} key2={h2o.id}>
+                      {" "}
+                      &#x1F4A7; {h2o.water_name}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
           </div>
 
-          <div className="col-sm-6 center">
-            {/* <label htmlFor="s_water"> Water</label> */}
-            <select
-              className="list-select form-control input p-1  dropdown-item text-warning dropdown border border-warning"
-              defaultValue="0"
-              onChange={updateCurrentView}
-              name="s_water"
-            >
-              <option key="0" className="dropdown-item" key2="0">
-                &#x1F4A7; Water
-              </option>
-              {allH2O?.map((h2o) => {
-                return (
-                  <option key={h2o.id} key2={h2o.id}>
-                    {" "}
-                    &#x1F4A7; {h2o.water_name}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-        </div>
+          <div className="row pt-4 center ">
+            <div className="col-6 center ">
+              <select
+                defaultValue="0"
+                onChange={updateCurrentView}
+                name="s_sun"
+                className="form-control cgray w-100 p-2"
+              >
+                <option key="0" className="dropdown-item" key2="0">
+                  &#9728; Sun{" "}
+                </option>
+                {allSuns?.map((sun) => {
+                  return (
+                    <option
+                      key={sun.id}
+                      className="dropdown-item"
+                      key2={sun.id}
+                    >
+                      &#9728; {sun.sun_name}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
 
-        <div className="row   center   m-1  mb-3 mt-2 ">
-          <div className="col-sm-6 nav-item dropdown center ">
-            <select
-              className=" form-control input p-1 dropdown-item text-warning dropdown border border-warning"
-              defaultValue="0"
-              onChange={updateCurrentView}
-              name="s_sun"
-            >
-              <option key="0" className="dropdown-item" key2="0">
-                &#9728; Sun{" "}
-              </option>
-              {allSuns?.map((sun) => {
-                return (
-                  <option key={sun.id} className="dropdown-item" key2={sun.id}>
-                    &#9728; {sun.sun_name}
-                  </option>
-                );
-              })}
-            </select>{" "}
-          </div>
-
-          <div className="col-sm-6 center ">
-            <select
-              className="list-select form-control  p-1 dropdown-item text-warning dropdown border border-warning"
-              defaultValue="0"
-              onChange={updateCurrentView}
-              name="s_soil"
-            >
-              <option key="0" key2="0" className="dropdown-item  ">
-                &#9968; Soil{" "}
-              </option>
-              {allSoil?.map((soil) => {
-                return (
-                  <option key={soil.id} key2={soil.id}>
-                    &#9968; {soil.soil_name}
-                  </option>
-                );
-              })}
-            </select>
+            <div className="col-6 center ">
+              <select
+                defaultValue="0"
+                onChange={updateCurrentView}
+                name="s_soil"
+                className="form-control cgray w-100 p-2"
+              >
+                <option key="0" key2="0" className="dropdown-item  ">
+                  &#9968; Soil{" "}
+                </option>
+                {allSoil?.map((soil) => {
+                  return (
+                    <option key={soil.id} key2={soil.id}>
+                      &#9968; {soil.soil_name}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
           </div>
         </div>
       </div>
-      {/* <div className="table-responsive  "> */}
+
       <div>
         <Plant_List />
       </div>
     </>
   );
 }
+
+//   function Plant_List() {
+//     const cv = useSelector((state) => state.currentView);
+//     console.log("current view" + cv);
+
+//     Manage_Filters();
+
+//     console.log("All Plants: " + allPlantsBurnt);
+//     console.log("CURRENT VIEW " + newCV);
+
+//     return (
+//       <div>
+//         <Droppable id={50}>
+//           {newCV?.map((plant) => {
+//             // const img = "../src/assets/pictures/" + random_number + ".png";
+//             // CB 8/6
+//             const path = `./src/assets/pictures/${plant.pic}.png`;
+//             //const path = zero;
+//             const lifeCycleName = lifeCycleList
+//               ? lifeCycleList.filter((obj) => {
+//                   if (obj.id === plant.life_cycle_id) return obj;
+//                 })
+//               : [{ life_cycle_name: "no name yet" }];
+
+//             const displayLifeCycleName = lifeCycleName[0]?.life_cycle_name;
+
+//             if (plant.in_garden == false) {
+//               return (
+//                 <Draggable id={plant.id} key={plant.id} old_cont={50}>
+//                   <div className=" plant_box  p-1 mb-2 bg-primary border border-success">
+//                     <div className="center">
+//                       {" "}
+//                       <img src={path} />
+//                     </div>
+
+//                     <div className="row pc_info ">
+//                       <div className="col-12 center  aife   ">
+//                         <h6>{plant.plant_name}</h6>
+//                       </div>
+
+//                       <div className="col-4 "> {displayLifeCycleName} - </div>
+//                       <div className="col-4">
+//                         {" "}
+//                         {plant.max_height} x{plant.max_width}{" "}
+//                       </div>
+//                       <div className="col-4">${plant.price} each</div>
+//                     </div>
+//                   </div>
+//                 </Draggable>
+//               );
+//             }
+//           })}
+//         </Droppable>
+//       </div>
+//     );
+//   }
+
+//   return (
+//     <>
+//       <div className="card  mb-3 ">
+//         <div className="card-header center">Plants</div>
+
+//         {/* <Filters /> */}
+//         <div className="card-body center fdc pb-4">
+//           <div className="row pt-2 center ">
+//             <div className="col-6 center ">
+//               <select
+//                 defaultValue="0"
+//                 onChange={updateCurrentView}
+//                 name="s_zone"
+//                 className="form-control  cgray w-100 p-2 "
+//               >
+//                 <option key="0" className="dropdown-item" value="0" key2="0">
+//                   &#x1F321; Zone
+//                 </option>
+//                 {allZones?.map((zone) => {
+//                   return (
+//                     <option
+//                       key={zone.id}
+//                       className="dropdown-item"
+//                       value={zone.id}
+//                       key2={zone.id}
+//                     >
+//                       &#x1F321;{zone.zone_name}
+//                       {zone.temp_range}
+//                       {/* &#127811; */}
+//                     </option>
+//                   );
+//                 })}
+//               </select>
+//             </div>
+
+//             <div className="col-6 center ">
+//               <select
+//                 defaultValue="0"
+//                 onChange={updateCurrentView}
+//                 name="s_water"
+//                 className="form-control cgray w-100 p-2"
+//               >
+//                 <option key="0" className="dropdown-item" key2="0">
+//                   &#x1F4A7; Water
+//                 </option>
+//                 {allH2O?.map((h2o) => {
+//                   return (
+//                     <option key={h2o.id} key2={h2o.id}>
+//                       {" "}
+//                       &#x1F4A7; {h2o.water_name}
+//                     </option>
+//                   );
+//                 })}
+//               </select>
+//             </div>
+//           </div>
+
+//           <div className="row pt-4 center ">
+//             <div className="col-6 center ">
+//               <select
+//                 defaultValue="0"
+//                 onChange={updateCurrentView}
+//                 name="s_sun"
+//                 className="form-control cgray w-100 p-2"
+//               >
+//                 <option key="0" className="dropdown-item" key2="0">
+//                   &#9728; Sun{" "}
+//                 </option>
+//                 {allSuns?.map((sun) => {
+//                   return (
+//                     <option
+//                       key={sun.id}
+//                       className="dropdown-item"
+//                       key2={sun.id}
+//                     >
+//                       &#9728; {sun.sun_name}
+//                     </option>
+//                   );
+//                 })}
+//               </select>
+//             </div>
+
+//             <div className="col-6 center ">
+//               <select
+//                 defaultValue="0"
+//                 onChange={updateCurrentView}
+//                 name="s_soil"
+//                 className="form-control cgray w-100 p-2"
+//               >
+//                 <option key="0" key2="0" className="dropdown-item  ">
+//                   &#9968; Soil{" "}
+//                 </option>
+//                 {allSoil?.map((soil) => {
+//                   return (
+//                     <option key={soil.id} key2={soil.id}>
+//                       &#9968; {soil.soil_name}
+//                     </option>
+//                   );
+//                 })}
+//               </select>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+
+//       <div>
+//         <Plant_List />
+//       </div>
+//     </>
+//   );
+// }

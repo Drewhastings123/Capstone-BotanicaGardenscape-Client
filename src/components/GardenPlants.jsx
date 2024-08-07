@@ -147,7 +147,7 @@ export default function GardenPlants() {
                   {displayPlantName}
                 </td>
                 <td className="w70">
-                  <img src={img} />
+                  <img  className="small_img" src={img} />
                 </td>
               </tr>
             );

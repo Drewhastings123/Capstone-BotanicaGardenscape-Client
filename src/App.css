@@ -1,5 +1,5 @@
 #root {
-  max-width: 1280px;
+  /* max-width: 1280px; */
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -115,10 +115,14 @@ legend {
   font-size: 0.9em;
 }
 
-
 .text_input {
-
   background-color: #d8dbe2 !important;
-
 }
 
+ .small_img {
+  width: 100px !important;
+  height: auto !important;
+
+  max-width: 5vw !important;
+  max-height: 5vh !important;
+} 

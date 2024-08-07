@@ -289,7 +289,7 @@ export default function Garden_model() {
         {" "}
         <Draggable id={plant_id} old_cont={old_cont}>
           <p>{plant_name}</p>
-          <img src={path} />{" "}
+          <img  className="small_img"  src={path} />{" "}
         </Draggable>
       </>
     );
@@ -323,33 +323,52 @@ export default function Garden_model() {
   }
 
   function Bring_Shape() {
-    if (shap == "cir") {
-      return (
-        <div className="  text-light  shape p-3 rounded-circle  ">
-          {" "}
-          <div className="mainContainer">
-            {allContainers.map((container) => (
-              // We updated the Droppable component so it would accept an `id`
-              // prop and pass it to `useDroppable`
-              <GetDroppable key={container.id} container={container} />
-            ))}
-          </div>
+
+    // CB  (8/5) Adding in getting the shape from the DB - garden.shape reference
+    // in a round about way from the droplist which got it from the
+    // user's garden
+    const shap_className = "  text-light  shape p-3 " + shap;
+    console.log("shap_className: ", shap_className);
+    return (
+      <div className={shap_className}>
+        {" "}
+        <div className="mainContainer">
+          {allContainers.map((container) => (
+            // We updated the Droppable component so it would accept an `id`
+            // prop and pass it to `useDroppable`
+            <GetDroppable key={container.id} container={container} />
+          ))}
         </div>
-      );
-    } else {
-      return (
-        <div className="   text-light  shape p-3  ">
-          {" "}
-          <div className="mainContainer">
-            {allContainers.map((container) => (
-              // We updated the Droppable component so it would accept an `id`
-              // prop and pass it to `useDroppable`
-              <GetDroppable key={container.id} container={container} />
-            ))}
-          </div>
-        </div>
-      );
-    }
+      </div>
+    );
+
+    // if (shap == "cir") {
+    //   return (
+    //     <div className="  text-light  shape p-3 rounded-circle  ">
+    //       {" "}
+    //       <div className="mainContainer">
+    //         {allContainers.map((container) => (
+    //           // We updated the Droppable component so it would accept an `id`
+    //           // prop and pass it to `useDroppable`
+    //           <GetDroppable key={container.id} container={container} />
+    //         ))}
+    //       </div>
+    //     </div>
+    //   );
+    // } else {
+    //   return (
+    //     <div className="   text-light  shape p-3  ">
+    //       {" "}
+    //       <div className="mainContainer">
+    //         {allContainers.map((container) => (
+    //           // We updated the Droppable component so it would accept an `id`
+    //           // prop and pass it to `useDroppable`
+    //           <GetDroppable key={container.id} container={container} />
+    //         ))}
+    //       </div>
+    //     </div>
+    //   );
+    // }
   }
 
   function handleDragEnd(event) {
@@ -473,18 +492,18 @@ export default function Garden_model() {
     <div>
       <DndContext onDragEnd={handleDragEnd}>
         <div className="row p-5 pt-3   ">
-          <small className="col-12  tik  p-0 pb-2 pt-2 ">
+          {/* <small className="col-12  tik  p-0 pb-2 pt-2 ">
             Plants in the garden:
-            <span className="text-info sl tik">
+            <span className="text-info sl tik"> */}
            
               {/* {if (plantsInGarden.length == 0)(<div>no hay plantas</div>)} */}
-              {plantsInGarden?.map((plant) => {
+              {/* {plantsInGarden?.map((plant) => {
                 return (<div key={plant.id}>{plant.name}, </div>);
               })}
            
            
             </span>
-          </small>
+          </small> */}
 
           <div className="col-3 left p-0    ">
             <Left_Column />
