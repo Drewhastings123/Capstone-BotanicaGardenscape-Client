@@ -74,7 +74,9 @@
 .shape {
   background-color: #50372c !important;
   background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
-
+  width: 43%;
+  position: absolute;
+  height: 88%;
   border-radius: 0.5em;
 
   /* height: 750px; */
@@ -88,6 +90,9 @@
 }
 
 .left_column {
+  position: absolute;
+  height: 95%;
+  width: 23%;
   display: flex;
   flex-direction: column;
 }

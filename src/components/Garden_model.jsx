@@ -15,6 +15,9 @@ import { setAllPlants } from "../components_db/mainArraysSlice.js";
 export default function Garden_model() {
   const shap = useSelector((state) => state.currentView.shape);
   const allRef = useSelector((state) => state.reference);
+  const ma = useSelector((state) => state.mainArrays);
+  const allPlants = ma.allPlants;
+  const allPlantsExtended = ma.originalExtPlants;
 
   // const mainArrays = useSelector((state) => state.mainArrays);
 
@@ -255,33 +258,16 @@ export default function Garden_model() {
     (state) => state.mainArrays.plantsInGarden
   );
 
-  const allPlants = useSelector((state) => state.mainArrays.allPlants);
-
-  function Get_PlantName({ plant_id }) {
-    const plant = allPlants.filter((plant) => plant.id == plant_id);
-    const plantName = plant.name + ", ";
-
-    return { plantName };
-  }
-
-  // console.log("all plants en use effect" + allPlants);
-  function Get_PlantsInGarden() {
-    console.log("plants in garden q " + plantsInGarden.length);
-    // if (plantsInGarden.length == 0) {
-    //   return <div>no hay plantas</div>;
-    // } else {
-    //   plantsInGarden.map((plant) => {
-    //     const nn = plant.name + ", ";
-    //     return ({nn});
-    //   });
-    // }
-  }
+ 
+  
 
   function DraggableMarkup({ plant_id, old_cont }) {
-    const plant_obj = allPlants.filter((plant) => plant.id == plant_id);
-    const plant_pic = plant_obj[0].pic;
-    const path = "./src/assets/pictures/" + plant_pic + ".png";
-    const plant_name = plant_obj[0].plant_name;
+    //const npa = [...allPlants];
+    const npa = useSelector((state) => state.mainArrays.allPlants);
+    const plant_obj = allPlantsExtended.filter((plant) => plant.id == plant_id);
+
+    const path = "./src/assets/pictures/" + plant_obj[0]?.pic + ".png";
+    const plant_name = plant_obj[0]?.plant_name;
     //const path = "";
 
     return (
@@ -314,6 +300,7 @@ export default function Garden_model() {
         </Droppable>
       );
     }
+
     return (
       <Droppable key={container.id} id={container.id}>
         {" "}
@@ -412,25 +399,21 @@ export default function Garden_model() {
         (plant) => plant.id == plant_id
       );
 
-      console.log("all plants temp antes de slice" + allPlants_temp.length);
       allPlants_temp.splice(plantIndex, 1);
-      console.log("all plants temp luego de slice" + allPlants_temp.length);
-      // console.log("all plants luego de borrarle uno" + allPlants_temp);
-
-      // dispatch(setAllPlants(allPlants_temp));
+      dispatch(setAllPlants(allPlants_temp));
 
       // b.(add plant to plantsInGarden)
       //setPlantsInGarden
       const plantsInGarden_temp = [...plantsInGarden];
       plantsInGarden_temp.push(new_plantInGarden);
-    
+
       dispatch(setPlantsInGarden(plantsInGarden_temp));
     } else {
       if (new_cont_id == 50) {
         // a. add plant to plantsArray ,
-        // cant do it yet until 
+        // cant do it yet until
         const allPlants_temp = [...allPlants];
-        
+
         allPlants_temp.push(new_plant);
         dispatch(setAllPlants(allPlants_temp));
 
@@ -476,13 +459,10 @@ export default function Garden_model() {
           <small className="col-12  tik  p-0 pb-2 pt-2 ">
             Plants in the garden:
             <span className="text-info sl tik">
-           
               {/* {if (plantsInGarden.length == 0)(<div>no hay plantas</div>)} */}
               {plantsInGarden?.map((plant) => {
-                return (<div key={plant.id}>{plant.name}, </div>);
+                return <div key={plant.id}>{plant.name}, </div>;
               })}
-           
-           
             </span>
           </small>
 

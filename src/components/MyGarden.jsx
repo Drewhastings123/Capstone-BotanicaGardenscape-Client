@@ -212,15 +212,7 @@ export default function MyGarden() {
             <button type="submit" className="btn btn-success p-2  m-3">
               Save Garden
             </button>
-            <button
-              type="submit"
-              className="btn btn-success btn-buy-garden"
-            >
-              Buy Garden
-            </button>
           </div>
-
-          
         </div>
 
         {successM && (

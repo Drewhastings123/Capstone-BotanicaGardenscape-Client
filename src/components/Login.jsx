@@ -1,7 +1,9 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../components_db/userSlice";
 import Loading_Bar from "./Loading_Bar";
+import { useSelector, useDispatch } from "react-redux";
+import { setAllPlants } from "../components_db/mainArraysSlice.js";
+import { useEffect, useState } from "react";
 
 export default function Login() {
   const navigate = useNavigate();
