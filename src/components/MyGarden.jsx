@@ -47,10 +47,10 @@ export default function MyGarden() {
   });
 
   //dispatch the saved user's garden shape to the canvas
-//   shapeList?.find((shape) => {
-//     if (shape.id === form.shape_id) dispatch(setShape(shape.css_class));
-//   });
-  
+  //   shapeList?.find((shape) => {
+  //     if (shape.id === form.shape_id) dispatch(setShape(shape.css_class));
+  //   });
+
   // set up the relationship to the garden mutation
   const [updateGarden] = useUpdateGardenMutation();
 
@@ -72,7 +72,7 @@ export default function MyGarden() {
 
   //  What to do when the submit button is clicked
   const submit = async (e) => {
-    //e.preventDefault();
+    e.preventDefault();
     console.log(`(useSelector(state) - function User() SUBMIT`);
 
     // CB  (8/5) This is also being done by the store
@@ -107,7 +107,7 @@ export default function MyGarden() {
         return setSuccessM("Garden information updated successfully!");
       }
     } catch (err) {
-      setErrM(err?.data?.message);
+      setErrM("whoops");
     }
   };
 
