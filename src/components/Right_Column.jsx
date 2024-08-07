@@ -259,7 +259,9 @@ export default function Right_Column() {
         <Droppable id={50} key={50}>
           {newCV?.map((plant) => {
             // const img = "../src/assets/pictures/" + random_number + ".png";
-            const path = `./src/assets/pictures/${plant.pic}.png`;
+            // CB - const path = `./src/assets/pictures/${plant.pic}.png`;
+
+            const path = `/${plant.pic}.png`;
 
             const lifeCycleName = lifeCycleList
               ? lifeCycleList.filter((obj) => {

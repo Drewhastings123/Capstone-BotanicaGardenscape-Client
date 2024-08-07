@@ -139,7 +139,8 @@ export default function GardenPlants() {
         <tbody>
           {data?.plantInfo?.map((plant) => {
             const random_number = Math.floor(Math.random() * 10);
-            let img = "../src/assets/pictures/" + random_number + ".png";
+            // CB - let img = "../src/assets/pictures/" + random_number + ".png";
+            let img = "/" + random_number + ".png";
             const displayPlantName =
               plantNameMap[plant.plant_id] || "no name yet";
             return (
