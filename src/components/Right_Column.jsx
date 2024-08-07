@@ -16,7 +16,6 @@ import {
   setZone,
 } from "../components_db/currentViewSlice.js";
 
-
 export default function Right_Column() {
   let isLoading = true;
   loadReference();
@@ -31,7 +30,6 @@ export default function Right_Column() {
   const allH2O = allRef.waterRequirementList;
   const allSoil = allRef.soilRequirementList;
   const lifeCycleList = allRef.lifeCycleList;
- 
 
   console.log("PIG" + ma?.PlantsInGarden?.length);
   console.log("ALL P" + ma?.allPlants?.length);
@@ -75,6 +73,7 @@ export default function Right_Column() {
   function Manage_Filters() {
     newCV = [];
     const filters = [];
+    const allP = useSelector((state) => state.mainArrays.allPlants);
 
     if (cv.zone != "0") {
       filters.push("zone");
@@ -95,7 +94,7 @@ export default function Right_Column() {
         break;
 
       case 1: // 1 filter
-        ma?.allPlants?.forEach((plant) => {
+        allP?.forEach((plant) => {
           if (cv.zone != 0) {
             if (cv.zone == plant.zone_id) {
               newCV.push(plant);
@@ -120,7 +119,7 @@ export default function Right_Column() {
         break;
 
       case 2: // 2 filters
-        ma?.allPlants?.forEach((plant) => {
+        allP?.forEach((plant) => {
           if (cv.zone != 0 && cv.water != 0) {
             //zone & waterq
             if (
@@ -184,7 +183,7 @@ export default function Right_Column() {
         break;
 
       case 3: // 3 filters
-        ma?.allPlants?.forEach((plant) => {
+        allP?.forEach((plant) => {
           if (cv.zone == 0) {
             // selected are soil, h20, sun
             if (
@@ -229,7 +228,7 @@ export default function Right_Column() {
         break;
 
       case 4:
-        ma.allPlants?.forEach((plant) => {
+        allP?.forEach((plant) => {
           if (
             cv.zone == plant.zone_id &&
             cv.soil == plant.soil_requirement_id &&

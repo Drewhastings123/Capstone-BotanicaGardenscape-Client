@@ -281,6 +281,7 @@ export default function Garden_model() {
 
     const path = "./src/assets/pictures/" + plant_obj[0]?.pic + ".png";
     const plant_name = plant_obj[0]?.plant_name;
+
     //const path = "";
 
     return (
@@ -297,10 +298,12 @@ export default function Garden_model() {
   }
 
   function GetDroppable({ container }) {
+    const drop_id = Math.floor(Math.random() * 10000000);
     if (container.vacancy == false) {
       //in_garden={false}
       return (
-        <Droppable key={container.id} id={container.id}>
+        // <Droppable key={container.id} id={container.id}>
+        <Droppable key={drop_id} id={drop_id}>
           {" "}
           <DraggableMarkup
             key={container.plant_id}
@@ -427,8 +430,10 @@ export default function Garden_model() {
         allPlants_temp.push(new_plant);
         console.log(allPlants_temp);
 
+        console.log("all plants before new plant added" + ma.allPlants.length);
         dispatch(setAllPlants(allPlants_temp));
-        console.log("all plants after new plant added" + allPlants);
+
+        console.log("all plants after new plant added" + ma.allPlants.length);
 
         // b. update containersArray (set old container to vacancy: true and plant_id: null)
         const allContainers_temp = [...allContainers];
@@ -449,28 +454,39 @@ export default function Garden_model() {
         dispatch(setPlantsInGarden(plantsInGarden_temp));
       } else {
         // update containers array , a. add plant in new container,
+
+        const movedObj = {
+          id: new_cont_id,
+          plant_id: plant_id,
+          plant_pic: plant_pic,
+          vacancy: false,
+        };
         const allContainers_temp = [...allContainers];
         const containerIndexN = allContainers_temp.findIndex(
           (container) => container.id == new_cont_id
         );
-        allContainers_temp[containerIndexN] = new_cont_obj;
+        allContainers_temp[containerIndexN] = movedObj;
         dispatch(setAllContainers(allContainers_temp));
 
         // b. remove plant from old container(set to vacancy: true and plant_id: null)
-        const allContainers_temp2 = [...allContainers];
-        const containerIndexO = allContainers_temp2.findIndex(
-          (container) => container.id == old_cont_id
-        );
-        allContainers_temp2[containerIndexO] = old_cont_obj;
-        dispatch(setAllContainers(allContainers_temp));
+        // const allContainers_temp2 = [...allContainers];
+        // const containerIndexO = allContainers_temp2.findIndex(
+        //   (container) => container.id == old_cont_id
+        // );
+        // allContainers_temp2[containerIndexO] = old_cont_obj;
+        // dispatch(setAllContainers(allContainers_temp2));
+        // console.log("after empty last cont" + allContainers);
+        
+
+        
       }
     }
   }
 
   return (
-    <div>
+    <div className="frame">
       <DndContext onDragEnd={handleDragEnd}>
-        <div className="row pt-3   ">
+        <div className="row pt-3 frameInt   ">
           <small className="col-12  tik  p-0 pb-2 pt-2 ">
             Plants in the garden:
             <span className="text-info sl tik">
@@ -481,15 +497,15 @@ export default function Garden_model() {
             </span>
           </small>
 
-          <div className="col-3 left p-0    ">
+          <div className="col-3  left_column  ">
             <Left_Column />
           </div>
 
-          <div className="col-6  center    ">
+          <div className="col-6  center  center_column  ">
             <Bring_Shape />
           </div>
 
-          <div className="col-3 p-0 right_column   ">
+          <div className="col-3  right_column   ">
             <Right_Column />
           </div>
         </div>

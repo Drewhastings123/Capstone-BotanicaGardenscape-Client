@@ -115,7 +115,7 @@ export default function Left_Column() {
   }
 
   return (
-    <div className="left_column ">
+    <div className="left_column  ">
       <div className="card  mb-5  ">
         <div className="card-header center">Garden Info</div>
         <MyGarden />
