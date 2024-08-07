@@ -17,7 +17,8 @@ export default function Nav_Bar() {
       
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
         <span className="material-symbols-outlined">yard</span>
-        <NavLink to="/" className="navbar-brand active bg-success">
+
+        <NavLink to="/" className="navbar-brand ">
           Botanica Gardenscape
         </NavLink>
         <button

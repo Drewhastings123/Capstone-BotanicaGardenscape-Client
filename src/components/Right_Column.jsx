@@ -10,18 +10,14 @@ import {
   setZone,
 } from "../components_db/currentViewSlice.js";
 
-import { setAllPlants } from "../components_db/mainArraysSlice.js";
-import { Droppable } from "./Droppable.jsx";
-import { Draggable } from "./Draggable.jsx";
-import zero from "../assets/pictures/5.png";
-import { useSelector, useDispatch } from "react-redux";
-
 export default function Right_Column() {
   let isLoading = true;
   loadReference();
 
   const allRef = useSelector((state) => state.reference);
   const cv = useSelector((state) => state.currentView);
+  const ma = useSelector((state) => state.mainArrays);
+
   // const allPlants = useSelector((state) => state.reference.plantList);
   const allZones = allRef.zoneList;
   const allSuns = allRef.sunRequirementList;
@@ -29,49 +25,17 @@ export default function Right_Column() {
   const allSoil = allRef.soilRequirementList;
   const lifeCycleList = allRef.lifeCycleList;
 
+  console.log("PIG" + ma?.PlantsInGarden?.length);
+  console.log("ALL P" + ma?.allPlants?.length);
+  console.log("ALL C" + ma?.allContainers?.length);
+
   const dispatch = useDispatch();
 
-  function getAllPlants() {
-    const allPlantsExtended = allRef.plantList?.map((plant) => ({
-      ...plant,
-      in_garden: false,
-      pic: Math.floor(Math.random() * 10),
-      price: Math.floor(Math.random() * 30) + 10,
-    }));
-    dispatch(setAllPlants(allPlantsExtended)), [];
-  }
-
-  // map allPlants and add a field to each obj
-  const allPlantsBurnt = allRef.plantList;
-
-  const allPlantsExtended = allPlantsBurnt?.map((plant) => ({
-    ...plant,
-    in_garden: false,
-    // pic: Math.floor(Math.random() * 10),
-    pic: zero,
-  }));
-
-  useEffect(() => {
-    getAllPlants();
-  }, []);
-
-  // setAllPlants(allPlantsExtended);
-
-  // const st = useSelector((state) => state);
-  const allPlants = useSelector((state) => state.mainArrays.allPlants);
-  // console.log("all plants en use effect" + allPlants);
-  // console.log("ST" + st);
-
-  // const allPlants2 = useState(allPlantsExtended);
-  // console.log("allPlantsExtended " + allPlantsExtended);
-
-  let newCV = [];
-
-  // const fullSelects = [];
+  const allPlants = ma?.allPlants;
 
   isLoading = false;
 
-  //console.log("all ref: ", allRef);
+  let newCV = [];
 
   if (isLoading) {
     return Loading_Bar();
@@ -110,6 +74,7 @@ export default function Right_Column() {
     newCV = [];
     console.log("NewCV in manage filters" + newCV);
     const filters = [];
+    const allP = useSelector((state) => state.mainArrays.allPlants);
 
     if (cv.zone != "0") {
       filters.push("zone");
@@ -130,7 +95,7 @@ export default function Right_Column() {
         break;
 
       case 1: // 1 filter
-        allPlants?.forEach((plant) => {
+        allP?.forEach((plant) => {
           if (cv.zone != 0) {
             if (cv.zone == plant.zone_id) {
               newCV.push(plant);
@@ -155,7 +120,7 @@ export default function Right_Column() {
         break;
 
       case 2: // 2 filters
-        allPlants?.forEach((plant) => {
+        allP?.forEach((plant) => {
           if (cv.zone != 0 && cv.water != 0) {
             //zone & waterq
             if (
@@ -219,7 +184,7 @@ export default function Right_Column() {
         break;
 
       case 3: // 3 filters
-        allPlants?.forEach((plant) => {
+        allP?.forEach((plant) => {
           if (cv.zone == 0) {
             // selected are soil, h20, sun
             if (
@@ -264,7 +229,7 @@ export default function Right_Column() {
         break;
 
       case 4:
-        allPlants?.forEach((plant) => {
+        allP?.forEach((plant) => {
           if (
             cv.zone == plant.zone_id &&
             cv.soil == plant.soil_requirement_id &&

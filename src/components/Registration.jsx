@@ -13,7 +13,8 @@ export default function Registration() {
   // load the reference data
   //console.log("run reference from Registration");
   // console.log("run reference from Registration");
-  LoadReference() ? LoadReference() : console.log("Still loading Reference");
+  LoadReference() ? LoadReference() : console.log("");
+  // LoadReference() ? LoadReference() : console.log("Still loading Reference");
   //  test this call
 
   const navigate = useNavigate();
@@ -128,7 +129,7 @@ export default function Registration() {
             <div className="col-5 center ">
               <input
                 type="email"
-                className="form-control form-control-login text-light"
+                className="form-control form-control-login "
                 name="email"
                 aria-describedby="emailHelp"
                 placeholder="Email"
@@ -140,7 +141,7 @@ export default function Registration() {
             <div className="col-5 center ">
               <input
                 type="password"
-                className="form-control form-control-login text-light"
+                className="form-control form-control-login "
                 name="password"
                 placeholder="Password"
                 onChange={updateForm}
@@ -153,7 +154,7 @@ export default function Registration() {
             <div className="col-5 center">
               <input
                 type="text"
-                className="form-control form-control-login text-light"
+                className="form-control form-control-login "
                 name="firstname"
                 placeholder="First Name"
                 onChange={updateForm}
@@ -164,7 +165,7 @@ export default function Registration() {
             <div className="col-5 center ">
               <input
                 type="text"
-                className="form-control form-control-login text-light"
+                className="form-control form-control-login "
                 name="lastname"
                 placeholder="Last Name"
                 onChange={updateForm}
@@ -177,7 +178,7 @@ export default function Registration() {
             <div className="col-5 center">
               <input
                 type="phone"
-                className="form-control txt-light"
+                className="form-control "
                 name="phone_number"
                 placeholder="(XXX) 867-5209"
                 onChange={updateForm}

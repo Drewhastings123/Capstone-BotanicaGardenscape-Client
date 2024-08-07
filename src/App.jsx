@@ -12,6 +12,7 @@ import Home from "./components/Home";
 
 function App() {
   return (
+
     <Provider store={store}>
        <div className="container-fluid p-0">
         <Nav_Bar />
