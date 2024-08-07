@@ -6,6 +6,7 @@ const mainArraysSlice = createSlice({
   initialState: {
     allPlants: [],
     allContainers: [],
+    plantsInGarden: [],
   },
   reducers: {
     setAllPlants: (state, { payload }) => {
