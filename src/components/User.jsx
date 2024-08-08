@@ -35,14 +35,14 @@ export default function User() {
   const submit = async (e) => {
     e.preventDefault();
     //console.log(`(useSelector(state) - function User() SUBMIT`);
-   // console.log(`(useSelector(state) - function User() SUBMIT`);
+    // console.log(`(useSelector(state) - function User() SUBMIT`);
 
     try {
       let updateSuccess = false;
 
       updateSuccess = updateUser(form).unwrap();
 
-     // console.log(`(function User() SUBMIT UPDATESUCCESS: ${updateSuccess}`);
+      // console.log(`(function User() SUBMIT UPDATESUCCESS: ${updateSuccess}`);
       //console.log(`(function User() SUBMIT UPDATESUCCESS: ${updateSuccess}`);
 
       if (!updateSuccess) {
@@ -56,7 +56,6 @@ export default function User() {
   };
 
   const updateForm = (e) => {
- 
     setForm((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -64,9 +63,7 @@ export default function User() {
   };
 
   const updateFormOnListChange = (e) => {
-
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-
   };
 
   return (
@@ -108,22 +105,22 @@ export default function User() {
                         />
 
                         <input
-                          type="phone"
-                          className="form-control text_input"
-                          name="phone_number"
-                          placeholder="(XXX) 867-5209"
-                          onChange={updateForm}
-                          value={form.phone_number}
-                          required
-                        />
-
-                        <input
                           type="text"
                           className="form-control text_input"
                           name="lastname"
                           placeholder="Last Name"
                           value={form.lastname}
                           onChange={updateForm}
+                          required
+                        />
+
+                        <input
+                          type="phone"
+                          className="form-control text_input"
+                          name="phone_number"
+                          placeholder="(XXX) 867-5209"
+                          onChange={updateForm}
+                          value={form.phone_number}
                           required
                         />
 
@@ -150,7 +147,7 @@ export default function User() {
                         </button>
                         <button
                           type="button"
-                          className="btn btn-success mt-3"
+                          className="btn btn-success form-control mt-3"
                           onClick={() => navigate("/garden")}
                         >
                           Return
@@ -183,4 +180,3 @@ export default function User() {
     </>
   );
 }
-
