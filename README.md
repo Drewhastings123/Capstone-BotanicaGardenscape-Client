@@ -4,6 +4,8 @@ Garden Design Front End
 
 A home garden design app. The app will allow a user to create a garden and specify the growing conditions for that garden. With a layout tool, it will allow the user to add plants in a particular location in the garden.
 
+https://botanicagardenscape-client.onrender.com/
+
 # project planning
 
 (https://github.com/users/CLBaxter-W/projects/8)
